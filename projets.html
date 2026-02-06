@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Projets – Météo</title>
+
+  <!-- Style global du site -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Police -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- ================= HEADER ================= -->
+    <header>
+      <h1>Projets</h1>
+      <p>Test d’appel API – OpenWeatherMap (version gratuite)</p>
+    </header>
+
+    <!-- ================= NAVIGATION ================= -->
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="apropos.html">À propos</a></li>
+        <li><a href="projets.html" class="active">Projets</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="admin.html">Espace Admin</a></li>
+      </ul>
+    </nav>
+
+    <!-- ================= CONTENU PRINCIPAL ================= -->
+    <main>
+      <h2>Météo actuelle</h2>
+
+      <!-- ====== ZONES MÉTÉO ====== -->
+      <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:30px;">
+
+        <!-- Paris -->
+        <div id="weather-paris"></div>
+
+        <!-- Dieppe -->
+        <div id="weather-dieppe"></div>
+
+        <!-- Ville personnalisée -->
+        <div>
+          <div style="margin-bottom:10px;">
+            <input
+              id="city-input"
+              type="text"
+              placeholder="Ville au choix"
+              style="padding:10px;border-radius:8px;border:none;width:180px;"
+            />
+            <button
+              id="fetch-btn"
+              style="padding:10px 14px;border-radius:8px;border:none;cursor:pointer;"
+            >
+              Afficher
+            </button>
+          </div>
+
+          <div id="weather-custom"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer>© 2026 · Tintin94230</footer>
+  </div>
+
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    /* =====================================================
+       🔑 CLÉ API OPENWEATHERMAP (version gratuite)
+       ===================================================== */
+    const apiKey = "e5fc1e5fa570955b439c3700e9c45d10";
+
+    /* =====================================================
+       Fonction principale : récupère et affiche la météo
+       city      → nom de la ville
+       targetId → id du conteneur HTML où afficher la météo
+       ===================================================== */
+    async function fetchWeather(city, targetId) {
+      const container = document.getElementById(targetId);
+      container.innerHTML = "<p>Chargement...</p>";
+
+      try {
+        /* ===== 1️⃣ Géocodage (ville → lat/lon) ===== */
+        const geoResponse = await fetch(
+          `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${apiKey}`
+        );
+
+        if (!geoResponse.ok) {
+          throw new Error(`Erreur géocodage (${geoResponse.status})`);
+        }
+
+        const geoData = await geoResponse.json();
+
+        if (!geoData.length) {
+          container.innerHTML = "<p>Ville non trouvée.</p>";
+          return;
+        }
+
+        const { lat, lon } = geoData[0];
+
+        /* ===== 2️⃣ Appel météo (API gratuite) ===== */
+        const weatherResponse = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=fr&appid=${apiKey}`
+        );
+
+        if (!weatherResponse.ok) {
+          const err = await weatherResponse.json();
+          throw new Error(err.message);
+        }
+
+        const data = await weatherResponse.json();
+
+        /* ===== 3️⃣ Extraction des données utiles ===== */
+        const temp = data.main.temp;
+        const feels = data.main.feels_like;
+        const humidity = data.main.humidity;
+        const wind = data.wind.speed;
+        const description = data.weather[0].description;
+        const icon = data.weather[0].icon;
+
+        /* ===== 4️⃣ Affichage ===== */
+        container.innerHTML = `
+          <div style="
+            background:rgba(255,255,255,0.12);
+            border:1px solid rgba(255,255,255,0.25);
+            border-radius:16px;
+            padding:20px;
+            min-width:220px;
+          ">
+            <h3>${city}</h3>
+            <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}">
+            <p><strong>${temp.toFixed(1)} °C</strong> (ressenti ${feels.toFixed(1)} °C)</p>
+            <p>${description}</p>
+            <p>💧 Humidité : ${humidity} %</p>
+            <p>💨 Vent : ${wind} m/s</p>
+          </div>
+        `;
+      } catch (error) {
+        console.error("❌ ERREUR :", error);
+        container.innerHTML = `<p style="color:#ff8a80;">❌ ${error.message}</p>`;
+      }
+    }
+
+    /* =====================================================
+       Chargement automatique au démarrage
+       ===================================================== */
+    fetchWeather("Paris", "weather-paris");
+    fetchWeather("Dieppe", "weather-dieppe");
+
+    /* =====================================================
+       Gestion de la ville personnalisée
+       ===================================================== */
+    document.getElementById("fetch-btn").addEventListener("click", () => {
+      const city = document.getElementById("city-input").value.trim();
+      if (!city) {
+        alert("Merci de saisir une ville.");
+        return;
+      }
+      fetchWeather(city, "weather-custom");
+    });
+  </script>
+</body>
+</html>

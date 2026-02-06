@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>La Page de Test de Tintin94230</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+  <h1>blog</h1>
+  <p>Qui suis-je ?</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="apropos.html">À propos</a></li>
+        <li><a href="projets.html">Projets</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="admin.html">Espace Admin</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <p>Bienvenue sur la page de blog 🚀</p>
+    </main>
+
+  <h1>Tester mon API</h1>
+
+  <input type="text" id="mot" placeholder="Entrez un mot" />
+  <button onclick="calculer()">Calculer</button>
+
+  <p id="resultat"></p>
+
+  <script>
+async function calculer() {
+  const mot = document.getElementById("mot").value;
+  const response = await fetch(`http://localhost:3002/api/longueur?mot=${encodeURIComponent(mot)}`);
+  const data = await response.json();
+  document.getElementById("resultat").textContent =
+    `Le mot "${data.mot}" contient ${data.longueur} lettres`;
+}
+
+  </script>
+
+
+
+
+    <footer>© 2026 · Tintin94230</footer>
+  </div>
+</body>
+</html>
