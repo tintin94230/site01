@@ -6,11 +6,13 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <div class="container">
+
     <header>
-  <h1>blog</h1>
-  <p>Qui suis-je ?</p>
+      <h1>Blog</h1>
+      <p>Qui suis-je ?</p>
     </header>
 
     <nav>
@@ -26,30 +28,75 @@
 
     <main>
       <p>Bienvenue sur la page de blog 🚀</p>
+
+      <h2>Ajouter un mot</h2>
+
+      <form id="formMot">
+        <input type="text" id="mot" placeholder="Entrez un mot" required />
+        <button type="submit">Ajouter</button>
+      </form>
+
+      <h2>Mots enregistrés</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Mot</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="tableMots"></tbody>
+      </table>
     </main>
 
-  <h1>Tester mon API</h1>
+    <footer>© 2026 · Tintin94230</footer>
 
-  <input type="text" id="mot" placeholder="Entrez un mot" />
-  <button onclick="calculer()">Calculer</button>
-
-  <p id="resultat"></p>
+  </div>
 
   <script>
-async function calculer() {
-  const mot = document.getElementById("mot").value;
-  const response = await fetch(`http://localhost:3002/api/longueur?mot=${encodeURIComponent(mot)}`);
-  const data = await response.json();
-  document.getElementById("resultat").textContent =
-    `Le mot "${data.mot}" contient ${data.longueur} lettres`;
-}
+    const table = document.getElementById("tableMots");
+    const form = document.getElementById("formMot");
+    const input = document.getElementById("mot");
 
+    // Charger les mots existants
+    async function chargerMots() {
+      const response = await fetch("/api/supabase001");
+      const mots = await response.json();
+
+      table.innerHTML = "";
+
+      mots.forEach(m => {
+        table.innerHTML += `
+          <tr>
+            <td>${m.id}</td>
+            <td>${m.mot}</td>
+            <td>${new Date(m.created_at).toLocaleString()}</td>
+          </tr>
+        `;
+      });
+    }
+
+    // Ajouter un mot
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const mot = input.value.trim();
+      if (!mot) return;
+
+      await fetch("/api/supabase001", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mot })
+      });
+
+      input.value = "";
+      chargerMots();
+    });
+
+    // Chargement initial
+    chargerMots();
   </script>
 
-
-
-
-    <footer>© 2026 · Tintin94230</footer>
-  </div>
 </body>
 </html>
