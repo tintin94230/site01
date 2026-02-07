@@ -2,19 +2,25 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>La Page de Test de Tintin94230</title>
+  <title>La Page de Test de Tintin94230 – Blog</title>
+
+  <!-- Styles globaux -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Police moderne -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <div class="container">
 
+    <!-- ================= HEADER ================= -->
     <header>
       <h1>Blog</h1>
-      <p>Qui suis-je ?</p>
+      <p>Test API + Supabase</p>
     </header>
 
+    <!-- ================= NAVIGATION ================= -->
     <nav>
       <ul>
         <li><a href="index.html">Accueil</a></li>
@@ -26,16 +32,25 @@
       </ul>
     </nav>
 
+    <!-- ================= CONTENU ================= -->
     <main>
+
       <p>Bienvenue sur la page de blog 🚀</p>
 
+      <!-- ===== FORMULAIRE ===== -->
       <h2>Ajouter un mot</h2>
 
       <form id="formMot">
-        <input type="text" id="mot" placeholder="Entrez un mot" required />
+        <input
+          type="text"
+          id="mot"
+          placeholder="Entrez un mot"
+          required
+        />
         <button type="submit">Ajouter</button>
       </form>
 
+      <!-- ===== TABLE ===== -->
       <h2>Mots enregistrés</h2>
 
       <table>
@@ -46,71 +61,126 @@
             <th>Date</th>
           </tr>
         </thead>
-        <tbody id="tableMots"></tbody>
+        <tbody id="tableMots">
+          <!-- contenu injecté par JS -->
+        </tbody>
       </table>
+
     </main>
 
+    <!-- ================= FOOTER ================= -->
     <footer>© 2026 · Tintin94230</footer>
 
   </div>
 
+  <!-- ================= SCRIPT ================= -->
   <script>
-    const table = document.getElementById("tableMots");
+    // Références DOM (UNE FOIS, AU DÉBUT)
+    const tableBody = document.getElementById("tableMots");
     const form = document.getElementById("formMot");
     const input = document.getElementById("mot");
 
+    /* =============================
+       Charger les mots (GET)
+       ============================= */
+    async function chargerMots() {
+      if (!tableBody) {
+        console.error("❌ Élément #tableMots introuvable");
+        return;
+      }
 
-async function chargerMots() {
-  const res = await fetch("/api/supabase001");
-  const data = await res.json();
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="3">Chargement...</td>
+        </tr>
+      `;
 
-  console.log("Réponse API :", data); // 👈 debug indispensable
+      try {
+        const response = await fetch("/api/supabase001");
+        const data = await response.json();
 
-  const tbody = document.getElementById("mots-body");
-  tbody.innerHTML = "";
+        console.log("📦 Réponse API :", data);
 
-  if (!Array.isArray(data)) {
-    tbody.innerHTML = `
-      <tr>
-        <td colspan="2" style="color:red;">
-          Erreur API : ${JSON.stringify(data)}
-        </td>
-      </tr>
-    `;
-    return;
-  }
+        tableBody.innerHTML = "";
 
-  data.forEach(mot => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${mot.id}</td>
-      <td>${mot.mot}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
+        if (!Array.isArray(data)) {
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="3" style="color:red;">
+                Erreur API : ${JSON.stringify(data)}
+              </td>
+            </tr>
+          `;
+          return;
+        }
 
+        if (data.length === 0) {
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="3">Aucun mot enregistré</td>
+            </tr>
+          `;
+          return;
+        }
 
+        data.forEach(item => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${item.id}</td>
+            <td>${item.mot}</td>
+            <td>${new Date(item.created_at).toLocaleString("fr-FR")}</td>
+          `;
+          tableBody.appendChild(tr);
+        });
 
-    // Ajouter un mot
+      } catch (error) {
+        console.error("❌ Erreur chargement mots :", error);
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="3" style="color:red;">
+              Erreur lors du chargement (voir console)
+            </td>
+          </tr>
+        `;
+      }
+    }
+
+    /* =============================
+       Ajouter un mot (POST)
+       ============================= */
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const mot = input.value.trim();
       if (!mot) return;
 
-      await fetch("/api/supabase001", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mot })
-      });
+      try {
+        const response = await fetch("/api/supabase001", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ mot })
+        });
 
-      input.value = "";
-      chargerMots();
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.error || "Erreur API");
+        }
+
+        input.value = "";
+        chargerMots(); // rafraîchissement
+
+      } catch (error) {
+        console.error("❌ Erreur ajout mot :", error);
+        alert("Erreur lors de l'ajout du mot (voir console)");
+      }
     });
 
-    // Chargement initial
-    chargerMots();
+    /* =============================
+       Chargement initial
+       ============================= */
+    document.addEventListener("DOMContentLoaded", () => {
+      chargerMots();
+    });
   </script>
 
 </body>
