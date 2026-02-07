@@ -83,67 +83,72 @@
     /* =============================
        Charger les mots (GET)
        ============================= */
-    async function chargerMots() {
-      if (!tableBody) {
-        console.error("❌ Élément #tableMots introuvable");
-        return;
-      }
 
+async function chargerMots() {
+  const tableBody = document.getElementById("tableMots");
+
+  tableBody.innerHTML = `
+    <tr>
+      <td colspan="3">Chargement...</td>
+    </tr>
+  `;
+
+  try {
+    const response = await fetch("/api/supabase001");
+    const result = await response.json();
+
+    console.log("📦 Réponse API PROD :", result);
+
+    tableBody.innerHTML = "";
+
+    // ✅ CAS ERREUR API
+    if (!Array.isArray(result)) {
       tableBody.innerHTML = `
         <tr>
-          <td colspan="3">Chargement...</td>
+          <td colspan="3" style="color:red;">
+            Erreur API : ${JSON.stringify(result)}
+          </td>
         </tr>
       `;
-
-      try {
-        const response = await fetch("/api/supabase001");
-        const data = await response.json();
-
-        console.log("📦 Réponse API :", data);
-
-        tableBody.innerHTML = "";
-
-        if (!Array.isArray(data)) {
-          tableBody.innerHTML = `
-            <tr>
-              <td colspan="3" style="color:red;">
-                Erreur API : ${JSON.stringify(data)}
-              </td>
-            </tr>
-          `;
-          return;
-        }
-
-        if (data.length === 0) {
-          tableBody.innerHTML = `
-            <tr>
-              <td colspan="3">Aucun mot enregistré</td>
-            </tr>
-          `;
-          return;
-        }
-
-        data.forEach(item => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${item.id}</td>
-            <td>${item.mot}</td>
-            <td>${new Date(item.created_at).toLocaleString("fr-FR")}</td>
-          `;
-          tableBody.appendChild(tr);
-        });
-
-      } catch (error) {
-        console.error("❌ Erreur chargement mots :", error);
-        tableBody.innerHTML = `
-          <tr>
-            <td colspan="3" style="color:red;">
-              Erreur lors du chargement (voir console)
-            </td>
-          </tr>
-        `;
-      }
+      return;
     }
+
+    // ✅ CAS TABLE VIDE
+    if (result.length === 0) {
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="3">Aucun mot enregistré</td>
+        </tr>
+      `;
+      return;
+    }
+
+    // ✅ CAS NORMAL
+    result.forEach(item => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.id}</td>
+        <td>${item.mot}</td>
+        <td>${new Date(item.created_at).toLocaleString("fr-FR")}</td>
+      `;
+      tableBody.appendChild(tr);
+    });
+
+  } catch (error) {
+    console.error("❌ Erreur chargement mots :", error);
+    tableBody.innerHTML = `
+      <tr>
+        <td colspan="3" style="color:red;">
+          Erreur réseau ou serveur
+        </td>
+      </tr>
+    `;
+  }
+}
+
+
+
+
 
     /* =============================
        Ajouter un mot (POST)
