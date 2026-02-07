@@ -59,23 +59,38 @@
     const form = document.getElementById("formMot");
     const input = document.getElementById("mot");
 
-    // Charger les mots existants
-    async function chargerMots() {
-      const response = await fetch("/api/supabase001");
-      const mots = await response.json();
 
-      table.innerHTML = "";
+async function chargerMots() {
+  const res = await fetch("/api/supabase001");
+  const data = await res.json();
 
-      mots.forEach(m => {
-        table.innerHTML += `
-          <tr>
-            <td>${m.id}</td>
-            <td>${m.mot}</td>
-            <td>${new Date(m.created_at).toLocaleString()}</td>
-          </tr>
-        `;
-      });
-    }
+  console.log("Réponse API :", data); // 👈 debug indispensable
+
+  const tbody = document.getElementById("mots-body");
+  tbody.innerHTML = "";
+
+  if (!Array.isArray(data)) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="2" style="color:red;">
+          Erreur API : ${JSON.stringify(data)}
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  data.forEach(mot => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${mot.id}</td>
+      <td>${mot.mot}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+
 
     // Ajouter un mot
     form.addEventListener("submit", async (e) => {
