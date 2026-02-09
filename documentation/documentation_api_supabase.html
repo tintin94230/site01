@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Documentation – tintin94230-page-test</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; line-height: 1.6; background: #f9f9f9; color: #222; }
+  .container { max-width: 1000px; margin: auto; padding: 20px; }
+  h1, h2, h3, h4 { margin-top: 1.2em; }
+  h1 { font-size: 2em; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+  h2 { font-size: 1.5em; color: #005f99; }
+  h3 { font-size: 1.2em; color: #0077cc; }
+  h4 { font-size: 1em; color: #0099ee; }
+  nav { margin-bottom: 20px; background: #fff; padding: 15px; border: 1px solid #ddd; border-radius: 6px; }
+  nav ul { list-style: none; padding-left: 0; }
+  nav li { margin-bottom: 5px; }
+  nav a { text-decoration: none; color: #0077cc; }
+  nav a:hover { text-decoration: underline; }
+  section { margin-bottom: 40px; background: #fff; padding: 15px; border-radius: 6px; box-shadow: 0 0 10px rgba(0,0,0,0.05);}
+  pre { background: #f0f0f0; padding: 10px; overflow-x: auto; border-radius: 4px; }
+  code { font-family: monospace; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>📘 Documentation complète – tintin94230-page-test</h1>
+
+<!-- Sommaire -->
+<nav>
+  <h2>Index</h2>
+  <ul>
+    <li><a href="#presentation">1️⃣ Présentation générale</a></li>
+    <li><a href="#pages">2️⃣ Pages du site</a></li>
+    <li><a href="#structure">3️⃣ Structure du projet</a></li>
+    <li><a href="#frontend">4️⃣ Navigation et Front-end</a></li>
+    <li><a href="#backend">5️⃣ Backend – API Node.js</a></li>
+    <li><a href="#base">6️⃣ Base de données – Supabase</a></li>
+    <li><a href="#blog">7️⃣ Page blog.html – Appel API interne</a></li>
+    <li><a href="#projets">8️⃣ Page projets.html – API OpenWeatherMap</a></li>
+    <li><a href="#outils">9️⃣ Outils utilisés</a></li>
+    <li><a href="#vercel">🔟 Vercel – Déploiement</a></li>
+    <li><a href="#guide">1️⃣1️⃣ Guide rapide après modification</a></li>
+    <li><a href="#bonnes-pratiques">1️⃣2️⃣ Bonnes pratiques</a></li>
+    <li><a href="#conclusion">✅ Conclusion</a></li>
+    <li><a href="#environnements">1️⃣3️⃣ Gestion des environnements</a></li>
+    <li><a href="#variables">1️⃣4️⃣ Variables d’environnement</a></li>
+    <li><a href="#glossaire">1️⃣5️⃣ Glossaire des commandes</a></li>
+    <li><a href="#retour">1️⃣6️⃣ Problèmes rencontrés & solutions</a></li>
+    <li><a href="#cycle">1️⃣7️⃣ Cycle de travail recommandé</a></li>
+    <li><a href="#securite">1️⃣8️⃣ Sécurité & bonnes pratiques</a></li>
+    <li><a href="#reel">1️⃣9️⃣ Ce que tu as réellement construit</a></li>
+  </ul>
+</nav>
+
+<!-- Sections -->
+<section id="presentation">
+  <h2>1️⃣ Présentation générale du projet</h2>
+  <p>Objectif : Le projet tintin94230-page-test est un site web expérimental permettant de tester et comprendre :</p>
+  <ul>
+    <li>le développement Front-end (HTML / CSS / JavaScript)</li>
+    <li>la création d’API backend (Node.js / Serverless)</li>
+    <li>l’utilisation d’une base de données cloud (Supabase)</li>
+    <li>l’appel d’APIs externes (OpenWeatherMap, SNCF)</li>
+    <li>le versioning Git (GitHub)</li>
+    <li>le déploiement moderne (Vercel)</li>
+  </ul>
+  <p>Ce projet sert de laboratoire technique pour comprendre comment les outils modernes s’articulent entre eux.</p>
+</section>
+
+<section id="pages">
+  <h2>2️⃣ Pages du site</h2>
+  <table>
+    <thead>
+      <tr><th>Page</th><th>Rôle</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>index.html</td><td>Page d’accueil + menu de navigation</td></tr>
+      <tr><td>apropos.html</td><td>Présentation</td></tr>
+      <tr><td>projets.html</td><td>Tests d’API externes (météo, trains)</td></tr>
+      <tr><td>blog.html</td><td>Interaction avec API Supabase (ajout + lecture)</td></tr>
+      <tr><td>contact.html</td><td>Page contact</td></tr>
+      <tr><td>admin.html</td><td>Zone admin (future extension)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="structure">
+  <h2>3️⃣ Structure du projet</h2>
+  <pre>
+tintin94230-page-test/
+├─ index.html
+├─ apropos.html
+├─ projets.html
+├─ blog.html
+├─ contact.html
+├─ admin.html
+├─ style.css
+├─ package.json
+├─ package-lock.json
+├─ api/
+│  ├─ longueur.js
+│  └─ supabase001.js
+├─ .gitignore
+└─ .env.local
+  </pre>
+</section>
+
+<section id="frontend">
+  <h2>4️⃣ Navigation et Front-end</h2>
+  <p>Menu commun (toutes les pages) :</p>
+  <pre>
+<nav>
+  <ul class="menu">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="admin.html">Espace Admin</a></li>
+  </ul>
+</nav>
+  </pre>
+  <p>Style moderne, police Inter, structure homogène sur toutes les pages.</p>
+</section>
+
+<section id="backend">
+  <h2>5️⃣ Backend – API Node.js (Vercel)</h2>
+  <p>Chaque fichier dans /api devient une route HTTP, déployée comme fonction serverless.</p>
+  <h3>API Blog – api/supabase001.js</h3>
+  <pre>
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+)
+
+export default async function handler(req, res) {
+  if (req.method === 'GET') {
+    const { data, error } = await supabase.from('mots').select('*').order('created_at', { ascending: false })
+    if (error) return res.status(500).json({ error: error.message })
+    return res.status(200).json(data)
+  }
+
+  if (req.method === 'POST') {
+    const { mot } = req.body
+    if (!mot) return res.status(400).json({ error: 'Mot manquant' })
+
+    const { data, error } = await supabase.from('mots').insert([{ mot }]).select()
+    if (error) return res.status(500).json({ error: error.message })
+    return res.status(200).json(data[0])
+  }
+
+  res.status(405).json({ error: 'Méthode non autorisée' })
+}
+  </pre>
+</section>
+
+<section id="base">
+  <h2>6️⃣ Base de données – Supabase</h2>
+  <p>Création de la table :</p>
+  <pre>
+create table mots (
+  id serial primary key,
+  mot text not null,
+  created_at timestamp default now()
+);
+  </pre>
+  <p>Clés et sécurité :</p>
+  <ul>
+    <li>SUPABASE_URL : URL du projet</li>
+    <li>SUPABASE_KEY : service_role (backend uniquement)</li>
+  </ul>
+  <p>⚠️ Ne jamais exposer la clé service_role dans le front.</p>
+</section>
+
+<section id="blog">
+  <h2>7️⃣ Page blog.html – Appel API interne</h2>
+  <p>Ajout d’un mot :</p>
+  <pre>
+async function ajouterMot() {
+  const mot = document.getElementById("mot").value;
+  const res = await fetch("/api/supabase001", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ mot })
+  });
+  const data = await res.json();
+  chargerMots();
+}
+  </pre>
+  <p>Lecture et affichage :</p>
+  <pre>
+async function chargerMots() {
+  const res = await fetch("/api/supabase001");
+  const data = await res.json();
+  if (!Array.isArray(data)) return;
+  data.forEach(mot => {
+    // affichage tableau
+  });
+}
+  </pre>
+</section>
+
+<section id="projets">
+  <h2>8️⃣ Page projets.html – API OpenWeatherMap</h2>
+  <p>Version gratuite utilisée :</p>
+  <ul>
+    <li>❌ One Call 3.0 (payant)</li>
+    <li>✅ /data/2.5/weather</li>
+  </ul>
+  <p>Chaîne complète :</p>
+  <ol>
+    <li>Géocodage → ville → lat/lon</li>
+    <li>Météo actuelle</li>
+    <li>Gestion des erreurs HTTP</li>
+  </ol>
+</section>
+
+<section id="outils">
+  <h2>9️⃣ Outils utilisés</h2>
+  <ul>
+    <li>Visual Studio Code (éditeur principal, terminal intégré)</li>
+    <li>Extensions recommandées : Prettier, GitLens</li>
+    <li>GitHub pour versioning et repository</li>
+  </ul>
+</section>
+
+<section id="vercel">
+  <h2>🔟 Vercel – Déploiement</h2>
+  <p>Variables d’environnement configurées dans Vercel Dashboard.</p>
+</section>
+
+<section id="guide">
+  <h2>1️⃣1️⃣ Guide rapide – Après modification du code</h2>
+  <ul>
+    <li>Test local : <code>vercel dev</code></li>
+    <li>Déploiement Preview : <code>vercel</code></li>
+    <li>Déploiement Production : <code>vercel --prod</code></li>
+  </ul>
+</section>
+
+<section id="bonnes-pratiques">
+  <h2>1️⃣2️⃣ Bonnes pratiques essentielles</h2>
+  <ul>
+    <li>Toujours tester en local avant PROD</li>
+    <li>Vérifier les réponses API (Array.isArray)</li>
+    <li>Ne jamais exposer les clés sensibles</li>
+    <li>Un commit = une intention claire</li>
+  </ul>
+</section>
+
+<section id="conclusion">
+  <h2>✅ Conclusion</h2>
+  <p>Architecture web moderne complète, Front statique + backend serverless + base cloud + APIs tierces + CI/CD via GitHub + Vercel. Base saine pour apprentissage ou projet réel.</p>
+</section>
+
+<!-- Sections suivantes peuvent être ajoutées dans le même style -->
+<!-- id="environnements", "variables", "glossaire", "retour", "cycle", "securite", "reel" -->
+
+</div>
+</body>
+</html>

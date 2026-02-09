@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentation – Le site</title>
+  <link rel="stylesheet" href="doc.css">
+</head>
+<body>
+
+<div class="nav">
+  <a href="index.html">⬅ Index</a>
+</div>
+
+<h1>Page 1 – Le site web</h1>
+
+<h2>1. Présentation générale</h2>
+<p>
+Le site est un site web statique (HTML / CSS / JavaScript) hébergé sur Vercel.
+Certaines pages sont purement informatives, d’autres interagissent avec des API.
+</p>
+
+<h2>2. Pages du site et rôles</h2>
+
+<h3>index.html</h3>
+<p>Page d’accueil et navigation principale.  
+Ne consomme aucune API.</p>
+
+<h3>apropos.html</h3>
+<p>Présentation du projet et de sa démarche.  
+Ne consomme aucune API.</p>
+
+<h3>projets.html</h3>
+<p>
+Page de tests d’API publiques (exemples : météo, transports, etc.).  
+Ces API sont appelées directement depuis le navigateur.
+</p>
+
+<h3>blog.html</h3>
+<p>
+Page dynamique connectée à la base de données via une API interne.
+</p>
+<p>
+API consommée : <code>/api/supabase001</code>  
+Voir <a href="page3-api.html">Page 3 – API</a>
+</p>
+
+<h3>contact.html</h3>
+<p>Page de contact.  
+Ne consomme aucune API.</p>
+
+<h3>admin.html</h3>
+<p>
+Zone d’administration (évolution future).
+</p>
+<p>
+API prévue : <code>/api/supabase002</code>  
+Voir <a href="page3-api.html">Page 3 – API</a>
+</p>
+
+<h2>3. Principe fondamental</h2>
+<p>
+Aucune page HTML n’accède directement à la base de données.
+Toute communication passe par des API backend sécurisées.
+</p>
+
+</body>
+</html>

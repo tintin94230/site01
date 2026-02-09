@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentation – Outils</title>
+  <link rel="stylesheet" href="doc.css">
+</head>
+<body>
+
+<div class="nav">
+  <a href="index.html">⬅ Index</a>
+</div>
+
+<h1>Page 2 – Outils & déploiement</h1>
+
+<h2>1. Outils utilisés</h2>
+<ul>
+  <li>Visual Studio Code – écriture du code</li>
+  <li>Git – gestion des versions</li>
+  <li>GitHub – hébergement du dépôt</li>
+  <li>Vercel – hébergement du site et des API</li>
+  <li>Supabase – base de données PostgreSQL</li>
+  <li>OVH – nom de domaine</li>
+</ul>
+
+<h2>2. Environnements</h2>
+
+<h3>Local (développement)</h3>
+<ul>
+  <li>Serveur local</li>
+  <li>Variables dans <code>.env.local</code></li>
+  <li>Fichier non versionné</li>
+</ul>
+
+<h3>Production</h3>
+<ul>
+  <li>Variables stockées dans Vercel</li>
+  <li>Aucun fichier <code>.env.local</code> en ligne</li>
+</ul>
+
+<h2>3. Tests</h2>
+<p>
+Les API sont testées :
+</p>
+<ul>
+  <li>via le navigateur</li>
+  <li>via <code>fetch()</code></li>
+  <li>via l’interface Supabase</li>
+</ul>
+
+<h2>4. Déploiement</h2>
+<pre>
+git push
+vercel --prod
+</pre>
+
+</body>
+</html>

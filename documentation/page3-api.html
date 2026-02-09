@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentation – API</title>
+  <link rel="stylesheet" href="doc.css">
+</head>
+<body>
+
+<div class="nav">
+  <a href="index.html">⬅ Index</a>
+</div>
+
+<h1>Page 3 – API & base de données</h1>
+
+<h2>1. Principe général</h2>
+<p>
+Les API servent d’intermédiaire entre le site HTML et Supabase.
+Elles protègent les clés et centralisent la logique.
+</p>
+
+<h2>2. API /api/supabase001</h2>
+<p>
+API utilisée par <strong>blog.html</strong>.
+</p>
+
+<p>Fonctions :</p>
+<ul>
+  <li>Ajouter un mot</li>
+  <li>Calculer sa longueur</li>
+  <li>Stocker le mot dans la base</li>
+</ul>
+
+<p>Exemple :</p>
+<pre>
+/api/supabase001?mot=bonjour
+</pre>
+
+<h2>3. API /api/supabase002</h2>
+<p>
+API prévue pour <strong>admin.html</strong>.
+</p>
+
+<ul>
+  <li>Gestion avancée des données</li>
+  <li>Accès réservé côté serveur</li>
+</ul>
+
+<h2>4. Base de données Supabase</h2>
+
+<h3>Table : mots</h3>
+<ul>
+  <li>id</li>
+  <li>mot</li>
+  <li>created_at</li>
+</ul>
+
+<h2>5. Sécurité</h2>
+<p>
+Les clés Supabase ne sont jamais exposées dans le HTML.
+Elles sont stockées uniquement dans Vercel ou <code>.env.local</code>.
+</p>
+
+</body>
+</html>
