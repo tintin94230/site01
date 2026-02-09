@@ -2,57 +2,205 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Documentation – Outils</title>
+  <title>Documentation – Outils & Déploiement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="doc.css">
 </head>
 <body>
 
-<div class="nav">
-  <a href="index.html">⬅ Index</a>
-</div>
+  <div class="nav">
+    <a href="index.html">⬅ Index</a>
+  </div>
 
-<h1>Page 2 – Outils & déploiement</h1>
+  <h1>Page 2 – Outils, workflow & déploiement</h1>
 
-<h2>1. Outils utilisés</h2>
-<ul>
-  <li>Visual Studio Code – écriture du code</li>
-  <li>Git – gestion des versions</li>
-  <li>GitHub – hébergement du dépôt</li>
-  <li>Vercel – hébergement du site et des API</li>
-  <li>Supabase – base de données PostgreSQL</li>
-  <li>OVH – nom de domaine</li>
-</ul>
+  <p>
+    Cette page décrit le cycle complet de développement :
+    modification du code, tests locaux, sauvegarde Git et déploiement en production.
+  </p>
 
-<h2>2. Environnements</h2>
+  <!-- ================= OUTILS ================= -->
 
-<h3>Local (développement)</h3>
-<ul>
-  <li>Serveur local</li>
-  <li>Variables dans <code>.env.local</code></li>
-  <li>Fichier non versionné</li>
-</ul>
+  <h2>1. Outils utilisés</h2>
+  <ul>
+    <li><strong>Visual Studio Code</strong> – édition du code</li>
+    <li><strong>Git</strong> – gestion des versions</li>
+    <li><strong>GitHub</strong> – hébergement du dépôt</li>
+    <li><strong>Vercel</strong> – hébergement du site et des API</li>
+    <li><strong>Supabase</strong> – base de données PostgreSQL</li>
+    <li><strong>OVH</strong> – nom de domaine</li>
+  </ul>
 
-<h3>Production</h3>
-<ul>
-  <li>Variables stockées dans Vercel</li>
-  <li>Aucun fichier <code>.env.local</code> en ligne</li>
-</ul>
+  <!-- ================= ENVIRONNEMENTS ================= -->
 
-<h2>3. Tests</h2>
-<p>
-Les API sont testées :
-</p>
-<ul>
-  <li>via le navigateur</li>
-  <li>via <code>fetch()</code></li>
-  <li>via l’interface Supabase</li>
-</ul>
+  <h2>2. Environnements</h2>
 
-<h2>4. Déploiement</h2>
-<pre>
+  <h3>Développement local</h3>
+  <ul>
+    <li>Serveur local (<code>localhost</code>)</li>
+    <li>Variables stockées dans <code>.env.local</code></li>
+    <li>Fichier non versionné</li>
+  </ul>
+
+  <h3>Production</h3>
+  <ul>
+    <li>Code hébergé sur Vercel</li>
+    <li>Variables d’environnement configurées dans Vercel</li>
+    <li>Aucun fichier sensible exposé</li>
+    <li>Site accessible publiquement à l’adresse :
+      <a href="https://site01-snowy.vercel.app/" target="_blank">
+        https://site01-snowy.vercel.app/
+      </a>
+    </li>
+  </ul>
+
+  <!-- ================= WORKFLOW ================= -->
+
+  <h2>3. Workflow de développement</h2>
+
+  <h3>1️⃣ Modifier le code</h3>
+  <p>
+    Le développement est effectué localement avec Visual Studio Code.
+    Chaque fonctionnalité est testée avant sauvegarde.
+  </p>
+
+  <h3>2️⃣ Tester en local</h3>
+
+  <h4>Site HTML / JavaScript simple</h4>
+  <pre>
+npx serve .
+  </pre>
+
+  <h4>Projet avec Node / API</h4>
+  <pre>
+npm install
+npm run dev
+  </pre>
+
+  <p>
+    Le site est accessible via <code>http://localhost</code>.
+  </p>
+
+  <h3>3️⃣ Arrêter un serveur local</h3>
+  <p>Commande standard :</p>
+  <pre>
+CTRL + C
+  </pre>
+
+  <p>Si le port reste bloqué (Windows) :</p>
+  <pre>
+netstat -ano | findstr :3000
+taskkill /PID XXXX /F
+  </pre>
+
+  <!-- ================= GIT ================= -->
+
+  <h2>4. Sauvegarde du code avec Git</h2>
+
+  <h3>Initialisation (une seule fois)</h3>
+  <pre>
+git init
+  </pre>
+
+  <h3>Workflow standard</h3>
+  <pre>
+git status
+git add .
+git commit -m "Message clair décrivant la modification"
+  </pre>
+
+  <h3>Envoi vers GitHub</h3>
+  <pre>
 git push
+  </pre>
+
+  <!-- ================= DEPLOIEMENT ================= -->
+
+  <h2>5. Déploiement</h2>
+
+  <h3>Déploiement de test (preview)</h3>
+  <pre>
+vercel
+  </pre>
+
+  <h3>Déploiement production</h3>
+  <pre>
 vercel --prod
+  </pre>
+
+  <p>
+    Après déploiement, le site de production est disponible ici :
+    <a href="https://site01-snowy.vercel.app/" target="_blank">
+      https://site01-snowy.vercel.app/
+    </a>
+  </p>
+
+  <!-- ================= TESTS ================= -->
+
+  <h2>6. Tests</h2>
+  <ul>
+    <li>Tests via navigateur</li>
+    <li>Tests via <code>fetch()</code></li>
+    <li>Vérifications via l’interface Supabase</li>
+  </ul>
+
+  <!-- ================= RESUME ================= -->
+
+  <h2>7. Résumé</h2>
+  <ul>
+    <li>Toujours tester avant de pousser</li>
+    <li>Commit fréquemment</li>
+    <li>Ne jamais versionner les secrets</li>
+    <li>Déployer uniquement du code validé</li>
+  </ul>
+<h2>8. Variables d’environnement sur Vercel</h2>
+
+<p>
+Pour connecter votre site à Supabase, les variables d’environnement sont gérées via
+<a href="https://vercel.com/blondelmail-gmailcoms-projects/site01/settings/environment-variables" target="_blank">
+la page Vercel Environment Variables
+</a>.
+</p>
+
+<h3>Principe</h3>
+<ul>
+  <li>Chaque variable peut être assignée à <strong>Development</strong>, <strong>Preview</strong>, <strong>Production</strong> ou <strong>All Environments</strong>.</li>
+  <li>Pour avoir des valeurs différentes en DEV et PROD, ne jamais utiliser <em>All Environments</em> mais créer une variable distincte pour chaque environnement.</li>
+</ul>
+
+<h3>Exemple de configuration pour Supabase</h3>
+<table>
+<tr><th>Variable</th><th>DEV</th><th>PROD</th></tr>
+<tr><td>SUPABASE_URL</td><td>https://xxxx-dev.supabase.co</td><td>https://xxxx-prod.supabase.co</td></tr>
+<tr><td>SUPABASE_KEY</td><td>key_dev</td><td>key_prod</td></tr>
+</table>
+
+<h3>Test local DEV</h3>
+<pre>
+vercel env pull
+# crée .env.local avec valeurs DEV
 </pre>
+
+<h3>Redéploiement PROD</h3>
+<p>
+Après modification des variables PROD, il faut redéployer le projet : 
+<pre>vercel --prod</pre>
+</p>
+
+<h3>Bonnes pratiques</h3>
+<ul>
+<li>Séparer DEV et PROD</li>
+<li>Ne jamais exposer de clés sensibles côté front</li>
+<li>Redéployer après modification PROD</li>
+<li>Tester localement avec <code>vercel dev</code> et <code>vercel env pull</code></li>
+<li>Vérifier avec un endpoint test que les variables sont bien lues</li>
+</ul>
+
+<h3>Liens utiles</h3>
+<ul>
+  <li><a href="https://vercel.com/" target="_blank">Vercel – page d’accueil</a></li>
+  <li><a href="https://supabase.com/" target="_blank">Supabase – page d’accueil</a></li>
+</ul>
 
 </body>
 </html>
