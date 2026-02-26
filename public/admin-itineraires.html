@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Administration – Itinéraires</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { background:#121212; font-family:sans-serif; color:#fff; }
+  .container { max-width: 1000px; margin:auto; padding:20px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  th, td { border: 1px solid rgba(255,255,255,0.3); padding: 8px; text-align: left; }
+  th { background: rgba(255,255,255,0.15); }
+  input[type="text"], textarea { width: 100%; padding: 6px; border-radius:6px; border:1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color:#fff; }
+  .form-ajout { display: grid; grid-template-columns: 1fr; gap:10px; margin-top:20px; }
+  .form-ajout label { display:flex; flex-direction:column; font-weight:500; }
+  button { padding:6px 12px; border-radius:6px; border:1px solid rgba(79,195,247,0.4); background: rgba(79,195,247,0.25); color:#fff; cursor:pointer; }
+  button:hover { background: rgba(79,195,247,0.4); }
+  .error { color:#ff6b6b; font-weight:bold; margin-top:10px; }
+  .success { color:#4caf50; font-weight:bold; margin-top:10px; }
+</style>
+</head>
+
+<body>
+<div class="container">
+  <header>
+    <h1>Administration</h1>
+    <p>Gestion des itinéraires</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="admin.html">Espace Admin</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h2>Liste des itinéraires</h2>
+    <div id="message"></div>
+    <table id="table-itineraires">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Départ</th>
+          <th>Arrivée</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Lien</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h3>Ajouter un itinéraire</h3>
+    <div class="form-ajout">
+      <label>Nom itinéraire<input type="text" id="nom"></label>
+      <label>Départ (obligatoire)<input type="text" id="lieu_depart_nom"></label>
+      <button id="creer-depart" style="display:none" onclick="ouvrirAdminLieux()">Créer ce lieu</button>
+      <label>Arrivée (facultatif)<input type="text" id="lieu_arrivee_nom"></label>
+      <button id="creer-arrivee" style="display:none" onclick="ouvrirAdminLieux()">Créer ce lieu</button>
+      <label>Type de voyage<input type="text" id="type_voyage"></label>
+      <label>Description<textarea id="description"></textarea></label>
+      <label>Lien HTTP<input type="text" id="lien_http"></label>
+      <button onclick="ajouterItineraire()">Ajouter</button>
+    </div>
+  </main>
+
+  <footer>© 2026 · Tintin94230</footer>
+</div>
+
+<script>
+let lieuxCache = [];
+const tbody = document.querySelector("#table-itineraires tbody");
+const messageDiv = document.getElementById("message");
+
+function afficherMessage(txt, type='error') {
+  messageDiv.textContent = txt;
+  messageDiv.className = type;
+  setTimeout(()=>{ messageDiv.textContent=''; }, 4000);
+}
+
+async function chargerLieux() {
+  if(lieuxCache.length === 0) {
+    try {
+      const res = await fetch("/api/supabase002");
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      lieuxCache = await res.json();
+    } catch (e) {
+      console.error("Erreur chargement lieux:", e);
+      afficherMessage("Impossible de charger les lieux", "error");
+      lieuxCache = [];
+    }
+  }
+  return lieuxCache;
+}
+
+function trouverLieuParNom(nom) {
+  return lieuxCache.find(l => l.nom.toLowerCase() === nom.toLowerCase());
+}
+
+function afficherNomLieu(id) {
+  const lieu = lieuxCache.find(l => l.id === id);
+  return lieu ? lieu.nom : "(inconnu)";
+}
+
+function ouvrirAdminLieux() { window.open("admin-lieux.html","_blank"); }
+
+async function chargerItineraires() {
+  await chargerLieux();
+  tbody.innerHTML = "<tr><td colspan='7'>Chargement...</td></tr>";
+  try {
+    const res = await fetch("/api/supabase003");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    tbody.innerHTML = "";
+    if (data.length === 0) tbody.innerHTML="<tr><td colspan='7'>Aucun itinéraire</td></tr>";
+    data.forEach(it => {
+      const tr = document.createElement("tr");
+      const tdNom = document.createElement("td"); tdNom.appendChild(creerInput(it.nom,"nom")); tr.appendChild(tdNom);
+      const tdDepart = document.createElement("td"); tdDepart.appendChild(creerInput(afficherNomLieu(it.lieu_depart_id),"lieu_depart_nom")); tr.appendChild(tdDepart);
+      const tdArr = document.createElement("td"); tdArr.appendChild(creerInput(it.lieu_arrivee_id?afficherNomLieu(it.lieu_arrivee_id):"","lieu_arrivee_nom")); tr.appendChild(tdArr);
+      ["type_voyage","description","lien_http"].forEach(f=>{
+        const td = document.createElement("td");
+        td.appendChild(creerInput(it[f], f));
+        tr.appendChild(td);
+      });
+      const tdActions = document.createElement("td");
+      const btnMod = document.createElement("button"); btnMod.textContent="Modifier";
+      btnMod.onclick = ()=>modifierItineraire(it.id,tr);
+      const btnSup = document.createElement("button"); btnSup.textContent="Supprimer";
+      btnSup.onclick = ()=>supprimerItineraire(it.id);
+      tdActions.append(btnMod, btnSup); tr.appendChild(tdActions);
+      tbody.appendChild(tr);
+    });
+  } catch(e) {
+    console.error("Erreur chargement itinéraires:", e);
+    tbody.innerHTML = "<tr><td colspan='7'>Erreur chargement</td></tr>";
+    afficherMessage("Impossible de charger les itinéraires", "error");
+  }
+}
+
+function creerInput(value, field) {
+  const input = document.createElement("input");
+  input.value = value ?? "";
+  input.dataset.field = field;
+  input.style.width="100%";
+  return input;
+}
+
+async function ajouterItineraire() {
+  await chargerLieux();
+  const nomItin = document.getElementById("nom").value.trim();
+  const departNom = document.getElementById("lieu_depart_nom").value.trim();
+  const arriveeNom = document.getElementById("lieu_arrivee_nom").value.trim();
+  if(!nomItin || !departNom){ afficherMessage("Nom et départ obligatoires"); return; }
+
+  const depart = trouverLieuParNom(departNom);
+  const arrivee = arriveeNom ? trouverLieuParNom(arriveeNom) : null;
+
+  if(!depart){ document.getElementById("creer-depart").style.display="inline-block"; afficherMessage("Le lieu de départ n'existe pas"); return; }
+  else document.getElementById("creer-depart").style.display="none";
+  if(arriveeNom && !arrivee){ document.getElementById("creer-arrivee").style.display="inline-block"; afficherMessage("Le lieu d'arrivée n'existe pas"); return; }
+  else document.getElementById("creer-arrivee").style.display="none";
+
+  const body = {
+    nom: nomItin,
+    lieu_depart_id: depart.id,
+    lieu_arrivee_id: arrivee ? arrivee.id : null,
+    type_voyage: document.getElementById("type_voyage").value,
+    description: document.getElementById("description").value,
+    lien_http: document.getElementById("lien_http").value
+  };
+
+  try {
+    const res = await fetch("/api/supabase003",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(body)
+    });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    ["nom","lieu_depart_nom","lieu_arrivee_nom","type_voyage","description","lien_http"].forEach(id=>document.getElementById(id).value="");
+    lieuxCache = [];
+    chargerItineraires();
+    afficherMessage("Itinéraire ajouté", "success");
+  } catch(e) {
+    console.error("Erreur ajout itinéraire:", e);
+    afficherMessage("Impossible d'ajouter l'itinéraire", "error");
+  }
+}
+
+async function modifierItineraire(id,row){
+  await chargerLieux();
+  const inputs = row.querySelectorAll("input");
+  const body = {id};
+  inputs.forEach(i=>{
+    if(i.dataset.field==="lieu_depart_nom"){
+      const lieu = trouverLieuParNom(i.value);
+      if(lieu) body.lieu_depart_id = lieu.id;
+    } else if(i.dataset.field==="lieu_arrivee_nom"){
+      const lieu = trouverLieuParNom(i.value);
+      body.lieu_arrivee_id = lieu ? lieu.id : null;
+    } else body[i.dataset.field] = i.value;
+  });
+  try {
+    const res = await fetch("/api/supabase003",{ method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    chargerItineraires();
+    afficherMessage("Itinéraire modifié", "success");
+  } catch(e) { console.error("Erreur modification:", e); afficherMessage("Impossible de modifier", "error"); }
+}
+
+async function supprimerItineraire(id){
+  if(!confirm("Supprimer cet itinéraire ?")) return;
+  try {
+    const res = await fetch("/api/supabase003",{ method:"DELETE", headers:{"Content-Type":"application/json"}, body:JSON.stringify({id}) });
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    chargerItineraires();
+    afficherMessage("Itinéraire supprimé", "success");
+  } catch(e){ console.error("Erreur suppression:", e); afficherMessage("Impossible de supprimer", "error"); }
+}
+
+document.addEventListener("DOMContentLoaded", chargerItineraires);
+</script>
+</body>
+</html>

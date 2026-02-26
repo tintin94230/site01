@@ -2,63 +2,292 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Documentation – API</title>
+  <title>Documentation – API internes & base de données</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="doc.css">
 </head>
 <body>
 
 <div class="nav">
   <a href="index.html">⬅ Index</a>
+  |
+  <a href="page1-site.html">🧱 Site</a>
+  |
+  <a href="page2-outils.html">🛠️ Outils</a>
 </div>
 
-<h1>Page 3 – API & base de données</h1>
+<h1>Page 3 – API internes & base de données</h1>
 
-<h2>1. Principe général</h2>
 <p>
-Les API servent d’intermédiaire entre le site HTML et Supabase.
-Elles protègent les clés et centralisent la logique.
+Cette page documente les <strong>API backend internes</strong> du projet
+et la <strong>structure de la base de données Supabase</strong>.
 </p>
 
-<h2>2. API /api/supabase001</h2>
+<hr>
+
+<!-- ===================================================== -->
+<h2>1️⃣ Principe général</h2>
+
 <p>
-API utilisée par <strong>blog.html</strong>.
+Les pages HTML du site n’accèdent <strong>jamais directement</strong>
+à la base de données.
 </p>
 
-<p>Fonctions :</p>
-<ul>
-  <li>Ajouter un mot</li>
-  <li>Calculer sa longueur</li>
-  <li>Stocker le mot dans la base</li>
-</ul>
+<p>
+Toutes les opérations passent par des <strong>API serverless</strong>
+hébergées sur Vercel.
+</p>
 
-<p>Exemple :</p>
 <pre>
-/api/supabase001?mot=bonjour
+Navigateur (HTML / JS)
+        |
+        v
+API serverless (/api/*)
+        |
+        v
+Supabase (PostgreSQL)
 </pre>
 
-<h2>3. API /api/supabase002</h2>
 <p>
-API prévue pour <strong>admin.html</strong>.
+Ce principe garantit :
 </p>
 
 <ul>
-  <li>Gestion avancée des données</li>
-  <li>Accès réservé côté serveur</li>
+  <li>la protection des clés Supabase</li>
+  <li>la centralisation de la logique métier</li>
+  <li>une séparation claire frontend / backend</li>
+  <li>une architecture évolutive</li>
 </ul>
 
-<h2>4. Base de données Supabase</h2>
+<hr>
 
-<h3>Table : mots</h3>
-<ul>
-  <li>id</li>
-  <li>mot</li>
-  <li>created_at</li>
-</ul>
+<!-- ===================================================== -->
+<h2>2️⃣ API <code>/api/supabase001</code></h2>
 
-<h2>5. Sécurité</h2>
 <p>
-Les clés Supabase ne sont jamais exposées dans le HTML.
-Elles sont stockées uniquement dans Vercel ou <code>.env.local</code>.
+API utilisée par la page <strong>blog.html</strong>.
+</p>
+
+<h3>Objectif</h3>
+<p>
+API simple et pédagogique servant d’exemple d’interaction
+entre une page HTML et Supabase.
+</p>
+
+<h3>Fonctions</h3>
+<ul>
+  <li>Recevoir un mot depuis le navigateur</li>
+  <li>Calculer la longueur du mot</li>
+  <li>Insérer le mot dans la base</li>
+</ul>
+
+<h3>Endpoint</h3>
+<pre>
+GET /api/supabase001?mot=bonjour
+</pre>
+
+<h3>Flux de traitement</h3>
+<pre>
+blog.html
+   |
+   | fetch("/api/supabase001?mot=bonjour")
+   v
+API supabase001
+   |
+   | INSERT INTO mots
+   v
+Supabase
+</pre>
+
+<h3>Table utilisée : <code>mots</code></h3>
+
+<table>
+  <tr><th>Colonne</th><th>Description</th></tr>
+  <tr><td>id</td><td>Identifiant unique</td></tr>
+  <tr><td>mot</td><td>Mot saisi par l’utilisateur</td></tr>
+  <tr><td>created_at</td><td>Date d’insertion</td></tr>
+</table>
+
+<p>
+👉 Cette API sert principalement de démonstration.
+</p>
+
+<hr>
+
+<!-- ===================================================== -->
+<h2>3️⃣ API <code>/api/supabase002</code></h2>
+
+<p>
+API utilisée par <strong>admin.html</strong> et
+<strong>admin-lieux.html</strong>.
+</p>
+
+<h3>Objectifs</h3>
+<ul>
+  <li>Gestion structurée des données</li>
+  <li>Ajout, modification, suppression</li>
+  <li>Logique métier côté serveur</li>
+</ul>
+
+<h3>Données manipulées</h3>
+<ul>
+  <li>Lieux géographiques</li>
+  <li>Itinéraires entre lieux</li>
+</ul>
+
+<h3>Flux typique</h3>
+<pre>
+admin-lieux.html
+      |
+      | fetch("/api/supabase002", data)
+      v
+API supabase002
+      |
+      | INSERT / UPDATE / SELECT
+      v
+Supabase
+</pre>
+
+<p>
+⚠️ Cette API est destinée à être protégée
+(authentification, rôles, etc.).
+</p>
+
+<hr>
+
+<!-- ===================================================== -->
+<h2>4️⃣ Base de données Supabase</h2>
+
+<p>
+La base est hébergée sur <strong>Supabase</strong>
+(PostgreSQL managé).
+</p>
+
+<h3>Table : <code>mots</code></h3>
+
+<p>
+Utilisée par <code>/api/supabase001</code>.
+</p>
+
+<table>
+  <tr><th>Colonne</th><th>Description</th></tr>
+  <tr><td>id</td><td>Identifiant unique</td></tr>
+  <tr><td>mot</td><td>Mot stocké</td></tr>
+  <tr><td>created_at</td><td>Date de création</td></tr>
+</table>
+
+<hr>
+
+<h3>Table : <code>lieux</code></h3>
+
+<p>
+Représente des lieux géographiques.
+</p>
+
+<table>
+  <tr><th>Colonne</th><th>Description</th></tr>
+  <tr><td>id</td><td>Identifiant unique</td></tr>
+  <tr><td>nom</td><td>Nom du lieu</td></tr>
+  <tr><td>latitude</td><td>Coordonnée GPS</td></tr>
+  <tr><td>longitude</td><td>Coordonnée GPS</td></tr>
+  <tr><td>created_at</td><td>Date de création</td></tr>
+</table>
+
+<p>
+Ces données sont gérées via <code>/api/supabase002</code>.
+</p>
+
+<hr>
+
+<h3>Table : <code>itineraires</code></h3>
+
+<p>
+Représente un trajet entre deux lieux.
+</p>
+
+<table>
+  <tr><th>Colonne</th><th>Description</th></tr>
+  <tr><td>id</td><td>Identifiant unique</td></tr>
+  <tr><td>lieu_depart_id</td><td>Référence vers lieux.id</td></tr>
+  <tr><td>lieu_arrivee_id</td><td>Référence vers lieux.id</td></tr>
+  <tr><td>type_voyage</td><td>Voiture, train, avion…</td></tr>
+  <tr><td>nom</td><td>Nom de l’itinéraire</td></tr>
+  <tr><td>description</td><td>Description libre</td></tr>
+  <tr><td>lien_http</td><td>Lien externe</td></tr>
+  <tr><td>created_at</td><td>Date de création</td></tr>
+</table>
+
+<h4>Relations</h4>
+
+<pre>
+lieux (id)
+   ▲        ▲
+   |        |
+   |        |
+itineraires
+(depart) (arrivee)
+</pre>
+
+<p>
+Les clés étrangères garantissent la cohérence
+des itinéraires.
+</p>
+
+<hr>
+
+<!-- ===================================================== -->
+<h2>5️⃣ Environnements DEV / PROD</h2>
+
+<p>
+Les API utilisent des variables d’environnement :
+</p>
+
+<pre>
+SUPABASE_URL
+SUPABASE_KEY
+</pre>
+
+<p>
+Chargées depuis :
+</p>
+
+<ul>
+  <li><code>.env.local</code> en développement</li>
+  <li>Vercel Environment Variables en production</li>
+</ul>
+
+<p>
+👉 Voir
+<a href="page2-outils.html">Page 2 – Outils & déploiement</a>
+</p>
+
+<hr>
+
+<!-- ===================================================== -->
+<h2>6️⃣ Sécurité</h2>
+
+<ul>
+  <li>❌ Aucune clé dans le HTML</li>
+  <li>✅ Accès base uniquement via API</li>
+  <li>✅ Séparation DEV / PROD</li>
+  <li>✅ Clés stockées côté serveur</li>
+</ul>
+
+<hr>
+
+<!-- ===================================================== -->
+<h2>7️⃣ Résumé</h2>
+
+<ul>
+  <li><code>/api/supabase001</code> → API simple et pédagogique</li>
+  <li><code>/api/supabase002</code> → API structurante (lieux, itinéraires)</li>
+  <li>Supabase fournit une base relationnelle robuste</li>
+  <li>L’architecture est prête pour des évolutions futures</li>
+</ul>
+
+<p>
+⬅️ <a href="page1-site.html">Page 1 – Le site</a><br>
+🛠️ <a href="page2-outils.html">Page 2 – Outils & déploiement</a>
 </p>
 
 </body>

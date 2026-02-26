@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Documentation – Index</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="doc.css">
 </head>
 <body>
@@ -19,6 +20,103 @@ Elle est pensée pour être lue facilement, sans jargon inutile.
   <li><a href="page1-site.html">Page 1 – Le site HTML</a></li>
   <li><a href="page2-outils.html">Page 2 – Outils & déploiement</a></li>
   <li><a href="page3-api.html">Page 3 – API & base de données</a></li>
+</ul>
+
+<hr>
+
+<h2>🔄 Quick Restart – Checklist de vérification</h2>
+
+<h3>1️⃣ Vérifier la production (PROD)</h3>
+
+<ul>
+  <li>Ouvrir l’URL publique Vercel : https://site01-snowy.vercel.app/</li>
+  <li>Vérifier que la page d’accueil s’affiche</li>
+  <li>Tester <strong>blog.html</strong></li>
+  <li>Tester <strong>admin-lieux.html</strong></li>
+</ul>
+
+<p><strong>Test API PROD :</strong></p>
+
+<pre>
+https://site01-snowy.vercel.app/api/supabase001?mot=test
+</pre>
+
+<p>
+Si une réponse JSON apparaît → API PROD fonctionnelle.
+</p>
+
+<hr>
+
+<h3>2️⃣ Vérifier l’environnement local (DEV)</h3>
+
+<p><strong>Lancer le projet :</strong></p>
+
+<pre>
+npm install
+npm run dev
+</pre>
+
+<p>
+Ouvrir ensuite :
+</p>
+
+<pre>
+http://localhost:3000
+</pre>
+
+<p><strong>Test API DEV :</strong></p>
+
+<pre>
+http://localhost:3000/api/supabase001?mot=test
+</pre>
+
+<p>
+Si une réponse apparaît → API DEV fonctionnelle.
+</p>
+
+<hr>
+
+<h3>3️⃣ Vérifier Supabase</h3>
+
+<ul>
+  <li>Se connecter au dashboard Supabase</li>
+  <li>Ouvrir la table <code>mots</code></li>
+  <li>Vérifier qu’un nouvel enregistrement apparaît après test</li>
+</ul>
+
+<hr>
+
+<h3>4️⃣ Vérifier les variables d’environnement</h3>
+
+<p><strong>En local :</strong></p>
+
+<ul>
+  <li>Fichier <code>.env.local</code> présent</li>
+  <li>Variables définies :</li>
+</ul>
+
+<pre>
+SUPABASE_URL
+SUPABASE_KEY
+</pre>
+
+<p><strong>En production :</strong></p>
+
+<ul>
+  <li>Vérifier les variables dans le dashboard Vercel</li>
+</ul>
+
+<hr>
+
+<h3>✔️ Checklist rapide</h3>
+
+<ul>
+  <li>☐ PROD accessible</li>
+  <li>☐ API PROD OK</li>
+  <li>☐ DEV local OK</li>
+  <li>☐ API DEV OK</li>
+  <li>☐ Supabase OK</li>
+  <li>☐ Variables OK</li>
 </ul>
 
 </body>

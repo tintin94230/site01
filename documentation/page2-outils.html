@@ -8,199 +8,274 @@
 </head>
 <body>
 
-  <div class="nav">
-    <a href="index.html">⬅ Index</a>
-  </div>
+<div class="nav">
+  <a href="index.html">⬅ Index</a>
+  |
+  <a href="page1-site.html">🧱 Site</a>
+  |
+  <a href="page3-api.html">🔌 API</a>
+</div>
 
-  <h1>Page 2 – Outils, workflow & déploiement</h1>
+<h1>Page 2 – Outils, workflow & déploiement</h1>
 
-  <p>
-    Cette page décrit le cycle complet de développement :
-    modification du code, tests locaux, sauvegarde Git et déploiement en production.
-  </p>
+<p>
+Cette page décrit le cycle complet de développement du projet :
+édition du code, tests locaux, gestion Git, déploiement sur Vercel
+et exposition publique via un nom de domaine OVH.
+</p>
 
-  <!-- ================= OUTILS ================= -->
+<hr>
 
-  <h2>1. Outils utilisés</h2>
-  <ul>
-    <li><strong>Visual Studio Code</strong> – édition du code</li>
-    <li><strong>Git</strong> – gestion des versions</li>
-    <li><strong>GitHub</strong> – hébergement du dépôt</li>
-    <li><strong>Vercel</strong> – hébergement du site et des API</li>
-    <li><strong>Supabase</strong> – base de données PostgreSQL</li>
-    <li><strong>OVH</strong> – nom de domaine</li>
-  </ul>
+<!-- ================= OUTILS ================= -->
 
-  <!-- ================= ENVIRONNEMENTS ================= -->
+<h2>1️⃣ Outils utilisés</h2>
 
-  <h2>2. Environnements</h2>
+<ul>
+  <li><strong>Visual Studio Code</strong> – éditeur de code principal</li>
+  <li><strong>Git</strong> – gestion des versions</li>
+  <li><strong>GitHub</strong> – hébergement du code source</li>
+  <li><strong>Vercel</strong> – déploiement du site et des API serverless</li>
+  <li><strong>Supabase</strong> – base de données PostgreSQL cloud</li>
+  <li><strong>OVH</strong> – gestion du nom de domaine</li>
+</ul>
 
-  <h3>Développement local</h3>
-  <ul>
-    <li>Serveur local (<code>localhost</code>)</li>
-    <li>Variables stockées dans <code>.env.local</code></li>
-    <li>Fichier non versionné</li>
-  </ul>
+<p>
+⚠️ Important :
+</p>
+<ul>
+  <li>📦 <strong>Le code source est versionné sur GitHub</strong></li>
+  <li>🌍 <strong>Le site (HTML + API) est déployé sur Vercel</strong></li>
+</ul>
 
-  <h3>Production</h3>
-  <ul>
-    <li>Code hébergé sur Vercel</li>
-    <li>Variables d’environnement configurées dans Vercel</li>
-    <li>Aucun fichier sensible exposé</li>
-    <li>Site accessible publiquement à l’adresse :
-      <a href="https://site01-snowy.vercel.app/" target="_blank">
-        https://site01-snowy.vercel.app/
-      </a>
-    </li>
-  </ul>
+<hr>
 
-  <!-- ================= WORKFLOW ================= -->
+<!-- ================= VSCODE ================= -->
 
-  <h2>3. Workflow de développement</h2>
+<h2>2️⃣ Visual Studio Code</h2>
 
-  <h3>1️⃣ Modifier le code</h3>
-  <p>
-    Le développement est effectué localement avec Visual Studio Code.
-    Chaque fonctionnalité est testée avant sauvegarde.
-  </p>
+<h3>Rôle</h3>
+<p>
+Visual Studio Code est utilisé pour écrire, modifier et organiser
+les fichiers HTML, CSS, JavaScript et API Node.js.
+</p>
 
-  <h3>2️⃣ Tester en local</h3>
+<h3>Extensions recommandées (HTML / Web)</h3>
 
-  <h4>Site HTML / JavaScript simple</h4>
-  <pre>
-npx serve .
-  </pre>
+<ul>
+  <li><strong>Live Server</strong> – aperçu rapide du HTML</li>
+  <li><strong>Prettier</strong> – formatage automatique du code</li>
+  <li><strong>HTML CSS Support</strong> – autocomplétion</li>
+  <li><strong>Auto Rename Tag</strong> – renomme les balises liées</li>
+  <li><strong>ESLint</strong> – détection d’erreurs JavaScript</li>
+</ul>
 
-  <h4>Projet avec Node / API</h4>
-  <pre>
-npm install
-npm run dev
-  </pre>
+<h3>Terminal intégré</h3>
 
-  <p>
-    Le site est accessible via <code>http://localhost</code>.
-  </p>
+<p>
+VS Code intègre un terminal permettant d’exécuter des commandes
+<strong>Bash / Git / Node.js</strong> sans quitter l’éditeur.
+</p>
 
-  <h3>3️⃣ Arrêter un serveur local</h3>
-  <p>Commande standard :</p>
-  <pre>
-CTRL + C
-  </pre>
+<p>Exemples :</p>
 
-  <p>Si le port reste bloqué (Windows) :</p>
-  <pre>
-netstat -ano | findstr :3000
-taskkill /PID XXXX /F
-  </pre>
-
-  <!-- ================= GIT ================= -->
-
-  <h2>4. Sauvegarde du code avec Git</h2>
-
-  <h3>Initialisation (une seule fois)</h3>
-  <pre>
-git init
-  </pre>
-
-  <h3>Workflow standard</h3>
-  <pre>
+<pre>
 git status
-git add .
-git commit -m "Message clair décrivant la modification"
-  </pre>
-
-  <h3>Envoi vers GitHub</h3>
-  <pre>
-git push
-  </pre>
-
-  <!-- ================= DEPLOIEMENT ================= -->
-
-  <h2>5. Déploiement</h2>
-
-  <h3>Déploiement de test (preview)</h3>
-  <pre>
-vercel
-  </pre>
-
-  <h3>Déploiement production</h3>
-  <pre>
+git commit -m "Mise à jour page projets"
+npm run dev
 vercel --prod
-  </pre>
+</pre>
 
-  <p>
-    Après déploiement, le site de production est disponible ici :
+<p>
+👉 Sous Windows, le terminal peut être :
+</p>
+<ul>
+  <li>Bash (Git Bash)</li>
+  <li>PowerShell</li>
+  <li>WSL</li>
+</ul>
+
+<hr>
+
+<!-- ================= ENVIRONNEMENTS ================= -->
+
+<h2>3️⃣ Environnements</h2>
+
+<h3>Développement local (DEV)</h3>
+
+<ul>
+  <li>Site lancé sur <code>localhost</code></li>
+  <li>Variables stockées dans <code>.env.local</code></li>
+  <li>Fichier jamais versionné</li>
+</ul>
+
+<h3>Production (PROD)</h3>
+
+<ul>
+  <li>Site déployé sur Vercel</li>
+  <li>API serverless exécutées sur Vercel</li>
+  <li>Variables configurées dans l’interface Vercel</li>
+  <li>URL publique :
     <a href="https://site01-snowy.vercel.app/" target="_blank">
       https://site01-snowy.vercel.app/
     </a>
-  </p>
-
-  <!-- ================= TESTS ================= -->
-
-  <h2>6. Tests</h2>
-  <ul>
-    <li>Tests via navigateur</li>
-    <li>Tests via <code>fetch()</code></li>
-    <li>Vérifications via l’interface Supabase</li>
-  </ul>
-
-  <!-- ================= RESUME ================= -->
-
-  <h2>7. Résumé</h2>
-  <ul>
-    <li>Toujours tester avant de pousser</li>
-    <li>Commit fréquemment</li>
-    <li>Ne jamais versionner les secrets</li>
-    <li>Déployer uniquement du code validé</li>
-  </ul>
-<h2>8. Variables d’environnement sur Vercel</h2>
-
-<p>
-Pour connecter votre site à Supabase, les variables d’environnement sont gérées via
-<a href="https://vercel.com/blondelmail-gmailcoms-projects/site01/settings/environment-variables" target="_blank">
-la page Vercel Environment Variables
-</a>.
-</p>
-
-<h3>Principe</h3>
-<ul>
-  <li>Chaque variable peut être assignée à <strong>Development</strong>, <strong>Preview</strong>, <strong>Production</strong> ou <strong>All Environments</strong>.</li>
-  <li>Pour avoir des valeurs différentes en DEV et PROD, ne jamais utiliser <em>All Environments</em> mais créer une variable distincte pour chaque environnement.</li>
+  </li>
 </ul>
 
-<h3>Exemple de configuration pour Supabase</h3>
-<table>
-<tr><th>Variable</th><th>DEV</th><th>PROD</th></tr>
-<tr><td>SUPABASE_URL</td><td>https://xxxx-dev.supabase.co</td><td>https://xxxx-prod.supabase.co</td></tr>
-<tr><td>SUPABASE_KEY</td><td>key_dev</td><td>key_prod</td></tr>
-</table>
+<hr>
 
-<h3>Test local DEV</h3>
+<!-- ================= OVH ================= -->
+
+<h2>4️⃣ Nom de domaine & OVH</h2>
+
+<p>
+Le nom de domaine est géré via l’interface OVH :
+</p>
+
+<p>
+<a href="https://manager.eu.ovhcloud.com/#/hub/" target="_blank">
+https://manager.eu.ovhcloud.com/#/hub/
+</a>
+</p>
+
+<h3>Rôle réel d’OVH</h3>
+
+<ul>
+  <li>Gestion DNS</li>
+  <li>Redirection vers Vercel</li>
+  <li>Aucun hébergement du site lui-même</li>
+</ul>
+
+<p>
+Flux réel :
+</p>
+
 <pre>
-vercel env pull
-# crée .env.local avec valeurs DEV
+Navigateur
+   |
+   v
+Nom de domaine (OVH)
+   |
+   v
+Site déployé sur Vercel
+   |
+   v
+APIs / Base Supabase
 </pre>
 
-<h3>Redéploiement PROD</h3>
 <p>
-Après modification des variables PROD, il faut redéployer le projet : 
-<pre>vercel --prod</pre>
+👉 OVH agit comme une <strong>porte d’entrée DNS</strong>,
+Vercel comme la <strong>plateforme d’hébergement</strong>.
 </p>
 
-<h3>Bonnes pratiques</h3>
+<hr>
+
+<!-- ================= WORKFLOW ================= -->
+
+<h2>5️⃣ Workflow de développement</h2>
+
+<h3>1. Modifier le code</h3>
+<p>
+Développement local dans Visual Studio Code.
+</p>
+
+<h3>2. Tester en local</h3>
+
+<h4>Site HTML simple</h4>
+<pre>
+npx serve .
+</pre>
+
+<h4>Projet avec API</h4>
+<pre>
+npm install
+npm run dev
+</pre>
+
+<h3>3. Arrêter le serveur</h3>
+<pre>
+CTRL + C
+</pre>
+
+<hr>
+
+<!-- ================= GIT ================= -->
+
+<h2>6️⃣ Sauvegarde du code avec Git</h2>
+
+<h3>Workflow standard</h3>
+<pre>
+git status
+git add .
+git commit -m "Description claire"
+git push
+</pre>
+
+<p>
+Le dépôt GitHub devient la source de vérité du projet.
+</p>
+
+<hr>
+
+<!-- ================= DEPLOIEMENT ================= -->
+
+<h2>7️⃣ Déploiement avec Vercel</h2>
+
+<h3>Preview</h3>
+<pre>
+vercel
+</pre>
+
+<h3>Production</h3>
+<pre>
+vercel --prod
+</pre>
+
+<p>
+Le déploiement est automatique et atomique.
+</p>
+
+<hr>
+
+<!-- ================= VARIABLES ================= -->
+
+<h2>8️⃣ Variables d’environnement</h2>
+
+<p>
+Les variables sont définies dans Vercel
+selon l’environnement (DEV / PREVIEW / PROD).
+</p>
+
+<pre>
+SUPABASE_URL
+SUPABASE_KEY
+</pre>
+
+<p>
+Chargement local :
+</p>
+
+<pre>
+vercel env pull
+</pre>
+
+<hr>
+
+<!-- ================= RESUME ================= -->
+
+<h2>9️⃣ Résumé</h2>
+
 <ul>
-<li>Séparer DEV et PROD</li>
-<li>Ne jamais exposer de clés sensibles côté front</li>
-<li>Redéployer après modification PROD</li>
-<li>Tester localement avec <code>vercel dev</code> et <code>vercel env pull</code></li>
-<li>Vérifier avec un endpoint test que les variables sont bien lues</li>
+  <li>Code versionné sur GitHub</li>
+  <li>Site et API déployés sur Vercel</li>
+  <li>OVH gère uniquement le DNS</li>
+  <li>VS Code est l’outil central</li>
+  <li>Workflow simple, clair et reproductible</li>
 </ul>
 
-<h3>Liens utiles</h3>
-<ul>
-  <li><a href="https://vercel.com/" target="_blank">Vercel – page d’accueil</a></li>
-  <li><a href="https://supabase.com/" target="_blank">Supabase – page d’accueil</a></li>
-</ul>
+<p>
+⬅️ <a href="page1-site.html">Page 1 – Le site</a><br>
+🔌 <a href="page3-api.html">Page 3 – API</a>
+</p>
 
 </body>
 </html>
