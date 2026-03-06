@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Administration – Transporteurs</title>
+<style>
+body{background:#121212;color:#fff;font-family:Inter;padding:20px}
+input,select,textarea,button{padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,0.25);background:#1e1e1e;color:white}
+button{cursor:pointer;margin:2px}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid rgba(255,255,255,0.15);padding:6px}
+textarea{resize:vertical;width:200px}
+.selectPays{display:flex;gap:4px;margin-bottom:4px;align-items:center}
+.actions{white-space:nowrap}
+.toolbar{margin-bottom:10px;display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.pagination{margin-top:10px;display:flex;gap:8px;align-items:center}
+</style>
+</head>
+<body>
+
+<h1>Administration – Transporteurs</h1>
+
+<div class="toolbar">
+  <input id="search" placeholder="Recherche nom...">
+  <button onclick="exportCSV()">⬇ Export CSV</button>
+  <label>⬆ Import CSV
+    <input type="file" id="importFile" hidden accept=".csv">
+  </label>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Nom</th>
+<th>Type</th>
+<th>Site web</th>
+<th>Pays</th>
+<th>Notes</th>
+<th class="actions">Actions</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+
+<div class="pagination">
+  <button onclick="prev()">◀</button>
+  <span id="pageInfo"></span>
+  <button onclick="next()">▶</button>
+</div>
+
+<h3>Ajouter un transporteur</h3>
+<div>
+<input id="new-nom" placeholder="Nom">
+<input id="new-type" placeholder="Type">
+<input id="new-site" placeholder="https://site.com">
+<div id="pays-container"></div>
+<button onclick="addPaysSelect()">+ Ajouter un pays</button>
+<textarea id="new-notes" placeholder="Notes"></textarea>
+<button onclick="addTransporteur()">Ajouter transporteur</button>
+</div>
+
+<script>
+const tbody = document.getElementById("tbody");
+const searchInput = document.getElementById("search");
+const newNom = document.getElementById("new-nom");
+const newType = document.getElementById("new-type");
+const newSite = document.getElementById("new-site");
+const newNotes = document.getElementById("new-notes");
+const paysContainer = document.getElementById("pays-container");
+const importFile = document.getElementById("importFile");
+
+const URL=/^https?:\/\/.+/i;
+let paysList = [], page=0, limit=25, search="", sort="nom", dir="asc";
+
+// =================== Load Pays ===================
+async function loadPays(){
+  const r = await fetch("/api/supabasePays?limit=1000");
+  const j = await r.json();
+  paysList = j.data || [];
+  paysContainer.innerHTML="";
+  addPaysSelect();
+}
+
+// Ajouter un select de pays
+function addPaysSelect(selectedId){
+  const div = document.createElement("div");
+  div.className = "selectPays";
+  const select = document.createElement("select");
+  paysList.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = `${p.code_iso} – ${p.nom}`;
+    if(p.id===selectedId) opt.selected=true;
+    select.appendChild(opt);
+  });
+  const btn = document.createElement("button");
+  btn.type="button";
+  btn.textContent="X";
+  btn.onclick = ()=>{div.remove();}
+  div.appendChild(select);
+  div.appendChild(btn);
+  paysContainer.appendChild(div);
+}
+
+// =================== Load Transporteurs ===================
+async function loadTransporteurs(){
+  const r = await fetch(`/api/supabaseTransporteurs?page=${page}&limit=${limit}&search=${search}&sort=${sort}&dir=${dir}`);
+  if(!r.ok){ tbody.innerHTML='<tr><td colspan="6">Erreur serveur</td></tr>'; return; }
+  const j = await r.json();
+  const rows = j.data||[];
+  tbody.innerHTML="";
+  rows.forEach(t=>{
+    const tr = document.createElement("tr");
+    tr.dataset.id = t.id;
+
+    // Création des selects pour les pays existants
+    const paysDivs = t.transporteurs_pays.map(tp=>{
+      return `<div class="selectPays">
+                <select data-pays-id="${tp.pays.id}">
+                  ${paysList.map(p=>`<option value="${p.id}" ${p.id===tp.pays.id?'selected':''}>${p.code_iso}</option>`).join("")}
+                </select>
+                <button type="button" onclick="removePays(this)">X</button>
+              </div>`;
+    }).join("");
+
+    tr.innerHTML=`
+<td><input value="${t.nom}"></td>
+<td><input value="${t.type||''}"></td>
+<td><input value="${t.site_web||''}"></td>
+<td class="pays-container">${paysDivs}<button type="button" onclick="addPaysSelectLine(this)">+ Ajouter</button></td>
+<td><textarea>${t.notes||''}</textarea></td>
+<td class="actions"><button onclick="remove(${t.id})">🗑</button></td>
+`;
+
+    tr.querySelectorAll("input,textarea,select").forEach(el=>{
+      el.addEventListener("change",()=>save(tr));
+    });
+    tbody.appendChild(tr);
+  });
+  document.getElementById("pageInfo").textContent=`Page ${page+1} (${rows.length})`;
+}
+
+// Ajouter un pays dans une ligne existante
+function addPaysSelectLine(btn){
+  const div = document.createElement("div");
+  div.className="selectPays";
+  const select = document.createElement("select");
+  paysList.forEach(p=>{
+    const opt=document.createElement("option");
+    opt.value=p.id;
+    opt.textContent=`${p.code_iso} – ${p.nom}`;
+    select.appendChild(opt);
+  });
+  const delBtn=document.createElement("button");
+  delBtn.type="button"; delBtn.textContent="X";
+  delBtn.onclick=()=>div.remove();
+  div.appendChild(select);
+  div.appendChild(delBtn);
+  btn.parentNode.insertBefore(div, btn);
+  save(btn.closest("tr"));
+}
+
+// Supprimer un pays
+function removePays(btn){
+  btn.parentNode.remove();
+  save(btn.closest("tr"));
+}
+
+// =================== Save (autosave) ===================
+async function save(tr){
+  const id = tr.dataset.id;
+  const [nom,type,site,notes] = tr.querySelectorAll("td input, td textarea");
+  const pays = Array.from(tr.querySelectorAll(".pays-container select")).map(s=>parseInt(s.value,10));
+  if(!nom.value || pays.length===0) return; // minimum un pays
+  if(site.value && !URL.test(site.value)) return alert("URL invalide");
+  await fetch("/api/supabaseTransporteurs",{
+    method:"PUT",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ id, nom:nom.value, type:type.value, site_web:site.value, notes:notes.value, pays })
+  });
+}
+
+// =================== Add new transporteur ===================
+async function addTransporteur(){
+  const nom=newNom.value.trim();
+  const type=newType.value.trim();
+  const site=newSite.value.trim();
+  const notes=newNotes.value.trim();
+  const pays = Array.from(paysContainer.querySelectorAll("select")).map(s=>parseInt(s.value,10));
+  if(!nom || pays.length===0) return alert("Nom et au moins un pays obligatoires");
+  if(site && !/^((https?:\/\/)|(www\.))\S+\.\S+$/i.test(site)) return alert("URL invalide");
+  const res = await fetch("/api/supabaseTransporteurs",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({nom,type,site_web:site,notes,pays})});
+  if(!res.ok) return alert("Erreur ajout");
+  newNom.value=""; newType.value=""; newSite.value=""; newNotes.value=""; paysContainer.innerHTML=""; addPaysSelect();
+  loadTransporteurs();
+}
+
+// =================== Delete transporteur ===================
+async function remove(id){
+  if(!confirm("Supprimer ?")) return;
+  await fetch("/api/supabaseTransporteurs",{method:"DELETE",headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
+  loadTransporteurs();
+}
+
+// =================== Pagination ===================
+function next(){page++;loadTransporteurs();}
+function prev(){if(page>0) page--; loadTransporteurs();}
+
+// =================== Sorting ===================
+function sortBy(col){dir=(sort===col)?(dir==="asc"?"desc":"asc"):"asc";sort=col;loadTransporteurs();}
+
+// =================== Search ===================
+searchInput.oninput = e=>{search=e.target.value; page=0; loadTransporteurs();}
+
+// =================== Export CSV ===================
+function exportCSV(){window.open("/api/supabaseTransporteurs?exportCsv=1");}
+
+// =================== Import CSV ===================
+importFile.onchange = async e=>{
+  const file=e.target.files[0]; if(!file) return;
+  const text = await file.text();
+  const lines=text.split("\n").filter(l=>l.trim());
+  const header=lines.shift().split(",");
+  const rows=lines.map(l=>{
+    const v=l.split(",");
+    const obj={};
+    header.forEach((h,i)=>obj[h]=v[i]?.replace(/"/g,''));
+    if(obj.pays) obj.pays = obj.pays.split(";").map(c=>{
+      const p = paysList.find(p=>p.code_iso===c);
+      return p?p.id:null;
+    }).filter(Boolean);
+    return obj;
+  });
+  await fetch("/api/supabaseTransporteurs?importCsv=1",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(rows)});
+  loadTransporteurs();
+};
+
+// =================== Init ===================
+document.addEventListener("DOMContentLoaded",async()=>{
+  await loadPays();
+  await loadTransporteurs();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Administration – Bénéficiaires</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { background:#121212; color:#fff; font-family:Inter,sans-serif; margin:0; padding:0; }
+  .container { max-width:1200px; margin:auto; padding:20px; }
+  h1, h3 { color:#4fc3f7; }
+  table { width:100%; border-collapse:collapse; margin-top:20px; }
+  th, td { border:1px solid rgba(255,255,255,0.3); padding:8px; text-align:left; }
+  th { background: rgba(255,255,255,0.15); }
+  input, textarea { width:100%; padding:6px; border-radius:6px; border:1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color:#fff; margin-bottom:10px; }
+  button { padding:6px 12px; border-radius:6px; border:1px solid rgba(79,195,247,0.4); background: rgba(79,195,247,0.25); color:#fff; cursor:pointer; margin-right:5px; }
+  .actions button { margin-right:5px; }
+  @media (max-width:768px){
+    table, th, td { font-size:14px; }
+    input, textarea, button { font-size:14px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Administration – Bénéficiaires</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Libellé</th>
+        <th>Age max</th>
+        <th>Notes</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <h3 id="form-title">Ajouter un bénéficiaire</h3>
+  <input id="new-code" placeholder="Code">
+  <input id="new-libelle" placeholder="Libellé">
+  <input id="new-age" type="number" min="0" placeholder="Age max">
+  <textarea id="new-notes" placeholder="Notes"></textarea>
+  <div>
+    <button id="btn-ajouter" onclick="ajouter()">Ajouter</button>
+    <button id="btn-modifier" style="display:none;" onclick="modifier()">Modifier</button>
+    <button onclick="resetForm()">Annuler</button>
+  </div>
+</div>
+
+<script>
+const tbody = document.getElementById("tbody");
+let editId = null;
+
+// Charger tous les bénéficiaires
+async function charger() {
+  const res = await fetch("/api/supabaseBeneficiaires");
+  const { data } = await res.json();
+  tbody.innerHTML = "";
+  data.forEach(b => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${b.code}</td>
+      <td>${b.libelle}</td>
+      <td>${b.age_max || ""}</td>
+      <td>${b.notes || ""}</td>
+      <td class="actions">
+        <button onclick="préremplir(${b.id}, '${b.code}', '${b.libelle}', ${b.age_max || ''}, '${b.notes || ''}')">Éditer</button>
+        <button onclick="supprimer(${b.id})">Supprimer</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Ajouter un bénéficiaire
+async function ajouter() {
+  const code = document.getElementById("new-code").value.trim();
+  const libelle = document.getElementById("new-libelle").value.trim();
+  const age_max = document.getElementById("new-age").value;
+  const notes = document.getElementById("new-notes").value.trim();
+
+  if(!code || !libelle){ alert("Code et libellé sont obligatoires"); return; }
+
+  await fetch("/api/supabaseBeneficiaires", {
+    method:"POST",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({code, libelle, age_max, notes})
+  });
+  resetForm();
+  charger();
+}
+
+// Pré-remplir le formulaire pour édition
+function préremplir(id, code, libelle, age_max, notes){
+  editId = id;
+  document.getElementById("form-title").innerText = "Modifier un bénéficiaire";
+  document.getElementById("new-code").value = code;
+  document.getElementById("new-libelle").value = libelle;
+  document.getElementById("new-age").value = age_max || "";
+  document.getElementById("new-notes").value = notes || "";
+  document.getElementById("btn-ajouter").style.display = "none";
+  document.getElementById("btn-modifier").style.display = "inline-block";
+}
+
+// Modifier un bénéficiaire
+async function modifier() {
+  const code = document.getElementById("new-code").value.trim();
+  const libelle = document.getElementById("new-libelle").value.trim();
+  const age_max = document.getElementById("new-age").value;
+  const notes = document.getElementById("new-notes").value.trim();
+
+  if(!code || !libelle){ alert("Code et libellé sont obligatoires"); return; }
+
+  await fetch("/api/supabaseBeneficiaires", {
+    method:"PUT",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({id:editId, code, libelle, age_max, notes})
+  });
+  resetForm();
+  charger();
+}
+
+// Supprimer un bénéficiaire
+async function supprimer(id){
+  if(!confirm("Confirmer la suppression ?")) return;
+  await fetch("/api/supabaseBeneficiaires", {
+    method:"DELETE",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({id})
+  });
+  charger();
+}
+
+// Réinitialiser le formulaire
+function resetForm(){
+  editId = null;
+  document.getElementById("form-title").innerText = "Ajouter un bénéficiaire";
+  document.getElementById("new-code").value = "";
+  document.getElementById("new-libelle").value = "";
+  document.getElementById("new-age").value = "";
+  document.getElementById("new-notes").value = "";
+  document.getElementById("btn-ajouter").style.display = "inline-block";
+  document.getElementById("btn-modifier").style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", charger);
+</script>
+</body>
+</html>

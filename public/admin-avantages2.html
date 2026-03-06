@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Administration – Liste complète Avantages</title>
+<style>
+body { background:#121212; color:#fff; font-family:Inter,sans-serif; margin:0; padding:0; }
+.container { max-width:1600px; margin:auto; padding:20px; }
+h1 { color:#4fc3f7; }
+table { width:100%; border-collapse:collapse; margin-top:20px; }
+th, td { border:1px solid rgba(255,255,255,0.3); padding:6px; text-align:center; }
+th { background: rgba(255,255,255,0.15); }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>Liste complète des Avantages</h1>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Pays</th>
+<th>Transporteur</th>
+<th>Bénéficiaire</th>
+<th>Coupons</th>
+<th>%</th>
+<th>2nde</th>
+<th>1ère</th>
+<th>Début</th>
+<th>Fin</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<script>
+const tbody = document.getElementById("tbody");
+
+async function chargerTous(){
+  const resp = await fetch("/api/supabaseAvantages");
+  const json = await resp.json();
+  const data = json.data || [];
+
+  tbody.innerHTML = "";
+
+  data.forEach(a=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${a.id}</td>
+      <td>${a.pays?.code_iso || ""}</td>
+      <td>${a.transporteur?.nom || ""}</td>
+      <td>${a.beneficiaire?.code || ""}</td>
+      <td>${a.nb_coupons_gratuits ?? ""}</td>
+      <td>${a.reduction_percent ?? ""}</td>
+      <td>${a.prix_forfaitaire_2nde ?? ""}</td>
+      <td>${a.prix_forfaitaire_1ere ?? ""}</td>
+      <td>${a.date_debut ?? ""}</td>
+      <td>${a.date_fin ?? ""}</td>
+      <td>${a.notes ?? ""}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", chargerTous);
+</script>
+
+</body>
+</html>

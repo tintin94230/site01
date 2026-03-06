@@ -12,9 +12,12 @@
     .admin-list {
       list-style: none;
       padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
     .admin-list li {
-      margin: 10px 0;
+      margin: 0;
     }
     .admin-list a {
       padding: 10px 20px;
@@ -24,9 +27,16 @@
       color: white;
       border-radius: 8px;
       border: 1px solid rgba(79,195,247,0.4);
+      transition: background 0.3s;
     }
-    .admin-list a:hover {
+    .admin-list a:hover,
+    .admin-list a:focus {
       background: rgba(79,195,247,0.4);
+      outline: none;
+    }
+    nav ul li a.active {
+      background: rgba(255, 255, 255, 0.2);
+      font-weight: 600;
     }
   </style>
 </head>
@@ -52,9 +62,11 @@
     <h2>Gestion des tables</h2>
     <ul class="admin-list">
       <li><a href="admin-lieux.html">Gérer la table des lieux</a></li>
-      <!-- À terme, on pourra ajouter d'autres tables ici -->
-       <li><a href="admin-itineraires.html">Gérer la table des itinéraires</a></li>
-
+      <li><a href="admin-itineraires.html">Gérer la table des itinéraires</a></li>
+      <li><a href="admin-pays.html">Gérer la table des pays</a></li>
+      <li><a href="admin-transporteurs.html">Gérer la table des transporteurs</a></li>
+      <li><a href="admin-beneficiaires.html">Gérer la table des bénéficiaires</a></li>
+      <li><a href="admin-avantages.html">Gérer la table des avantages</a></li>
     </ul>
   </main>
 

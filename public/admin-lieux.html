@@ -1,64 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Administration – Lieux</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 8px;
-      text-align: left;
-    }
-    th {
-      background: rgba(255,255,255,0.15);
-    }
-    input[type="text"], input[type="number"] {
-      width: 100%;
-      padding: 6px;
-      box-sizing: border-box;
-      background: rgba(255,255,255,0.1);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 6px;
-    }
-    button {
-      padding: 6px 12px;
-      cursor: pointer;
-      border-radius: 8px;
-      border: 1px solid rgba(79,195,247,0.4);
-      background: rgba(79,195,247,0.25);
-      color: white;
-    }
-    button:hover {
-      background: rgba(79,195,247,0.4);
-    }
-    .form-ajout {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr auto auto;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .back-link {
-      margin-top: 20px;
-      display: inline-block;
-      padding: 8px 16px;
-      background: rgba(79,195,247,0.25);
-      border-radius: 6px;
-      border: 1px solid rgba(79,195,247,0.4);
-      color: white;
-      text-decoration: none;
-    }
-    .back-link:hover {
-      background: rgba(79,195,247,0.4);
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Administration – Lieux</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  body { background:#121212; font-family:Inter, sans-serif; color:#fff; }
+  .container { max-width: 1000px; margin:auto; padding:20px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  th, td { border: 1px solid rgba(255,255,255,0.3); padding: 8px; text-align: left; }
+  th { background: rgba(255,255,255,0.15); }
+  input[type="text"], input[type="number"] { width:100%; padding:6px; border-radius:6px; border:1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color:#fff; }
+  button { padding:6px 12px; border-radius:6px; border:1px solid rgba(79,195,247,0.4); background: rgba(79,195,247,0.25); color:#fff; cursor:pointer; margin-right:5px; }
+  button:hover { background: rgba(79,195,247,0.4); }
+  .form-ajout { display:grid; grid-template-columns:2fr 1fr 1fr auto auto; gap:10px; margin-top:20px; }
+  .back-link { margin-top:20px; display:inline-block; padding:8px 16px; background: rgba(79,195,247,0.25); border-radius:6px; border:1px solid rgba(79,195,247,0.4); color:white; text-decoration:none; }
+  .back-link:hover { background: rgba(79,195,247,0.4); }
+  #import-status { margin-top:10px; font-weight:bold; }
+  #pagination-info { margin-top:10px; }
+</style>
 </head>
 
 <body>
@@ -83,7 +44,6 @@
     <a href="admin.html" class="back-link">← Retour à l’accueil Admin</a>
 
     <h2>Liste des lieux enregistrés</h2>
-
     <table id="table-supabase002">
       <thead>
         <tr>
@@ -95,9 +55,13 @@
       </thead>
       <tbody></tbody>
     </table>
+    <div id="pagination-info"></div>
+    <button onclick="prevPage()">← Page précédente</button>
+    <button onclick="nextPage()">Page suivante →</button>
+
+    <button onclick="exportCSV()">📥 Export CSV</button>
 
     <h3>Ajouter un nouveau lieu</h3>
-
     <div class="form-ajout">
       <input type="text" id="nouveau-nom" placeholder="Nom du lieu">
       <input type="number" step="any" id="nouvelle-latitude" placeholder="Latitude">
@@ -106,6 +70,9 @@
       <button onclick="ajouterLieu()">AJOUTER</button>
     </div>
 
+    <h3>Importer depuis CSV</h3>
+    <input type="file" id="import-csv" accept=".csv">
+    <div id="import-status"></div>
   </main>
 
   <footer>© 2026 · Tintin94230</footer>
@@ -113,129 +80,220 @@
 
 <script>
 const tbody = document.querySelector('#table-supabase002 tbody');
+const statusDiv = document.getElementById('import-status');
+const paginationInfo = document.getElementById('pagination-info');
 
+let currentPage = 0;
+const pageSize = 500;
+let currentData = [];
+
+// --- Statut
+function setStatus(msg, type='info') {
+  statusDiv.textContent = msg;
+  statusDiv.style.color = type === 'error' ? '#ff6b6b' : type === 'success' ? '#4caf50' : '#fff';
+}
+
+// --- Création input
 function creerInput(type, value, field) {
   const input = document.createElement('input');
   input.type = type;
-  input.step = type === 'number' ? 'any' : undefined;
+  input.step = type==='number'?'any':undefined;
   input.value = value ?? '';
   input.dataset.field = field;
   return input;
 }
 
-async function chargersupabase002() {
+// --- Charger une page de lieux
+async function chargerPage(page) {
   tbody.innerHTML = '<tr><td colspan="4">⏳ Chargement...</td></tr>';
-  try {
-    const res = await fetch('/api/supabase002');
-    if (!res.ok) throw new Error('Erreur API');
-    const data = await res.json();
-    if (!Array.isArray(data)) throw new Error('Données invalides');
 
+  try {
+    const res = await fetch(`/api/supabase002?page=${page}&limit=${pageSize}`);
+    if (!res.ok) throw new Error('Erreur API');
+
+    const result = await res.json();
+
+    const data = result.data;     // ✅ tableau réel
+    const total = result.total;   // ✅ nombre total en base
+
+    currentData = data;
     tbody.innerHTML = '';
+
+    if (data.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4">Aucun résultat</td></tr>';
+      return;
+    }
+
     data.forEach(lieu => {
       const tr = document.createElement('tr');
+
       const tdNom = document.createElement('td');
       tdNom.appendChild(creerInput('text', lieu.nom, 'nom'));
+
       const tdLat = document.createElement('td');
       tdLat.appendChild(creerInput('number', lieu.latitude, 'latitude'));
+
       const tdLon = document.createElement('td');
       tdLon.appendChild(creerInput('number', lieu.longitude, 'longitude'));
+
       const tdActions = document.createElement('td');
+
       const btnMod = document.createElement('button');
       btnMod.textContent = 'Modifier';
       btnMod.onclick = () => modifierLieu(lieu.id, tr, btnMod);
+
       const btnSup = document.createElement('button');
       btnSup.textContent = 'Supprimer';
       btnSup.onclick = () => supprimerLieu(lieu.id);
+
       tdActions.append(btnMod, btnSup);
       tr.append(tdNom, tdLat, tdLon, tdActions);
       tbody.appendChild(tr);
     });
+
+    const totalPages = Math.ceil(total / pageSize);
+
+    paginationInfo.textContent =
+      `Page ${currentPage + 1} / ${totalPages} — ${total} lieux au total`;
+
   } catch (err) {
     console.error(err);
     tbody.innerHTML = '<tr><td colspan="4">❌ Erreur de chargement</td></tr>';
   }
 }
 
+
+
+
+
+
+// --- Pagination
+function nextPage() { currentPage++; chargerPage(currentPage); }
+function prevPage() { if(currentPage>0){ currentPage--; chargerPage(currentPage); } }
+
+// --- Recherche coordonnées via Nominatim
 async function rechercherCoordonnees() {
   const nom = document.getElementById('nouveau-nom').value.trim();
   const latInput = document.getElementById('nouvelle-latitude');
   const lonInput = document.getElementById('nouvelle-longitude');
-  if (!nom) {
-    alert('Veuillez saisir un nom de lieu');
-    return;
-  }
-  latInput.value = '';
-  lonInput.value = '';
+  if(!nom) { alert('Veuillez saisir un nom de lieu'); return; }
+  latInput.value=''; lonInput.value='';
   try {
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(nom)}`;
-    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-    if (!res.ok) throw new Error('Erreur API géocodage');
+    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(nom)}`, {headers:{'Accept':'application/json'}});
+    if(!res.ok) throw new Error('Erreur API géocodage');
     const data = await res.json();
-    if (!Array.isArray(data) || data.length === 0) {
-      alert('Lieu introuvable');
-      return;
-    }
+    if(!Array.isArray(data) || data.length===0){ alert('Lieu introuvable'); return; }
     latInput.value = Number(data[0].lat).toFixed(6);
     lonInput.value = Number(data[0].lon).toFixed(6);
-  } catch (err) {
-    console.error(err);
-    alert('Erreur lors de la recherche des coordonnées');
-  }
+  } catch(err){ console.error(err); alert('Erreur lors de la recherche des coordonnées'); }
 }
 
+// --- Ajouter lieu
 async function ajouterLieu() {
-  const nomInput = document.getElementById('nouveau-nom');
-  const latInput = document.getElementById('nouvelle-latitude');
-  const lonInput = document.getElementById('nouvelle-longitude');
-  const nom = nomInput.value.trim();
-  const latitude = Number(latInput.value);
-  const longitude = Number(lonInput.value);
-  if (!nom || isNaN(latitude) || isNaN(longitude)) {
-    alert('Tous les champs sont obligatoires');
-    return;
-  }
-  await fetch('/api/supabase002', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nom, latitude, longitude })
-  });
-  chargersupabase002();
-  // vider le formulaire
-  nomInput.value = '';
-  latInput.value = '';
-  lonInput.value = '';
-  nomInput.focus();
+  const nom = document.getElementById('nouveau-nom').value.trim();
+  const latitude = Number(document.getElementById('nouvelle-latitude').value);
+  const longitude = Number(document.getElementById('nouvelle-longitude').value);
+  if(!nom || isNaN(latitude) || isNaN(longitude)){ alert('Tous les champs sont obligatoires'); return; }
+  await fetch('/api/supabase002',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({nom,latitude,longitude})});
+  chargerPage(currentPage);
+  document.getElementById('nouveau-nom').value='';
+  document.getElementById('nouvelle-latitude').value='';
+  document.getElementById('nouvelle-longitude').value='';
 }
 
+// --- Modifier lieu
 async function modifierLieu(id, row, bouton) {
   const inputs = row.querySelectorAll('input');
-  const data = { id };
+  const data = {id};
   inputs.forEach(input => {
-    data[input.dataset.field] =
-      input.type === 'number' ? Number(input.value) : input.value.trim();
+    data[input.dataset.field] = input.type==='number'?Number(input.value):input.value.trim();
   });
-  bouton.disabled = true;
-  await fetch('/api/supabase002', {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-  bouton.disabled = false;
-  chargersupabase002();
+  bouton.disabled=true;
+  await fetch('/api/supabase002',{method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)});
+  bouton.disabled=false;
+  chargerPage(currentPage);
 }
 
-async function supprimerLieu(id) {
-  if (!confirm('Supprimer ce lieu ?')) return;
-  await fetch('/api/supabase002', {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id })
-  });
-  chargersupabase002();
+// --- Supprimer lieu
+async function supprimerLieu(id){
+  if(!confirm('Supprimer ce lieu ?')) return;
+  await fetch('/api/supabase002',{method:'DELETE', headers:{'Content-Type':'application/json'}, body:JSON.stringify({id})});
+  chargerPage(currentPage);
 }
 
-document.addEventListener('DOMContentLoaded', chargersupabase002);
+// --- Export CSV de la page courante
+function exportCSV(){
+  const rows = [['Nom','Latitude','Longitude']];
+  currentData.forEach(lieu=>{
+    rows.push([lieu.nom, lieu.latitude, lieu.longitude]);
+  });
+  const csvContent = rows.map(r=>r.join(',')).join('\n');
+  const blob = new Blob([csvContent], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `lieux_page_${currentPage+1}.csv`; a.click();
+  URL.revokeObjectURL(url);
+}
+
+
+
+
+// --- Import CSV avec détection de doublons
+document.getElementById('import-csv').addEventListener('change', async function(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  setStatus('⏳ Lecture du fichier...');
+  const text = await file.text();
+  const rows = text.trim().split('\n');
+  if(rows.length <=1){ setStatus('❌ Le fichier est vide', 'error'); return; }
+
+  // Vérifier header
+  const header = rows[0].split(',');
+  if(header.length<3 || header[0].toLowerCase()!=='nom'){ setStatus('❌ CSV invalide', 'error'); return; }
+
+  // Charger tous les noms existants (uniquement pour éviter doublons)
+  let page=0, existingNames=[];
+  while(true){
+    const res = await fetch(`/api/supabase002?page=${page}&limit=${pageSize}`);
+const result = await res.json();
+const data = result.data;
+
+if (data.length === 0) break;
+
+existingNames = existingNames.concat(
+  data.map(l => l.nom.toLowerCase())
+);
+
+if (data.length < pageSize) break;
+    page++;
+  }
+
+  let count=0;
+  setStatus('⏳ Import en cours...');
+  for(let i=1;i<rows.length;i++){
+    const cols = rows[i].split(',');
+    if(cols.length<3) continue;
+    const nom = cols[0].trim();
+    const lat = parseFloat(cols[1]);
+    const lon = parseFloat(cols[2]);
+    if(!nom || isNaN(lat)||isNaN(lon)) continue;
+    if(existingNames.includes(nom.toLowerCase())) continue;
+    try{
+      await fetch('/api/supabase002',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({nom,latitude:lat,longitude:lon})});
+      existingNames.push(nom.toLowerCase());
+      count++;
+    } catch(err){ console.error(err); }
+  }
+  setStatus(`✅ Import terminé : ${count} lieux ajoutés`, 'success');
+  chargerPage(currentPage);
+});
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', ()=>chargerPage(currentPage));
 </script>
 </body>
 </html>
