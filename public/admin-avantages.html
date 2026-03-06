@@ -4,90 +4,125 @@
 <meta charset="UTF-8">
 <title>Administration – Avantages</title>
 <style>
-body { background:#121212; color:#fff; font-family:Inter,sans-serif; margin:0; padding:0; }
-.container { max-width:1600px; margin:auto; padding:20px; }
-h1, h3 { color:#4fc3f7; margin-top:30px; }
-table { width:100%; border-collapse:collapse; margin-top:15px; }
-th, td { border:1px solid rgba(255,255,255,0.3); padding:6px; text-align:center; }
-th { background: rgba(255,255,255,0.15); }
-input, select, textarea { width:100%; padding:6px; border-radius:6px; border:1px solid rgba(255,255,255,0.3); background:#1e1e1e; color:#fff; }
-textarea { resize:vertical; }
-button { padding:5px 10px; border-radius:5px; border:1px solid rgba(79,195,247,0.4); background: rgba(79,195,247,0.25); color:#fff; cursor:pointer; }
-button:hover { background: rgba(79,195,247,0.45); }
+  body { 
+    background: #121212; 
+    color: #fff; 
+    font-family: Inter, sans-serif; 
+    margin: 0; 
+    padding: 0; 
+  }
+  .container { 
+    max-width: 1600px; 
+    margin: auto; 
+    padding: 20px; 
+  }
+  h1, h3 { 
+    color: #4fc3f7; 
+    margin-top: 30px; 
+  }
+  table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 15px; 
+  }
+  th, td { 
+    border: 1px solid rgba(255,255,255,0.3); 
+    padding: 6px; 
+    text-align: center; 
+  }
+  th { 
+    background: rgba(255,255,255,0.15); 
+  }
+  input, select, textarea { 
+    width: 100%; 
+    padding: 6px; 
+    border-radius: 6px; 
+    border: 1px solid rgba(255,255,255,0.3); 
+    background: #1e1e1e; 
+    color: #fff; 
+  }
+  textarea { resize: vertical; }
+  button { 
+    padding: 5px 10px; 
+    border-radius: 5px; 
+    border: 1px solid rgba(79,195,247,0.4); 
+    background: rgba(79,195,247,0.25); 
+    color: #fff; 
+    cursor: pointer; 
+  }
+  button:hover { background: rgba(79,195,247,0.45); }
 </style>
 </head>
 <body>
 
 <div class="container">
 
-<h1>Administration – Avantages</h1>
+  <h1>Administration – Avantages</h1>
 
-<label>Pays</label>
-<select id="pays-select">
-<option value="">-- Choisir un pays --</option>
-</select>
+  <!-- FILTRES / AJOUT -->
+  <label>Pays</label>
+  <select id="pays-select">
+    <option value="">-- Choisir un pays --</option>
+  </select>
 
-<label>Transporteur</label>
-<select id="transporteur-select">
-<option value="">-- Choisir un transporteur --</option>
-</select>
+  <label>Transporteur</label>
+  <select id="transporteur-select">
+    <option value="">-- Choisir un transporteur --</option>
+  </select>
 
-<h3>Création / modification</h3>
-<table>
-<thead>
-<tr>
-<th>Bénéficiaire</th>
-<th>Nb coupons</th>
-<th>%</th>
-<th>2nde</th>
-<th>1ère</th>
-<th>Conditions</th>
-<th>Notes</th>
-<th>Début</th>
-<th>Fin</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody id="tbody"></tbody>
-</table>
+  <h3>Création / modification</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Bénéficiaire</th>
+        <th>Nb coupons</th>
+        <th>%</th>
+        <th>2nde</th>
+        <th>1ère</th>
+        <th>Conditions</th>
+        <th>Notes</th>
+        <th>Début</th>
+        <th>Fin</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
 
-<h3>Avantages enregistrés</h3>
-<table>
-<thead>
-<tr>
-<th>Pays</th>
-<th>Transporteur</th>
-<th>Bénéficiaire</th>
-<th>Coupons</th>
-<th>%</th>
-<th>2nde</th>
-<th>1ère</th>
-<th>Début</th>
-<th>Fin</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody id="tbody-liste"></tbody>
-</table>
+  <h3>Avantages enregistrés</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Pays</th>
+        <th>Transporteur</th>
+        <th>Bénéficiaire</th>
+        <th>Coupons</th>
+        <th>%</th>
+        <th>2nde</th>
+        <th>1ère</th>
+        <th>Début</th>
+        <th>Fin</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody id="tbody-liste"></tbody>
+  </table>
 
 </div>
 
 <script>
 let paysList = [], transporteurs = [], beneficiaires = [];
-
 const tbody = document.getElementById("tbody");
 const tbodyListe = document.getElementById("tbody-liste");
 
 /* ========================= LOADERS ========================= */
-
 async function chargerPays(){
   const resp = await fetch("/api/supabasePays?simple=1&used=1");
   const json = await resp.json();
   paysList = json.data || [];
-
   const sel = document.getElementById("pays-select");
   sel.innerHTML = "<option value=''>-- Choisir un pays --</option>";
-
   paysList.forEach(p=>{
     const opt = document.createElement("option");
     opt.value = p.id;
@@ -100,11 +135,9 @@ async function chargerTransporteurs(pays_id){
   const sel = document.getElementById("transporteur-select");
   sel.innerHTML = "<option value=''>-- Choisir un transporteur --</option>";
   if(!pays_id) return;
-
   const resp = await fetch(`/api/supabaseTransporteurs?simple=1&pays_id=${pays_id}`);
   const json = await resp.json();
   transporteurs = json.data || [];
-
   transporteurs.forEach(t=>{
     const opt = document.createElement("option");
     opt.value = t.id;
@@ -120,7 +153,6 @@ async function chargerBeneficiaires(){
 }
 
 /* ========================= TABLE SAISIE ========================= */
-
 function construireTable(){
   tbody.innerHTML = "";
   beneficiaires.forEach(b=>{
@@ -142,7 +174,6 @@ function construireTable(){
 }
 
 /* ========================= SAVE ========================= */
-
 async function enregistrer(btn, beneficiaire_id){
   const tr = btn.closest("tr");
   const val = i => tr.children[i].querySelector("input,textarea").value;
@@ -181,18 +212,9 @@ async function enregistrer(btn, beneficiaire_id){
   }
 }
 
-/* ========================= LISTE ========================= */
-
+/* ========================= LISTE COMPLETE ========================= */
 async function chargerAvantagesListe(){
-  const pays_id = document.getElementById("pays-select").value;
-  const transporteur_id = document.getElementById("transporteur-select").value;
-
-  if(!pays_id || !transporteur_id){
-    tbodyListe.innerHTML = "";
-    return;
-  }
-
-  const resp = await fetch(`/api/supabaseAvantages?pays_id=${pays_id}&transporteur_id=${transporteur_id}`);
+  const resp = await fetch("/api/supabaseAvantages");
   const json = await resp.json();
   const data = json.data || [];
 
@@ -201,6 +223,7 @@ async function chargerAvantagesListe(){
   data.forEach(a=>{
     const tr = document.createElement("tr");
     tr.innerHTML = `
+      <td>${a.id}</td>
       <td>${a.pays?.code_iso || ""}</td>
       <td>${a.transporteur?.nom || ""}</td>
       <td>${a.beneficiaire?.code || ""}</td>
@@ -217,18 +240,15 @@ async function chargerAvantagesListe(){
 }
 
 /* ========================= EVENTS ========================= */
-
 document.getElementById("pays-select").addEventListener("change", async (e)=>{
   await chargerTransporteurs(e.target.value);
-  chargerAvantagesListe();
 });
-
-document.getElementById("transporteur-select").addEventListener("change", chargerAvantagesListe);
 
 document.addEventListener("DOMContentLoaded", async ()=>{
   await chargerPays();
   await chargerBeneficiaires();
   construireTable();
+  chargerAvantagesListe(); // liste complète
 });
 </script>
 

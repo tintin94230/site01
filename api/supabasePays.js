@@ -1,49 +1,41 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
-);
-
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 const ISO_REGEX = /^[A-Z]{2}$/;
+
+function formatResponse({ success, data = null, error = null }) {
+  return { success, data, error };
+}
+
+function validateCodeISO(code_iso) {
+  if (!ISO_REGEX.test(code_iso)) throw new Error("Code ISO = 2 lettres A-Z");
+}
 
 export default async function handler(req, res) {
   try {
-    // ===============================
-    // GET
-    // ===============================
     if (req.method === "GET") {
-      const { simple, page = 0, limit = 25, search = "", sort = "nom", dir = "asc", exportCsv, used } = req.query;
+      const { simple, search = "", sort = "nom", dir = "asc", exportCsv, used } = req.query;
 
-      // --- Mode simple pour dropdowns (tous les pays utilisés dans transporteurs_pays) ---
-      if(simple === "1" && used === "1") {
-        // 1️⃣ Récupérer les IDs de pays utilisés
+      // Mode simple dropdowns (tous les pays, pas de pagination)
+      if (simple === "1" && used === "1") {
         const { data: tpData, error: tpError } = await supabase
           .from("transporteurs_pays")
           .select("pays_id", { distinct: true });
-        if(tpError) throw tpError;
+        if (tpError) throw tpError;
 
         const idsUtilises = tpData.map(t => t.pays_id);
-        if(idsUtilises.length === 0) return res.json({ data: [] });
+        if (!idsUtilises.length) return res.json(formatResponse({ success: true, data: [] }));
 
-        // 2️⃣ Récupérer les pays correspondants
         const { data, error } = await supabase
           .from("pays")
           .select("id, code_iso, nom")
           .in("id", idsUtilises)
-          .order("nom", { ascending: true });
-        if(error) throw error;
-
-        return res.json({ data });
+          .order("nom"); // ← Récupère tous les pays utilisés, sans limite
+        if (error) throw error;
+        return res.json(formatResponse({ success: true, data }));
       }
 
-      // --- Pagination normale ---
-      let p = parseInt(page);
-      let l = parseInt(limit);
-      const from = p * l;
-      const to = from + l - 1;
-
-      // -------- EXPORT CSV --------
+      // Export CSV
       if (exportCsv === "1") {
         const { data, error } = await supabase
           .from("pays")
@@ -51,88 +43,68 @@ export default async function handler(req, res) {
           .order("nom");
         if (error) throw error;
         const header = "nom,code_iso,notes\n";
-        const rows = data.map(r =>
-          `"${r.nom}","${r.code_iso}","${(r.notes ?? "").replace(/"/g,'""')}"`
-        ).join("\n");
+        const rows = data.map(r => `"${r.nom}","${r.code_iso}","${(r.notes ?? "").replace(/"/g,'""')}"`).join("\n");
         res.setHeader("Content-Type", "text/csv");
         return res.send(header + rows);
       }
 
-      // -------- Liste complète avec pagination et recherche --------
+      // Liste avec pagination/recherche (optionnelle)
       let query = supabase
         .from("pays")
         .select("*", { count: "exact" })
         .order(sort, { ascending: dir === "asc" });
-
       if (search) query = query.ilike("nom", `%${search}%`);
 
-      const { data, count, error } = await query.range(from, to);
+      const { data, count, error } = await query; // ← plus de range(), récupère tout
       if (error) throw error;
-
-      return res.json({ data, total: count });
+      return res.json(formatResponse({ success: true, data, total: count }));
     }
 
-    // ===============================
     // POST CSV bulk
-    // ===============================
     if (req.method === "POST" && req.query.importCsv === "1") {
       const rows = req.body;
-      rows.forEach(r => {
-        if (!ISO_REGEX.test(r.code_iso))
-          throw new Error(`Code ISO invalide : ${r.code_iso}`);
-      });
-      const { error } = await supabase
-        .from("pays")
-        .upsert(rows, { onConflict: "code_iso" });
+      rows.forEach(r => validateCodeISO(r.code_iso));
+      const { error } = await supabase.from("pays").upsert(rows, { onConflict: "code_iso" });
       if (error) throw error;
-      return res.json({ success: true });
+      return res.json(formatResponse({ success: true }));
     }
 
-    // ===============================
     // POST single
-    // ===============================
     if (req.method === "POST") {
       let { nom, code_iso, notes } = req.body;
       code_iso = code_iso?.toUpperCase().trim();
-      if (!ISO_REGEX.test(code_iso))
-        return res.status(400).json({ error: "Code ISO = 2 lettres A-Z" });
-      const { data, error } = await supabase
-        .from("pays")
-        .insert([{ nom, code_iso, notes }])
-        .select();
+      validateCodeISO(code_iso);
+
+      const { data, error } = await supabase.from("pays").insert([{ nom, code_iso, notes }]).select();
       if (error) throw error;
-      return res.json(data[0]);
+      return res.json(formatResponse({ success: true, data: data[0] }));
     }
 
-    // ===============================
-    // PUT (mise à jour)
-    // ===============================
+    // PUT
     if (req.method === "PUT") {
       let { id, nom, code_iso, notes } = req.body;
       code_iso = code_iso?.toUpperCase().trim();
-      if (!ISO_REGEX.test(code_iso))
-        return res.status(400).json({ error: "Code ISO = 2 lettres A-Z" });
+      validateCodeISO(code_iso);
+
       const { error } = await supabase
         .from("pays")
         .update({ nom, code_iso, notes, updated_at: new Date() })
         .eq("id", id);
       if (error) throw error;
-      return res.json({ success: true });
+      return res.json(formatResponse({ success: true }));
     }
 
-    // ===============================
     // DELETE
-    // ===============================
     if (req.method === "DELETE") {
       const { id } = req.body;
+      if (!id) return res.status(400).json(formatResponse({ success: false, error: "ID manquant" }));
       await supabase.from("pays").delete().eq("id", id);
-      return res.end();
+      return res.json(formatResponse({ success: true }));
     }
 
-    return res.status(405).end();
-
+    return res.status(405).json(formatResponse({ success: false, error: "Méthode non autorisée" }));
   } catch (e) {
     console.error(e);
-    res.status(500).json({ error: e.message });
+    return res.status(500).json(formatResponse({ success: false, error: e.message }));
   }
 }

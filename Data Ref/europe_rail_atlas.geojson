@@ -1,0 +1,1583 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Paris"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Lyon"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.8357,
+          45.764
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Marseille"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.3698,
+          43.2965
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Nice"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.2619,
+          43.7102
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Bordeaux"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.5792,
+          44.8378
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Toulouse"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.4442,
+          43.6047
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Nantes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.5536,
+          47.2184
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Rennes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.6778,
+          48.1173
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Strasbourg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.7521,
+          48.5734
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Rouen"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.0993,
+          49.4431
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Amiens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2957,
+          49.8941
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Dijon"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.0415,
+          47.322
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Clermont-Ferrand"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.087,
+          45.7772
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "London"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1276,
+          51.5072
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Edinburgh"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1883,
+          55.9533
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Brighton"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1406,
+          50.8225
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Cardiff"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.1791,
+          51.4816
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Norwich"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.2974,
+          52.6309
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Brussels"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3517,
+          50.8503
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Bruges"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.2247,
+          51.2093
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Amsterdam"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9041,
+          52.3676
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Rotterdam"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.4777,
+          51.9244
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Berlin"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.405,
+          52.52
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Hamburg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.9937,
+          53.5511
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Frankfurt"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.6821,
+          50.1109
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Cologne"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.9603,
+          50.9375
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Munich"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.582,
+          48.1351
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Zurich"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.5417,
+          47.3769
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Basel"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5886,
+          47.5596
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Bern"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.4474,
+          46.948
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Lausanne"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.6323,
+          46.5197
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Geneva"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.1432,
+          46.2044
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Vienna"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.3738,
+          48.2082
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Salzburg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.0458,
+          47.8095
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Innsbruck"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.4041,
+          47.2692
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Milan"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.19,
+          45.4642
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Venice"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.3155,
+          45.4408
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Bologna"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.3426,
+          44.4949
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Florence"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.2558,
+          43.7696
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Rome"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.4964,
+          41.9028
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Naples"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.2681,
+          40.8518
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Genoa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.9463,
+          44.4056
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Bari"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.8719,
+          41.1171
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Palermo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.3613,
+          38.1157
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Catania"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.0873,
+          37.5027
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Messina"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.5557,
+          38.1938
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Salerno"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.7681,
+          40.6824
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Madrid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.7038,
+          40.4168
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Barcelona"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.1734,
+          41.3851
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Seville"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -5.9845,
+          37.3891
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Cordoba"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.7794,
+          37.8882
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Malaga"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.4214,
+          36.7213
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Valladolid"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -4.7286,
+          41.6523
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Santander"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.8044,
+          43.4623
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "San Sebastian"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.9812,
+          43.3183
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Irun"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.7888,
+          43.339
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Lisbon"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -9.1393,
+          38.7223
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Porto"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -8.6291,
+          41.1579
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Prague"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.4378,
+          50.0755
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Warsaw"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          21.0122,
+          52.2297
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Budapest"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          19.0402,
+          47.4979
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Copenhagen"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.5683,
+          55.6761
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Stockholm"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.0686,
+          59.3293
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Oslo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.7522,
+          59.9139
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Athens"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.7275,
+          37.9838
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Sofia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.3219,
+          42.6977
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Bucharest"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          26.1025,
+          44.4268
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Belgrade"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          20.4573,
+          44.7872
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Zagreb"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.9819,
+          45.815
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Split"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.4402,
+          43.5081
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "hub",
+        "name": "Luxembourg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.1319,
+          49.6116
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Paris-Brussels"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.3522,
+            48.8566
+          ],
+          [
+            4.3517,
+            50.8503
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Paris-Lyon"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.3522,
+            48.8566
+          ],
+          [
+            4.8357,
+            45.764
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Lyon-Marseille"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            4.8357,
+            45.764
+          ],
+          [
+            5.3698,
+            43.2965
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Marseille-Nice"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            5.3698,
+            43.2965
+          ],
+          [
+            7.2619,
+            43.7102
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Paris-Bordeaux"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.3522,
+            48.8566
+          ],
+          [
+            -0.5792,
+            44.8378
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Bordeaux-Irun"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -0.5792,
+            44.8378
+          ],
+          [
+            -1.7888,
+            43.339
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Paris-Strasbourg"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.3522,
+            48.8566
+          ],
+          [
+            7.7521,
+            48.5734
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Strasbourg-Munich"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            7.7521,
+            48.5734
+          ],
+          [
+            11.582,
+            48.1351
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Munich-Vienna"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            11.582,
+            48.1351
+          ],
+          [
+            16.3738,
+            48.2082
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Vienna-Budapest"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            16.3738,
+            48.2082
+          ],
+          [
+            19.0402,
+            47.4979
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Milan-Rome"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.19,
+            45.4642
+          ],
+          [
+            12.4964,
+            41.9028
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Rome-Naples"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            12.4964,
+            41.9028
+          ],
+          [
+            14.2681,
+            40.8518
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Barcelona-Marseille"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.1734,
+            41.3851
+          ],
+          [
+            5.3698,
+            43.2965
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Madrid-Barcelona"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -3.7038,
+            40.4168
+          ],
+          [
+            2.1734,
+            41.3851
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Berlin-Warsaw"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            13.405,
+            52.52
+          ],
+          [
+            21.0122,
+            52.2297
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Hamburg-Copenhagen"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.9937,
+            53.5511
+          ],
+          [
+            12.5683,
+            55.6761
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Copenhagen-Stockholm"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            12.5683,
+            55.6761
+          ],
+          [
+            18.0686,
+            59.3293
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "corridor",
+        "name": "Stockholm-Oslo"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            18.0686,
+            59.3293
+          ],
+          [
+            10.7522,
+            59.9139
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Lille-Brussels"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.0573,
+          50.6292
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Strasbourg-Offenburg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.94,
+          48.47
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Mulhouse-Basel"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.5886,
+          47.5596
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Menton-Ventimiglia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.6149,
+          43.7912
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Hendaye-Irun"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.7816,
+          43.3713
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Latour-Puigcerda"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.9394,
+          42.459
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Forbach-Saarbrucken"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.901,
+          49.1897
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Kehl-Strasbourg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.8167,
+          48.5667
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Wissembourg-Germany"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.945,
+          49.037
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Basel-Bad"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.607,
+          47.567
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Kufstein-Germany"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.1695,
+          47.582
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Salzburg-Germany"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.0458,
+          47.8095
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "FrankfurtOder-Slubice"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.5506,
+          52.3471
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Zgorzelec-Gorlitz"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          15.007,
+          51.15
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "Chiasso-Como"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.031,
+          45.832
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "type": "border_crossing",
+        "name": "BrennerPass"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.507,
+          47.003
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CSV Geocoder</title>
+
+<style>
+body{
+font-family:Arial;
+margin:40px;
+}
+
+textarea{
+width:100%;
+height:300px;
+}
+
+button{
+margin-top:10px;
+padding:8px 14px;
+}
+
+#progress{
+margin-top:10px;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>CSV Geocoder</h2>
+
+<input type="file" id="csvFile" accept=".csv">
+<br>
+<button onclick="processCSV()">Process CSV</button>
+
+<div id="progress"></div>
+
+<h3>Output</h3>
+
+<textarea id="output"></textarea>
+<br>
+
+<button onclick="downloadCSV()">Download CSV</button>
+
+<script>
+
+let results=[]
+
+function fixEncoding(str){
+
+if(str.includes("Ã")){
+
+try{
+
+return decodeURIComponent(escape(str))
+
+}catch{
+
+return str
+
+}
+
+}
+
+return str
+
+}
+
+
+function removeAccents(str){
+
+return str
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+
+}
+
+
+function cleanSearchName(str){
+
+let s=str
+
+s=s.replace(/gare/gi,"")
+s=s.replace(/station/gi,"")
+s=s.replace(/tgv/gi,"")
+s=s.replace(/sncf/gi,"")
+
+s=s.replace(/\s+/g," ").trim()
+
+return s
+
+}
+
+
+async function geocode(place){
+
+const url=
+`https://nominatim.openstreetmap.org/search?format=json&limit=1&addressdetails=1&countrycodes=fr&q=${encodeURIComponent(place)}`
+
+const response=await fetch(url)
+
+return await response.json()
+
+}
+
+
+async function processCSV(){
+
+const file=document.getElementById("csvFile").files[0]
+
+if(!file){
+alert("Select a CSV file")
+return
+}
+
+const buffer=await file.arrayBuffer()
+
+let text
+
+try{
+
+text=new TextDecoder("utf-8").decode(buffer)
+
+}catch{
+
+text=new TextDecoder("latin1").decode(buffer)
+
+}
+
+const lines=text.split(/\r?\n/)
+
+results=[]
+
+results.push("original_name,cleaned_name,search_name,matched_name,country_iso,latitude,longitude")
+
+let count=0
+
+for(let i=0;i<lines.length;i++){
+
+let line=lines[i].trim()
+
+if(!line) continue
+
+if(i===0 && line.includes("trip")) continue
+
+const original=line
+
+const cleaned=fixEncoding(original)
+
+let search=removeAccents(cleaned)
+
+search=cleanSearchName(search)
+
+let data=[]
+
+try{
+
+data=await geocode(search)
+
+}catch(e){
+
+console.log(e)
+
+}
+
+if(data.length){
+
+const r=data[0]
+
+const matched=r.display_name.replace(/,/g," ")
+
+const country=r.address?.country_code?.toUpperCase()||""
+
+const lat=r.lat||""
+
+const lon=r.lon||""
+
+results.push(
+`"${original}","${cleaned}","${search}","${matched}",${country},${lat},${lon}`
+)
+
+}else{
+
+results.push(
+`"${original}","${cleaned}","${search}",NOT_FOUND,,,`
+)
+
+}
+
+count++
+
+document.getElementById("progress").innerText=
+"Processed "+count+" / "+lines.length
+
+document.getElementById("output").value=results.join("\n")
+
+await new Promise(r=>setTimeout(r,1100))
+
+}
+
+document.getElementById("progress").innerText=
+"Finished : "+count+" places"
+
+}
+
+
+
+function downloadCSV(){
+
+const blob=new Blob([results.join("\n")],{type:"text/csv"})
+
+const url=URL.createObjectURL(blob)
+
+const a=document.createElement("a")
+
+a.href=url
+
+a.download="geocoded_results.csv"
+
+a.click()
+
+}
+
+</script>
+
+</body>
+</html>

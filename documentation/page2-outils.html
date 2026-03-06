@@ -2,158 +2,107 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Documentation – Outils & Déploiement</title>
+  <title>Documentation – Outils & Déploiement (Version 3)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="doc.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; line-height: 1.6; color: #333; background: #fff; }
+    h1, h2, h3 { font-weight: 700; }
+    h2 { margin-top: 40px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+    pre { background: #f5f5f5; padding: 15px; overflow-x: auto; }
+    ul { margin: 0 0 20px 20px; }
+    li { margin-bottom: 5px; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
 
 <div class="nav">
-  <a href="index.html">⬅ Index</a>
-  |
-  <a href="page1-site.html">🧱 Site</a>
-  |
-  <a href="page3-api.html">🔌 API</a>
+  <a href="index-documentation.html">🏠 Index</a> |
+  <a href="page1-site.html">🧱 Site</a> |
+  <a href="page2-outils.html">🛠️ Outils</a> |
+  <a href="page3-api.html">🔌 API</a> |
+  <a href="page4-astuces.html">💡 Astuces</a>
 </div>
 
-<h1>Page 2 – Outils, workflow & déploiement</h1>
+<h1>Page 2 – Outils, workflow & déploiement (v3)</h1>
 
 <p>
-Cette page décrit le cycle complet de développement du projet :
-édition du code, tests locaux, gestion Git, déploiement sur Vercel
-et exposition publique via un nom de domaine OVH.
+Cette page décrit le cycle complet de développement : édition du code, tests locaux, gestion Git, déploiement sur Vercel, connexion Supabase, nom de domaine OVH, et gestion des nouvelles APIs de pays.
 </p>
 
 <hr>
-
-<!-- ================= OUTILS ================= -->
 
 <h2>1️⃣ Outils utilisés</h2>
-
 <ul>
-  <li><strong>Visual Studio Code</strong> – éditeur de code principal</li>
-  <li><strong>Git</strong> – gestion des versions</li>
-  <li><strong>GitHub</strong> – hébergement du code source</li>
-  <li><strong>Vercel</strong> – déploiement du site et des API serverless</li>
+  <li><strong>Visual Studio Code</strong> – éditeur principal</li>
+  <li><strong>Git / GitHub</strong> – gestion de versions et hébergement du code</li>
+  <li><strong>Vercel</strong> – déploiement du site et APIs serverless</li>
   <li><strong>Supabase</strong> – base de données PostgreSQL cloud</li>
-  <li><strong>OVH</strong> – gestion du nom de domaine</li>
+  <li><strong>OVH</strong> – gestion DNS / nom de domaine</li>
+  <li><strong>Node.js & npm</strong> – exécution serveur / scripts</li>
 </ul>
-
-<p>
-⚠️ Important :
-</p>
-<ul>
-  <li>📦 <strong>Le code source est versionné sur GitHub</strong></li>
-  <li>🌍 <strong>Le site (HTML + API) est déployé sur Vercel</strong></li>
-</ul>
-
-<hr>
-
-<!-- ================= VSCODE ================= -->
 
 <h2>2️⃣ Visual Studio Code</h2>
-
 <h3>Rôle</h3>
-<p>
-Visual Studio Code est utilisé pour écrire, modifier et organiser
-les fichiers HTML, CSS, JavaScript et API Node.js.
-</p>
+<p>Édition, navigation et organisation du projet (HTML, CSS, JS, API Node.js).</p>
 
-<h3>Extensions recommandées (HTML / Web)</h3>
-
+<h3>Extensions recommandées</h3>
 <ul>
-  <li><strong>Live Server</strong> – aperçu rapide du HTML</li>
-  <li><strong>Prettier</strong> – formatage automatique du code</li>
-  <li><strong>HTML CSS Support</strong> – autocomplétion</li>
+  <li><strong>Live Server</strong> – aperçu HTML instantané</li>
+  <li><strong>Prettier</strong> – formatage automatique</li>
+  <li><strong>HTML CSS Support</strong> – autocomplétion CSS</li>
   <li><strong>Auto Rename Tag</strong> – renomme les balises liées</li>
-  <li><strong>ESLint</strong> – détection d’erreurs JavaScript</li>
+  <li><strong>ESLint</strong> – détection d’erreurs JS</li>
 </ul>
 
 <h3>Terminal intégré</h3>
-
-<p>
-VS Code intègre un terminal permettant d’exécuter des commandes
-<strong>Bash / Git / Node.js</strong> sans quitter l’éditeur.
-</p>
-
-<p>Exemples :</p>
-
+<p>VS Code permet d’exécuter :</p>
 <pre>
-git status
-git commit -m "Mise à jour page projets"
+npm install
 npm run dev
+git status
+git commit -m "Message"
 vercel --prod
 </pre>
 
-<p>
-👉 Sous Windows, le terminal peut être :
-</p>
+<hr>
+
+<h2>3️⃣ Environnements DEV / PROD</h2>
+
+<h3>3.1 Développement local (DEV)</h3>
 <ul>
-  <li>Bash (Git Bash)</li>
-  <li>PowerShell</li>
-  <li>WSL</li>
+  <li>Site sur <code>localhost:3000</code></li>
+  <li>Variables stockées dans <code>.env.local</code> (jamais versionnées)</li>
+  <li>Lancer serveur : <code>npm run dev</code></li>
+  <li>Arrêter serveur : <code>CTRL + C</code></li>
+</ul>
+
+<h3>3.2 Production (PROD)</h3>
+<ul>
+  <li>Site et APIs déployés sur Vercel</li>
+  <li>Variables configurées dans Vercel (Environment Variables)</li>
+  <li>URL publique : <a href="https://site01-snowy.vercel.app/" target="_blank">https://site01-snowy.vercel.app/</a></li>
+</ul>
+
+<h3>3.3 Nouvelles APIs liées aux pays</h3>
+<ul>
+  <li><code>/api/supabasePays</code> → Gestion CRUD des pays, export CSV</li>
+  <li><code>/api/supabaseInfoPays</code> → Gestion des infos détaillées par pays (table infos_pays)</li>
+  <li>Intégration prévue dans les pages <code>admin-pays.html</code> et <code>admin-infopays.html</code></li>
+  <li>DEV et PROD séparés pour sécurité</li>
 </ul>
 
 <hr>
 
-<!-- ================= ENVIRONNEMENTS ================= -->
-
-<h2>3️⃣ Environnements</h2>
-
-<h3>Développement local (DEV)</h3>
-
-<ul>
-  <li>Site lancé sur <code>localhost</code></li>
-  <li>Variables stockées dans <code>.env.local</code></li>
-  <li>Fichier jamais versionné</li>
-</ul>
-
-<h3>Production (PROD)</h3>
-
-<ul>
-  <li>Site déployé sur Vercel</li>
-  <li>API serverless exécutées sur Vercel</li>
-  <li>Variables configurées dans l’interface Vercel</li>
-  <li>URL publique :
-    <a href="https://site01-snowy.vercel.app/" target="_blank">
-      https://site01-snowy.vercel.app/
-    </a>
-  </li>
-</ul>
-
-<hr>
-
-<!-- ================= OVH ================= -->
-
-<h2>4️⃣ Nom de domaine & OVH</h2>
-
-<p>
-Le nom de domaine est géré via l’interface OVH :
-</p>
-
-<p>
-<a href="https://manager.eu.ovhcloud.com/#/hub/" target="_blank">
-https://manager.eu.ovhcloud.com/#/hub/
-</a>
-</p>
-
-<h3>Rôle réel d’OVH</h3>
-
-<ul>
-  <li>Gestion DNS</li>
-  <li>Redirection vers Vercel</li>
-  <li>Aucun hébergement du site lui-même</li>
-</ul>
-
-<p>
-Flux réel :
-</p>
-
+<h2>4️⃣ OVH – Gestion du nom de domaine</h2>
+<p>OVH sert uniquement de porte DNS :</p>
 <pre>
 Navigateur
    |
    v
-Nom de domaine (OVH)
+Nom de domaine OVH
    |
    v
 Site déployé sur Vercel
@@ -162,120 +111,83 @@ Site déployé sur Vercel
 APIs / Base Supabase
 </pre>
 
-<p>
-👉 OVH agit comme une <strong>porte d’entrée DNS</strong>,
-Vercel comme la <strong>plateforme d’hébergement</strong>.
-</p>
+<h3>Actions courantes OVH</h3>
+<ul>
+  <li>Redirection DNS vers Vercel</li>
+  <li>Gestion des sous-domaines</li>
+  <li>Aucun hébergement direct du site</li>
+</ul>
 
 <hr>
 
-<!-- ================= WORKFLOW ================= -->
+<h2>5️⃣ Workflow complet – DEV → PROD</h2>
 
-<h2>5️⃣ Workflow de développement</h2>
+<h3>5.1 Modifier le code</h3>
+<p>Éditer HTML, CSS, JS, APIs dans VS Code.</p>
 
-<h3>1. Modifier le code</h3>
-<p>
-Développement local dans Visual Studio Code.
-</p>
+<h3>5.2 Tester en local</h3>
+<ul>
+  <li>Site simple HTML : <code>npx serve .</code></li>
+  <li>Projet avec API : <code>npm install</code> puis <code>npm run dev</code></li>
+</ul>
 
-<h3>2. Tester en local</h3>
+<h3>5.3 Arrêter le serveur</h3>
+<pre>CTRL + C</pre>
 
-<h4>Site HTML simple</h4>
-<pre>
-npx serve .
-</pre>
-
-<h4>Projet avec API</h4>
-<pre>
-npm install
-npm run dev
-</pre>
-
-<h3>3. Arrêter le serveur</h3>
-<pre>
-CTRL + C
-</pre>
-
-<hr>
-
-<!-- ================= GIT ================= -->
-
-<h2>6️⃣ Sauvegarde du code avec Git</h2>
-
-<h3>Workflow standard</h3>
+<h3>5.4 Git – Sauvegarde / Versionning</h3>
+<p>Commandes usuelles :</p>
 <pre>
 git status
 git add .
 git commit -m "Description claire"
 git push
 </pre>
+<p>Le dépôt GitHub est la source de vérité.</p>
 
-<p>
-Le dépôt GitHub devient la source de vérité du projet.
-</p>
-
-<hr>
-
-<!-- ================= DEPLOIEMENT ================= -->
-
-<h2>7️⃣ Déploiement avec Vercel</h2>
-
-<h3>Preview</h3>
-<pre>
-vercel
-</pre>
-
-<h3>Production</h3>
-<pre>
-vercel --prod
-</pre>
-
-<p>
-Le déploiement est automatique et atomique.
-</p>
+<h3>5.5 Déploiement Vercel</h3>
+<ul>
+  <li>Preview : <code>vercel</code></li>
+  <li>Production : <code>vercel --prod</code></li>
+  <li>Synchroniser variables d’environnement : <code>vercel env pull</code></li>
+  <li>Déploiement des nouvelles APIs : <code>/api/supabasePays</code> et <code>/api/supabaseInfoPays</code></li>
+</ul>
 
 <hr>
 
-<!-- ================= VARIABLES ================= -->
-
-<h2>8️⃣ Variables d’environnement</h2>
-
-<p>
-Les variables sont définies dans Vercel
-selon l’environnement (DEV / PREVIEW / PROD).
-</p>
-
+<h2>6️⃣ Variables d’environnement</h2>
+<p>DEV :</p>
 <pre>
+.env.local
 SUPABASE_URL
 SUPABASE_KEY
 </pre>
-
-<p>
-Chargement local :
-</p>
-
-<pre>
-vercel env pull
-</pre>
+<p>PROD : configurées dans Vercel → Dashboard → Environment Variables</p>
 
 <hr>
 
-<!-- ================= RESUME ================= -->
-
-<h2>9️⃣ Résumé</h2>
-
+<h2>7️⃣ Résumé – Récupération rapide</h2>
 <ul>
-  <li>Code versionné sur GitHub</li>
-  <li>Site et API déployés sur Vercel</li>
-  <li>OVH gère uniquement le DNS</li>
-  <li>VS Code est l’outil central</li>
-  <li>Workflow simple, clair et reproductible</li>
+  <li>VS Code pour éditer / tester</li>
+  <li>GitHub pour versionner</li>
+  <li>Vercel pour déployer site et APIs</li>
+  <li>OVH pour DNS / nom de domaine</li>
+  <li>Supabase pour base de données</li>
+  <li>Workflow simple : Modifier → Tester DEV → Commit Git → Déployer PROD</li>
+  <li>Nouvelle API <code>supabasePays</code> et future <code>supabaseInfoPays</code> intégrées au workflow</li>
 </ul>
 
 <p>
-⬅️ <a href="page1-site.html">Page 1 – Le site</a><br>
+⬅️ <a href="page1-site.html">Page 1 – Site</a><br>
 🔌 <a href="page3-api.html">Page 3 – API</a>
 </p>
+
+<footer>
+<p>© 2026 · Tintin94230 – Documentation Outils & Déploiement (v3)</p>
+</footer>
+
+<hr>
+<h2>✏️ A AJOUTER DANS LA PROCHAINE VERSION</h2>
+<textarea rows="4" style="width:100%;">Ajouter captures écran des pages admin-pays.html et admin-infopays.html, workflow CRUD complet</textarea>
 
 </body>
 </html>

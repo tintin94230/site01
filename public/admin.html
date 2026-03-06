@@ -3,41 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Administration – Accueil</title>
-  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    main {
-      margin-top: 40px;
-    }
-    .admin-list {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .admin-list li {
-      margin: 0;
-    }
-    .admin-list a {
-      padding: 10px 20px;
-      display: inline-block;
-      text-decoration: none;
-      background: rgba(79,195,247,0.25);
-      color: white;
-      border-radius: 8px;
-      border: 1px solid rgba(79,195,247,0.4);
-      transition: background 0.3s;
-    }
-    .admin-list a:hover,
-    .admin-list a:focus {
-      background: rgba(79,195,247,0.4);
-      outline: none;
-    }
-    nav ul li a.active {
-      background: rgba(255, 255, 255, 0.2);
-      font-weight: 600;
-    }
+    main { margin-top:40px; }
+    .admin-list { list-style:none; padding:0; display:flex; flex-direction:column; gap:10px; }
+    .admin-list li { margin:0; }
+    .admin-list a { padding:10px 20px; display:inline-block; text-decoration:none; background:rgba(79,195,247,0.25); color:white; border-radius:8px; border:1px solid rgba(79,195,247,0.4); transition:background 0.3s; }
+    .admin-list a:hover, .admin-list a:focus { background:rgba(79,195,247,0.4); outline:none; }
+    nav ul li a.active { background: rgba(255,255,255,0.2); font-weight:600; }
   </style>
 </head>
 <body>
@@ -47,30 +21,37 @@
     <p>Bienvenue dans l’espace admin</p>
   </header>
 
-  <nav>
-    <ul>
-      <li><a href="index.html">Accueil</a></li>
-      <li><a href="apropos.html">À propos</a></li>
-      <li><a href="projets.html">Projets</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="admin.html" class="active">Espace Admin</a></li>
-    </ul>
-  </nav>
+<nav>
+  <ul>
+    <li><a href="index.html" class="active">Accueil</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="admin.html">Espace Admin</a></li>
+    <li><a href="voyager-en-train.html">Voyager en train</a></li>
+  </ul>
+</nav>
 
-  <main>
-    <h2>Gestion des tables</h2>
-    <ul class="admin-list">
+<main>
+  <h2>Gestion des tables</h2>
+  <ul class="admin-list">
       <li><a href="admin-lieux.html">Gérer la table des lieux</a></li>
       <li><a href="admin-itineraires.html">Gérer la table des itinéraires</a></li>
       <li><a href="admin-pays.html">Gérer la table des pays</a></li>
       <li><a href="admin-transporteurs.html">Gérer la table des transporteurs</a></li>
       <li><a href="admin-beneficiaires.html">Gérer la table des bénéficiaires</a></li>
       <li><a href="admin-avantages.html">Gérer la table des avantages</a></li>
-    </ul>
-  </main>
+      <li><a href="admin-infopays.html">Gérer la table Infos Pays</a></li>
+      <li><a href="admin-calendar-dates.html">Gérer la table Calendar Dates</a></li>
+      <li><a href="admin-trips.html">Gérer la table Trips</a></li>
+      <li><a href="admin-stop-times.html">Gérer la table Stop Times</a></li>
+      <li><a href="admin-routes.html">Gérer la table Routes</a></li>
+      <li><a href="admin-services.html">Gérer la table Services</a></li>
+  </ul>
+</main>
 
-  <footer>© 2026 · Tintin94230</footer>
+<footer>© 2026 · Tintin94230</footer>
 </div>
 </body>
 </html>

@@ -1,0 +1,3778 @@
+Structure du projet : 
+
+DEV
+├── .vercel/                 # Configuration Vercel (déploiement)
+├── api/                     # API Node.js pour la communication avec Supabase
+│   ├── supabaseAvantages.js
+│   ├── supabaseBeneficiaires.js
+│   ├── supabasePays.js
+│   └── supabaseTransporteurs.js
+├── documentation/           # Documentation interne
+├── node_modules/            # Dépendances Node.js
+├── public/                  # Contenu statique accessible au front-end
+│   ├── admin-avantages.html
+│   ├── admin-avantages1.html
+│   ├── admin-avantages2.html
+│   ├── admin-beneficiaires.html
+│   ├── admin-lieux.html
+│   ├── admin-pays.html
+│   ├── admin-transporteurs.html
+│   ├── apropos.html
+│   ├── blog.html
+│   ├── contact.html
+│   ├── index.html
+│   ├── projets.html
+│   └── style.css
+└── server.js                # Serveur Node.js principal
+
+
+
+
+Base de données supabase : 
+
+table_name         	 column_name           	 data_type                   	 is_nullable 	 column_default                                 	 is_primary_key 	 foreign_table_name 	 foreign_column_name 
+ avantages          	 id                    	 integer                     	 NO          	 nextval('avantages_id_seq'::regclass)          	 YES            	 null               	 null                
+ avantages          	 transporteur_id       	 integer                     	 NO          	 null                                           	 NO             	 null               	 null                
+ avantages          	 transporteur_id       	 integer                     	 NO          	 null                                           	 NO             	 transporteurs      	 id                  
+ avantages          	 pays_id               	 integer                     	 NO          	 null                                           	 NO             	 pays               	 id                  
+ avantages          	 pays_id               	 integer                     	 NO          	 null                                           	 NO             	 null               	 null                
+ avantages          	 beneficiaire_id       	 integer                     	 NO          	 null                                           	 NO             	 null               	 null                
+ avantages          	 beneficiaire_id       	 integer                     	 NO          	 null                                           	 NO             	 beneficiaires      	 id                  
+ avantages          	 nb_coupons_gratuits   	 integer                     	 YES         	 null                                           	 NO             	 null               	 null                
+ avantages          	 reduction_percent     	 numeric                     	 YES         	 null                                           	 NO             	 null               	 null                
+ avantages          	 prix_forfaitaire_2nde 	 numeric                     	 YES         	 null                                           	 NO             	 null               	 null                
+ avantages          	 prix_forfaitaire_1ere 	 numeric                     	 YES         	 null                                           	 NO             	 null               	 null                
+ avantages          	 conditions            	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ avantages          	 notes                 	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ avantages          	 date_debut            	 date                        	 YES         	 null                                           	 NO             	 null               	 null                
+ avantages          	 date_fin              	 date                        	 YES         	 null                                           	 NO             	 null               	 null                
+ avantages          	 created_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ avantages          	 updated_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ beneficiaires      	 id                    	 integer                     	 NO          	 nextval('beneficiaires_id_seq'::regclass)      	 YES            	 null               	 null                
+ beneficiaires      	 code                  	 text                        	 NO          	 null                                           	 NO             	 null               	 null                
+ beneficiaires      	 libelle               	 text                        	 NO          	 null                                           	 NO             	 null               	 null                
+ beneficiaires      	 age_max               	 integer                     	 YES         	 null                                           	 NO             	 null               	 null                
+ beneficiaires      	 notes                 	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ beneficiaires      	 actif                 	 boolean                     	 YES         	 true                                           	 NO             	 null               	 null                
+ beneficiaires      	 created_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ beneficiaires      	 updated_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ itineraires        	 id                    	 integer                     	 NO          	 nextval('itineraires_id_seq'::regclass)        	 YES            	 null               	 null                
+ itineraires        	 lieu_depart_id        	 integer                     	 NO          	 null                                           	 NO             	 lieux              	 id                  
+ itineraires        	 lieu_arrivee_id       	 integer                     	 NO          	 null                                           	 NO             	 lieux              	 id                  
+ itineraires        	 type_voyage           	 text                        	 NO          	 null                                           	 NO             	 null               	 null                
+ itineraires        	 nom                   	 text                        	 NO          	 null                                           	 NO             	 null               	 null                
+ itineraires        	 description           	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ itineraires        	 lien_http             	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ itineraires        	 created_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ lieux              	 id                    	 integer                     	 NO          	 nextval('lieux_id_seq'::regclass)              	 YES            	 null               	 null                
+ lieux              	 nom                   	 text                        	 NO          	 null                                           	 NO             	 null               	 null                
+ lieux              	 latitude              	 double precision            	 NO          	 null                                           	 NO             	 null               	 null                
+ lieux              	 longitude             	 double precision            	 NO          	 null                                           	 NO             	 null               	 null                
+ lieux              	 created_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ mots               	 id                    	 bigint                      	 NO          	 null                                           	 YES            	 null               	 null                
+ mots               	 mot                   	 text                        	 NO          	 null                                           	 NO             	 null               	 null                
+ mots               	 created_at            	 timestamp with time zone    	 YES         	 now()                                          	 NO             	 null               	 null                
+ pays               	 id                    	 integer                     	 NO          	 nextval('pays_id_seq'::regclass)               	 YES            	 null               	 null                
+ pays               	 code_iso              	 character                   	 NO          	 null                                           	 NO             	 null               	 null                
+ pays               	 nom                   	 text                        	 NO          	 null                                           	 NO             	 null               	 null                
+ pays               	 notes                 	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ pays               	 created_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ pays               	 updated_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ retours_experience 	 id                    	 integer                     	 NO          	 nextval('retours_experience_id_seq'::regclass) 	 YES            	 null               	 null                
+ retours_experience 	 pays_id               	 integer                     	 YES         	 null                                           	 NO             	 null               	 null                
+ retours_experience 	 transporteur_id       	 integer                     	 YES         	 null                                           	 NO             	 null               	 null                
+ retours_experience 	 achat_reservation     	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ retours_experience 	 achat_billet_50       	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ retours_experience 	 lien                  	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ retours_experience 	 commentaires          	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ retours_experience 	 verifie_experimente   	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ retours_experience 	 created_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ retours_experience 	 updated_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ transporteurs      	 id                    	 integer                     	 NO          	 nextval('transporteurs_id_seq'::regclass)      	 YES            	 null               	 null                
+ transporteurs      	 nom                   	 text                        	 NO          	 null                                           	 NO             	 null               	 null                
+ transporteurs      	 type                  	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ transporteurs      	 site_web              	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ transporteurs      	 notes                 	 text                        	 YES         	 null                                           	 NO             	 null               	 null                
+ transporteurs      	 created_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ transporteurs      	 updated_at            	 timestamp without time zone 	 YES         	 now()                                          	 NO             	 null               	 null                
+ transporteurs_pays 	 transporteur_id       	 integer                     	 NO          	 null                                           	 YES            	 null               	 null                
+ transporteurs_pays 	 transporteur_id       	 integer                     	 NO          	 null                                           	 NO             	 transporteurs      	 id                  
+ transporteurs_pays 	 pays_id               	 integer                     	 NO          	 null                                           	 YES            	 null               	 null                
+ transporteurs_pays 	 pays_id               	 integer                     	 NO          	 null                                           	 NO             	 pays               	 id                  
+
+
+Contenu des apis : 
+supabasePays.js
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
+
+const ISO_REGEX = /^[A-Z]{2}$/;
+
+export default async function handler(req, res) {
+  try {
+    // ===============================
+    // GET
+    // ===============================
+    if (req.method === "GET") {
+      const { simple, page = 0, limit = 25, search = "", sort = "nom", dir = "asc", exportCsv, used } = req.query;
+
+      // --- Mode simple pour dropdowns (tous les pays utilisés dans transporteurs_pays) ---
+      if(simple === "1" && used === "1") {
+        // 1️⃣ Récupérer les IDs de pays utilisés
+        const { data: tpData, error: tpError } = await supabase
+          .from("transporteurs_pays")
+          .select("pays_id", { distinct: true });
+        if(tpError) throw tpError;
+
+        const idsUtilises = tpData.map(t => t.pays_id);
+        if(idsUtilises.length === 0) return res.json({ data: [] });
+
+        // 2️⃣ Récupérer les pays correspondants
+        const { data, error } = await supabase
+          .from("pays")
+          .select("id, code_iso, nom")
+          .in("id", idsUtilises)
+          .order("nom", { ascending: true });
+        if(error) throw error;
+
+        return res.json({ data });
+      }
+
+      // --- Pagination normale ---
+      let p = parseInt(page);
+      let l = parseInt(limit);
+      const from = p * l;
+      const to = from + l - 1;
+
+      // -------- EXPORT CSV --------
+      if (exportCsv === "1") {
+        const { data, error } = await supabase
+          .from("pays")
+          .select("nom,code_iso,notes")
+          .order("nom");
+        if (error) throw error;
+        const header = "nom,code_iso,notes\n";
+        const rows = data.map(r =>
+          `"${r.nom}","${r.code_iso}","${(r.notes ?? "").replace(/"/g,'""')}"`
+        ).join("\n");
+        res.setHeader("Content-Type", "text/csv");
+        return res.send(header + rows);
+      }
+
+      // -------- Liste complète avec pagination et recherche --------
+      let query = supabase
+        .from("pays")
+        .select("*", { count: "exact" })
+        .order(sort, { ascending: dir === "asc" });
+
+      if (search) query = query.ilike("nom", `%${search}%`);
+
+      const { data, count, error } = await query.range(from, to);
+      if (error) throw error;
+
+      return res.json({ data, total: count });
+    }
+
+    // ===============================
+    // POST CSV bulk
+    // ===============================
+    if (req.method === "POST" && req.query.importCsv === "1") {
+      const rows = req.body;
+      rows.forEach(r => {
+        if (!ISO_REGEX.test(r.code_iso))
+          throw new Error(`Code ISO invalide : ${r.code_iso}`);
+      });
+      const { error } = await supabase
+        .from("pays")
+        .upsert(rows, { onConflict: "code_iso" });
+      if (error) throw error;
+      return res.json({ success: true });
+    }
+
+    // ===============================
+    // POST single
+    // ===============================
+    if (req.method === "POST") {
+      let { nom, code_iso, notes } = req.body;
+      code_iso = code_iso?.toUpperCase().trim();
+      if (!ISO_REGEX.test(code_iso))
+        return res.status(400).json({ error: "Code ISO = 2 lettres A-Z" });
+      const { data, error } = await supabase
+        .from("pays")
+        .insert([{ nom, code_iso, notes }])
+        .select();
+      if (error) throw error;
+      return res.json(data[0]);
+    }
+
+    // ===============================
+    // PUT (mise à jour)
+    // ===============================
+    if (req.method === "PUT") {
+      let { id, nom, code_iso, notes } = req.body;
+      code_iso = code_iso?.toUpperCase().trim();
+      if (!ISO_REGEX.test(code_iso))
+        return res.status(400).json({ error: "Code ISO = 2 lettres A-Z" });
+      const { error } = await supabase
+        .from("pays")
+        .update({ nom, code_iso, notes, updated_at: new Date() })
+        .eq("id", id);
+      if (error) throw error;
+      return res.json({ success: true });
+    }
+
+    // ===============================
+    // DELETE
+    // ===============================
+    if (req.method === "DELETE") {
+      const { id } = req.body;
+      await supabase.from("pays").delete().eq("id", id);
+      return res.end();
+    }
+
+    return res.status(405).end();
+
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: e.message });
+  }
+}
+
+supabaseTransporteurs.js
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
+
+const URL_REGEX = /^https?:\/\/.+/i;
+
+export default async function handler(req, res) {
+  try {
+    // ================= GET =================
+    if (req.method === "GET") {
+      const { simple, pays_id, page = 0, limit = 25, search = "", sort = "nom", dir = "asc", exportCsv } = req.query;
+      const p = parseInt(page); const l = parseInt(limit);
+
+      // --- Mode simple : dropdowns ---
+      if(simple === "1" && pays_id){
+        // Récupérer les IDs des transporteurs pour ce pays
+        const { data: tpData, error: tpError } = await supabase
+          .from("transporteurs_pays")
+          .select("transporteur_id")
+          .eq("pays_id", pays_id);
+        if(tpError) throw tpError;
+
+        const transporteurIds = tpData.map(tp => tp.transporteur_id);
+        if(transporteurIds.length === 0) return res.json({ data: [] });
+
+        // Récupérer les transporteurs correspondants
+        const { data, error } = await supabase
+          .from("transporteurs")
+          .select("id, nom")
+          .in("id", transporteurIds)
+          .order("nom", { ascending: true });
+
+        if(error) throw error;
+        return res.json({ data });
+      }
+
+      // ---- Export CSV ----
+      if (exportCsv === "1") {
+        const { data, error } = await supabase
+          .from("transporteurs")
+          .select(`
+            id, nom, type, site_web, notes,
+            transporteurs_pays(pays(code_iso))
+          `)
+          .order("nom");
+        if (error) throw error;
+
+        const header = "nom,type,site_web,notes,pays\n";
+        const rows = data.map(r => {
+          const paysCodes = r.transporteurs_pays.map(tp => tp.pays.code_iso).join(";");
+          return `"${r.nom}","${r.type ?? ""}","${r.site_web ?? ""}","${(r.notes ?? "").replace(/"/g,'""')}","${paysCodes}"`;
+        }).join("\n");
+
+        res.setHeader("Content-Type", "text/csv");
+        return res.send(header + rows);
+      }
+
+      // ---- Liste normale avec pagination ----
+      const from = p * l;
+      const to = from + l - 1;
+
+      let query = supabase
+        .from("transporteurs")
+        .select(`
+          id, nom, type, site_web, notes,
+          transporteurs_pays(pays(id,code_iso))
+        `, { count: "exact" })
+        .order(sort, { ascending: dir==="asc" });
+
+      if (search) query = query.ilike("nom", `%${search}%`);
+
+      const { data, count, error } = await query.range(from, to);
+      if (error) throw error;
+      return res.json({ data, total: count });
+    }
+
+    // ================= POST =================
+    if (req.method === "POST") {
+      const { nom, type, site_web, notes, pays } = req.body;
+      if (!nom || !pays || pays.length === 0) return res.status(400).json({ error: "Nom et au moins un pays obligatoires" });
+      if (site_web && !URL_REGEX.test(site_web)) return res.status(400).json({ error: "URL invalide" });
+
+      const { data: newT, error } = await supabase
+        .from("transporteurs")
+        .insert([{ nom, type, site_web, notes }])
+        .select();
+      if (error) throw error;
+      const transporteur_id = newT[0].id;
+
+      const tpRows = pays.map(pid => ({ transporteur_id, pays_id: pid }));
+      const { error: tpError } = await supabase.from("transporteurs_pays").insert(tpRows);
+      if (tpError) throw tpError;
+
+      return res.json(newT[0]);
+    }
+
+    // ================= PUT =================
+    if (req.method === "PUT") {
+      const { id, nom, type, site_web, notes, pays } = req.body;
+      if (!id || !nom || !pays || pays.length === 0) return res.status(400).json({ error: "Nom + au moins un pays obligatoires" });
+      if (site_web && !URL_REGEX.test(site_web)) return res.status(400).json({ error: "URL invalide" });
+
+      const { error } = await supabase
+        .from("transporteurs")
+        .update({ nom, type, site_web, notes, updated_at: new Date() })
+        .eq("id", id);
+      if (error) throw error;
+
+      await supabase.from("transporteurs_pays").delete().eq("transporteur_id", id);
+      const tpRows = pays.map(pid => ({ transporteur_id: id, pays_id: pid }));
+      const { error: tpError } = await supabase.from("transporteurs_pays").insert(tpRows);
+      if (tpError) throw tpError;
+
+      return res.json({ success: true });
+    }
+
+    // ================= DELETE =================
+    if (req.method === "DELETE") {
+      const { id } = req.body;
+      if (!id) return res.status(400).json({ error: "ID manquant" });
+      await supabase.from("transporteurs_pays").delete().eq("transporteur_id", id);
+      await supabase.from("transporteurs").delete().eq("id", id);
+      return res.end();
+    }
+
+    return res.status(405).json({ error: "Méthode non autorisée" });
+
+  } catch(e) {
+    console.error(e);
+    return res.status(500).json({ error: e.message });
+  }
+}
+
+supabaseBeneficiaires.js
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
+
+export default async function handler(req, res) {
+  try {
+    if (req.method === "GET") {
+      const { data, error } = await supabase
+        .from("beneficiaires")
+        .select("*")
+        .order("id", { ascending: true });
+
+      if (error) return res.status(500).json({ error: error.message });
+      return res.status(200).json({ data });
+    }
+
+    if (req.method === "POST") {
+      const { code, libelle, age_max, notes } = req.body;
+      if (!code || !libelle) return res.status(400).json({ error: "Champs obligatoires manquants" });
+
+      const { data, error } = await supabase
+        .from("beneficiaires")
+        .insert([{ code, libelle, age_max, notes }])
+        .select();
+
+      if (error) return res.status(500).json({ error: error.message });
+      return res.status(201).json(data[0]);
+    }
+
+    if (req.method === "PUT") {
+      const { id, code, libelle, age_max, notes } = req.body;
+      if (!id || !code || !libelle) return res.status(400).json({ error: "Champs obligatoires manquants" });
+
+      const { data, error } = await supabase
+        .from("beneficiaires")
+        .update({ code, libelle, age_max, notes })
+        .eq("id", id)
+        .select();
+
+      if (error) return res.status(500).json({ error: error.message });
+      return res.status(200).json(data[0]);
+    }
+
+    if (req.method === "DELETE") {
+      const { id } = req.body;
+      if (!id) return res.status(400).json({ error: "ID manquant" });
+
+      const { error } = await supabase
+        .from("beneficiaires")
+        .delete()
+        .eq("id", id);
+
+      if (error) return res.status(500).json({ error: error.message });
+      return res.status(204).end();
+    }
+
+    return res.status(405).json({ error: "Méthode non autorisée" });
+  } catch (err) {
+    console.error("Erreur serveur:", err);
+    return res.status(500).json({ error: "Erreur serveur interne" });
+  }
+}
+supabaseAvantages.js
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY // ← retour à ton ancienne clé
+);
+
+export default async function handler(req, res) {
+  try {
+
+    /* ================================
+       GET
+    ================================ */
+    if (req.method === "GET") {
+      const { simple, transporteur_id, pays_id, beneficiaire_id } = req.query;
+
+      // Mode simple
+      if (simple === "1") {
+        let query = supabase
+          .from("avantages")
+          .select("id, transporteur_id, pays_id, beneficiaire_id");
+
+        if (transporteur_id) query = query.eq("transporteur_id", transporteur_id);
+        if (pays_id) query = query.eq("pays_id", pays_id);
+        if (beneficiaire_id) query = query.eq("beneficiaire_id", beneficiaire_id);
+
+        const { data, error } = await query.order("id", { ascending: true });
+
+        if (error) return res.status(500).json({ error: error.message });
+        return res.status(200).json({ data });
+      }
+
+      // GET complet avec jointures + filtres
+      let query = supabase
+        .from("avantages")
+        .select(`
+          *,
+          transporteur:transporteur_id(id, nom),
+          pays:pays_id(id, code_iso),
+          beneficiaire:beneficiaire_id(id, code)
+        `);
+
+      if (transporteur_id) query = query.eq("transporteur_id", transporteur_id);
+      if (pays_id) query = query.eq("pays_id", pays_id);
+      if (beneficiaire_id) query = query.eq("beneficiaire_id", beneficiaire_id);
+
+      const { data, error } = await query.order("id", { ascending: true });
+
+      if (error) return res.status(500).json({ error: error.message });
+      return res.status(200).json({ data });
+    }
+
+    /* ================================
+       POST
+    ================================ */
+    if (req.method === "POST") {
+      const b = req.body;
+
+      if (!b.transporteur_id || !b.pays_id || !b.beneficiaire_id) {
+        return res.status(400).json({ error: "Champs obligatoires manquants" });
+      }
+
+      const payload = {
+        transporteur_id: Number(b.transporteur_id),
+        pays_id: Number(b.pays_id),
+        beneficiaire_id: Number(b.beneficiaire_id),
+
+        nb_coupons_gratuits: b.nb_coupons_gratuits ?? null,
+        reduction_percent: b.reduction_percent ?? null,
+        prix_forfaitaire_2nde: b.prix_forfaitaire_2nde ?? null,
+        prix_forfaitaire_1ere: b.prix_forfaitaire_1ere ?? null,
+
+        conditions: b.conditions || null,
+        notes: b.notes || null,
+        date_debut: b.date_debut || null,
+        date_fin: b.date_fin || null
+      };
+
+      const { data, error } = await supabase
+        .from("avantages")
+        .insert([payload])
+        .select();
+
+      if (error) return res.status(500).json({ error: error.message });
+      return res.status(201).json(data[0]);
+    }
+
+    /* ================================
+       PUT
+    ================================ */
+    if (req.method === "PUT") {
+      const b = req.body;
+      if (!b.id) return res.status(400).json({ error: "ID manquant" });
+
+      const payload = {
+        transporteur_id: Number(b.transporteur_id),
+        pays_id: Number(b.pays_id),
+        beneficiaire_id: Number(b.beneficiaire_id),
+
+        nb_coupons_gratuits: b.nb_coupons_gratuits ?? null,
+        reduction_percent: b.reduction_percent ?? null,
+        prix_forfaitaire_2nde: b.prix_forfaitaire_2nde ?? null,
+        prix_forfaitaire_1ere: b.prix_forfaitaire_1ere ?? null,
+
+        conditions: b.conditions || null,
+        notes: b.notes || null,
+        date_debut: b.date_debut || null,
+        date_fin: b.date_fin || null
+      };
+
+      const { data, error } = await supabase
+        .from("avantages")
+        .update(payload)
+        .eq("id", b.id)
+        .select();
+
+      if (error) return res.status(500).json({ error: error.message });
+      return res.status(200).json(data[0]);
+    }
+
+    /* ================================
+       DELETE
+    ================================ */
+    if (req.method === "DELETE") {
+      const { id } = req.body;
+      if (!id) return res.status(400).json({ error: "ID manquant" });
+
+      const { error } = await supabase
+        .from("avantages")
+        .delete()
+        .eq("id", id);
+
+      if (error) return res.status(500).json({ error: error.message });
+      return res.status(204).end();
+    }
+
+    return res.status(405).json({ error: "Méthode non autorisée" });
+
+  } catch (err) {
+    console.error("Erreur serveur:", err);
+    return res.status(500).json({ error: "Erreur serveur interne" });
+  }
+}
+
+
+
+
+
+ 
+
+Contenu des pages : 
+
+admin.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Administration – Accueil</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    main {
+      margin-top: 40px;
+    }
+    .admin-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .admin-list li {
+      margin: 0;
+    }
+    .admin-list a {
+      padding: 10px 20px;
+      display: inline-block;
+      text-decoration: none;
+      background: rgba(79,195,247,0.25);
+      color: white;
+      border-radius: 8px;
+      border: 1px solid rgba(79,195,247,0.4);
+      transition: background 0.3s;
+    }
+    .admin-list a:hover,
+    .admin-list a:focus {
+      background: rgba(79,195,247,0.4);
+      outline: none;
+    }
+    nav ul li a.active {
+      background: rgba(255, 255, 255, 0.2);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Administration</h1>
+    <p>Bienvenue dans l’espace admin</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="apropos.html">À propos</a></li>
+      <li><a href="projets.html">Projets</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin.html" class="active">Espace Admin</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h2>Gestion des tables</h2>
+    <ul class="admin-list">
+      <li><a href="admin-lieux.html">Gérer la table des lieux</a></li>
+      <li><a href="admin-itineraires.html">Gérer la table des itinéraires</a></li>
+      <li><a href="admin-pays.html">Gérer la table des pays</a></li>
+      <li><a href="admin-transporteurs.html">Gérer la table des transporteurs</a></li>
+      <li><a href="admin-beneficiaires.html">Gérer la table des bénéficiaires</a></li>
+      <li><a href="admin-avantages.html">Gérer la table des avantages</a></li>
+    </ul>
+  </main>
+
+  <footer>© 2026 · Tintin94230</footer>
+</div>
+</body>
+</html>
+
+admin-transporteurs.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Administration – Transporteurs</title>
+<style>
+body{background:#121212;color:#fff;font-family:Inter;padding:20px}
+input,select,textarea,button{padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,0.25);background:#1e1e1e;color:white}
+button{cursor:pointer;margin:2px}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid rgba(255,255,255,0.15);padding:6px}
+textarea{resize:vertical;width:200px}
+.selectPays{display:flex;gap:4px;margin-bottom:4px;align-items:center}
+.actions{white-space:nowrap}
+.toolbar{margin-bottom:10px;display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.pagination{margin-top:10px;display:flex;gap:8px;align-items:center}
+</style>
+</head>
+<body>
+
+<h1>Administration – Transporteurs</h1>
+
+<div class="toolbar">
+  <input id="search" placeholder="Recherche nom...">
+  <button onclick="exportCSV()">⬇ Export CSV</button>
+  <label>⬆ Import CSV
+    <input type="file" id="importFile" hidden accept=".csv">
+  </label>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Nom</th>
+<th>Type</th>
+<th>Site web</th>
+<th>Pays</th>
+<th>Notes</th>
+<th class="actions">Actions</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+
+<div class="pagination">
+  <button onclick="prev()">◀</button>
+  <span id="pageInfo"></span>
+  <button onclick="next()">▶</button>
+</div>
+
+<h3>Ajouter un transporteur</h3>
+<div>
+<input id="new-nom" placeholder="Nom">
+<input id="new-type" placeholder="Type">
+<input id="new-site" placeholder="https://site.com">
+<div id="pays-container"></div>
+<button onclick="addPaysSelect()">+ Ajouter un pays</button>
+<textarea id="new-notes" placeholder="Notes"></textarea>
+<button onclick="addTransporteur()">Ajouter transporteur</button>
+</div>
+
+<script>
+const tbody = document.getElementById("tbody");
+const searchInput = document.getElementById("search");
+const newNom = document.getElementById("new-nom");
+const newType = document.getElementById("new-type");
+const newSite = document.getElementById("new-site");
+const newNotes = document.getElementById("new-notes");
+const paysContainer = document.getElementById("pays-container");
+const importFile = document.getElementById("importFile");
+
+const URL=/^https?:\/\/.+/i;
+let paysList = [], page=0, limit=25, search="", sort="nom", dir="asc";
+
+// =================== Load Pays ===================
+async function loadPays(){
+  const r = await fetch("/api/supabasePays?limit=1000");
+  const j = await r.json();
+  paysList = j.data || [];
+  paysContainer.innerHTML="";
+  addPaysSelect();
+}
+
+// Ajouter un select de pays
+function addPaysSelect(selectedId){
+  const div = document.createElement("div");
+  div.className = "selectPays";
+  const select = document.createElement("select");
+  paysList.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = `${p.code_iso} – ${p.nom}`;
+    if(p.id===selectedId) opt.selected=true;
+    select.appendChild(opt);
+  });
+  const btn = document.createElement("button");
+  btn.type="button";
+  btn.textContent="X";
+  btn.onclick = ()=>{div.remove();}
+  div.appendChild(select);
+  div.appendChild(btn);
+  paysContainer.appendChild(div);
+}
+
+// =================== Load Transporteurs ===================
+async function loadTransporteurs(){
+  const r = await fetch(`/api/supabaseTransporteurs?page=${page}&limit=${limit}&search=${search}&sort=${sort}&dir=${dir}`);
+  if(!r.ok){ tbody.innerHTML='<tr><td colspan="6">Erreur serveur</td></tr>'; return; }
+  const j = await r.json();
+  const rows = j.data||[];
+  tbody.innerHTML="";
+  rows.forEach(t=>{
+    const tr = document.createElement("tr");
+    tr.dataset.id = t.id;
+
+    // Création des selects pour les pays existants
+    const paysDivs = t.transporteurs_pays.map(tp=>{
+      return `<div class="selectPays">
+                <select data-pays-id="${tp.pays.id}">
+                  ${paysList.map(p=>`<option value="${p.id}" ${p.id===tp.pays.id?'selected':''}>${p.code_iso}</option>`).join("")}
+                </select>
+                <button type="button" onclick="removePays(this)">X</button>
+              </div>`;
+    }).join("");
+
+    tr.innerHTML=`
+<td><input value="${t.nom}"></td>
+<td><input value="${t.type||''}"></td>
+<td><input value="${t.site_web||''}"></td>
+<td class="pays-container">${paysDivs}<button type="button" onclick="addPaysSelectLine(this)">+ Ajouter</button></td>
+<td><textarea>${t.notes||''}</textarea></td>
+<td class="actions"><button onclick="remove(${t.id})">🗑</button></td>
+`;
+
+    tr.querySelectorAll("input,textarea,select").forEach(el=>{
+      el.addEventListener("change",()=>save(tr));
+    });
+    tbody.appendChild(tr);
+  });
+  document.getElementById("pageInfo").textContent=`Page ${page+1} (${rows.length})`;
+}
+
+// Ajouter un pays dans une ligne existante
+function addPaysSelectLine(btn){
+  const div = document.createElement("div");
+  div.className="selectPays";
+  const select = document.createElement("select");
+  paysList.forEach(p=>{
+    const opt=document.createElement("option");
+    opt.value=p.id;
+    opt.textContent=`${p.code_iso} – ${p.nom}`;
+    select.appendChild(opt);
+  });
+  const delBtn=document.createElement("button");
+  delBtn.type="button"; delBtn.textContent="X";
+  delBtn.onclick=()=>div.remove();
+  div.appendChild(select);
+  div.appendChild(delBtn);
+  btn.parentNode.insertBefore(div, btn);
+  save(btn.closest("tr"));
+}
+
+// Supprimer un pays
+function removePays(btn){
+  btn.parentNode.remove();
+  save(btn.closest("tr"));
+}
+
+// =================== Save (autosave) ===================
+async function save(tr){
+  const id = tr.dataset.id;
+  const [nom,type,site,notes] = tr.querySelectorAll("td input, td textarea");
+  const pays = Array.from(tr.querySelectorAll(".pays-container select")).map(s=>parseInt(s.value,10));
+  if(!nom.value || pays.length===0) return; // minimum un pays
+  if(site.value && !URL.test(site.value)) return alert("URL invalide");
+  await fetch("/api/supabaseTransporteurs",{
+    method:"PUT",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ id, nom:nom.value, type:type.value, site_web:site.value, notes:notes.value, pays })
+  });
+}
+
+// =================== Add new transporteur ===================
+async function addTransporteur(){
+  const nom=newNom.value.trim();
+  const type=newType.value.trim();
+  const site=newSite.value.trim();
+  const notes=newNotes.value.trim();
+  const pays = Array.from(paysContainer.querySelectorAll("select")).map(s=>parseInt(s.value,10));
+  if(!nom || pays.length===0) return alert("Nom et au moins un pays obligatoires");
+  if(site && !/^((https?:\/\/)|(www\.))\S+\.\S+$/i.test(site)) return alert("URL invalide");
+  const res = await fetch("/api/supabaseTransporteurs",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify({nom,type,site_web:site,notes,pays})});
+  if(!res.ok) return alert("Erreur ajout");
+  newNom.value=""; newType.value=""; newSite.value=""; newNotes.value=""; paysContainer.innerHTML=""; addPaysSelect();
+  loadTransporteurs();
+}
+
+// =================== Delete transporteur ===================
+async function remove(id){
+  if(!confirm("Supprimer ?")) return;
+  await fetch("/api/supabaseTransporteurs",{method:"DELETE",headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
+  loadTransporteurs();
+}
+
+// =================== Pagination ===================
+function next(){page++;loadTransporteurs();}
+function prev(){if(page>0) page--; loadTransporteurs();}
+
+// =================== Sorting ===================
+function sortBy(col){dir=(sort===col)?(dir==="asc"?"desc":"asc"):"asc";sort=col;loadTransporteurs();}
+
+// =================== Search ===================
+searchInput.oninput = e=>{search=e.target.value; page=0; loadTransporteurs();}
+
+// =================== Export CSV ===================
+function exportCSV(){window.open("/api/supabaseTransporteurs?exportCsv=1");}
+
+// =================== Import CSV ===================
+importFile.onchange = async e=>{
+  const file=e.target.files[0]; if(!file) return;
+  const text = await file.text();
+  const lines=text.split("\n").filter(l=>l.trim());
+  const header=lines.shift().split(",");
+  const rows=lines.map(l=>{
+    const v=l.split(",");
+    const obj={};
+    header.forEach((h,i)=>obj[h]=v[i]?.replace(/"/g,''));
+    if(obj.pays) obj.pays = obj.pays.split(";").map(c=>{
+      const p = paysList.find(p=>p.code_iso===c);
+      return p?p.id:null;
+    }).filter(Boolean);
+    return obj;
+  });
+  await fetch("/api/supabaseTransporteurs?importCsv=1",{method:"POST",headers:{'Content-Type':'application/json'},body:JSON.stringify(rows)});
+  loadTransporteurs();
+};
+
+// =================== Init ===================
+document.addEventListener("DOMContentLoaded",async()=>{
+  await loadPays();
+  await loadTransporteurs();
+});
+</script>
+
+</body>
+</html>
+
+admin-pays.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Admin Pays</title>
+
+<style>
+body{background:#121212;color:#fff;font-family:Inter;padding:20px}
+table{width:100%;border-collapse:collapse;margin-top:15px}
+th,td{border:1px solid #333;padding:6px}
+th{cursor:pointer;background:#1e1e1e}
+input,textarea{width:100%;background:#1e1e1e;color:white;border:1px solid #444}
+textarea{resize:vertical}
+button{background:#2a7bd6;border:none;color:white;padding:6px 10px;margin:3px;border-radius:4px;cursor:pointer}
+.toast{position:fixed;bottom:20px;right:20px;background:#333;padding:10px;border-radius:6px}
+.invalid{border:2px solid red}
+</style>
+</head>
+
+<body>
+
+<h2>Gestion des pays</h2>
+
+<div>
+🔍 <input id="search" placeholder="Recherche">
+<button onclick="exportCSV()">Export CSV</button>
+<input type="file" id="csvFile" hidden onchange="importCSV(this)">
+<button onclick="csvFile.click()">Import CSV</button>
+</div>
+
+<table>
+<thead>
+<tr>
+<th onclick="sortBy('nom')">Nom ⬍</th>
+<th onclick="sortBy('code_iso')">ISO ⬍</th>
+<th>Notes</th>
+<th></th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<h3>Ajouter</h3>
+<input id="newNom" placeholder="Nom">
+<input id="newCode" placeholder="ISO">
+<textarea id="newNotes" placeholder="Notes"></textarea>
+<button onclick="add()">Ajouter</button>
+
+<div>
+<button onclick="prev()">◀</button>
+<span id="info"></span>
+<button onclick="next()">▶</button>
+</div>
+
+<div id="toast" class="toast" style="display:none"></div>
+
+<script>
+const tbody=document.querySelector('tbody');
+const ISO=/^[A-Z]{2}$/;
+
+let page=0,limit=20,search="",sort="nom",dir="asc";
+
+function toast(msg){
+  toastDiv.textContent=msg;
+  toastDiv.style.display='block';
+  setTimeout(()=>toastDiv.style.display='none',1500);
+}
+
+async function load(){
+  const res=await fetch(`/api/supabasePays?page=${page}&limit=${limit}&search=${search}&sort=${sort}&dir=${dir}`);
+  const json=await res.json();
+
+  tbody.innerHTML='';
+
+  json.data.forEach(p=>{
+    const tr=document.createElement('tr');
+
+    tr.innerHTML=`
+      <td><input value="${p.nom}" data-field="nom"></td>
+      <td><input value="${p.code_iso}" data-field="code_iso"></td>
+      <td><textarea data-field="notes">${p.notes??''}</textarea></td>
+      <td><button onclick="del(${p.id})">🗑️</button></td>
+    `;
+
+    tr.querySelectorAll('[data-field]').forEach(i=>{
+      i.onchange=()=>autoSave(p.id,tr);
+    });
+
+    tbody.appendChild(tr);
+  });
+
+  info.textContent=`Page ${page+1}`;
+}
+
+async function autoSave(id,row){
+  const inputs=row.querySelectorAll('[data-field]');
+  const data={id};
+
+  inputs.forEach(i=>data[i.dataset.field]=i.value);
+
+  if(!ISO.test(data.code_iso)){
+    row.querySelector('[data-field="code_iso"]').classList.add('invalid');
+    toast('ISO invalide (2 lettres)');
+    return;
+  }
+
+  await fetch('/api/supabasePays',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  toast('Sauvé');
+}
+
+async function add(){
+  const data={nom:newNom.value,code_iso:newCode.value,notes:newNotes.value};
+
+  if(!ISO.test(data.code_iso)){toast('ISO invalide');return;}
+
+  await fetch('/api/supabasePays',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  newNom.value=newCode.value=newNotes.value='';
+  load();
+}
+
+async function del(id){
+  if(!confirm('Supprimer ?'))return;
+  await fetch('/api/supabasePays',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
+  load();
+}
+
+function searchInput(e){search=e.target.value;page=0;load();}
+search.oninput=searchInput;
+
+function next(){page++;load();}
+function prev(){if(page>0)page--;load();}
+
+function sortBy(col){
+  if(sort===col) dir=dir==='asc'?'desc':'asc';
+  else{sort=col;dir='asc';}
+  load();
+}
+
+function exportCSV(){window.location='/api/supabasePays?exportCsv=1';}
+
+function importCSV(input){
+  const reader=new FileReader();
+  reader.onload=async()=>{
+    const rows=reader.result.split('\n').slice(1).filter(Boolean).map(l=>{
+      const [nom,code,notes]=l.replaceAll('"','').split(',');
+      return {nom,code_iso:code,notes};
+    });
+
+    await fetch('/api/supabasePays?importCsv=1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(rows)});
+    load();
+  };
+  reader.readAsText(input.files[0]);
+}
+
+load();
+</script>
+
+</body>
+</html>
+
+admin-beneficiaires.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Administration – Bénéficiaires</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { background:#121212; color:#fff; font-family:Inter,sans-serif; margin:0; padding:0; }
+  .container { max-width:1200px; margin:auto; padding:20px; }
+  h1, h3 { color:#4fc3f7; }
+  table { width:100%; border-collapse:collapse; margin-top:20px; }
+  th, td { border:1px solid rgba(255,255,255,0.3); padding:8px; text-align:left; }
+  th { background: rgba(255,255,255,0.15); }
+  input, textarea { width:100%; padding:6px; border-radius:6px; border:1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color:#fff; margin-bottom:10px; }
+  button { padding:6px 12px; border-radius:6px; border:1px solid rgba(79,195,247,0.4); background: rgba(79,195,247,0.25); color:#fff; cursor:pointer; margin-right:5px; }
+  .actions button { margin-right:5px; }
+  @media (max-width:768px){
+    table, th, td { font-size:14px; }
+    input, textarea, button { font-size:14px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Administration – Bénéficiaires</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Libellé</th>
+        <th>Age max</th>
+        <th>Notes</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <h3 id="form-title">Ajouter un bénéficiaire</h3>
+  <input id="new-code" placeholder="Code">
+  <input id="new-libelle" placeholder="Libellé">
+  <input id="new-age" type="number" min="0" placeholder="Age max">
+  <textarea id="new-notes" placeholder="Notes"></textarea>
+  <div>
+    <button id="btn-ajouter" onclick="ajouter()">Ajouter</button>
+    <button id="btn-modifier" style="display:none;" onclick="modifier()">Modifier</button>
+    <button onclick="resetForm()">Annuler</button>
+  </div>
+</div>
+
+<script>
+const tbody = document.getElementById("tbody");
+let editId = null;
+
+// Charger tous les bénéficiaires
+async function charger() {
+  const res = await fetch("/api/supabaseBeneficiaires");
+  const { data } = await res.json();
+  tbody.innerHTML = "";
+  data.forEach(b => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${b.code}</td>
+      <td>${b.libelle}</td>
+      <td>${b.age_max || ""}</td>
+      <td>${b.notes || ""}</td>
+      <td class="actions">
+        <button onclick="préremplir(${b.id}, '${b.code}', '${b.libelle}', ${b.age_max || ''}, '${b.notes || ''}')">Éditer</button>
+        <button onclick="supprimer(${b.id})">Supprimer</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Ajouter un bénéficiaire
+async function ajouter() {
+  const code = document.getElementById("new-code").value.trim();
+  const libelle = document.getElementById("new-libelle").value.trim();
+  const age_max = document.getElementById("new-age").value;
+  const notes = document.getElementById("new-notes").value.trim();
+
+  if(!code || !libelle){ alert("Code et libellé sont obligatoires"); return; }
+
+  await fetch("/api/supabaseBeneficiaires", {
+    method:"POST",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({code, libelle, age_max, notes})
+  });
+  resetForm();
+  charger();
+}
+
+// Pré-remplir le formulaire pour édition
+function préremplir(id, code, libelle, age_max, notes){
+  editId = id;
+  document.getElementById("form-title").innerText = "Modifier un bénéficiaire";
+  document.getElementById("new-code").value = code;
+  document.getElementById("new-libelle").value = libelle;
+  document.getElementById("new-age").value = age_max || "";
+  document.getElementById("new-notes").value = notes || "";
+  document.getElementById("btn-ajouter").style.display = "none";
+  document.getElementById("btn-modifier").style.display = "inline-block";
+}
+
+// Modifier un bénéficiaire
+async function modifier() {
+  const code = document.getElementById("new-code").value.trim();
+  const libelle = document.getElementById("new-libelle").value.trim();
+  const age_max = document.getElementById("new-age").value;
+  const notes = document.getElementById("new-notes").value.trim();
+
+  if(!code || !libelle){ alert("Code et libellé sont obligatoires"); return; }
+
+  await fetch("/api/supabaseBeneficiaires", {
+    method:"PUT",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({id:editId, code, libelle, age_max, notes})
+  });
+  resetForm();
+  charger();
+}
+
+// Supprimer un bénéficiaire
+async function supprimer(id){
+  if(!confirm("Confirmer la suppression ?")) return;
+  await fetch("/api/supabaseBeneficiaires", {
+    method:"DELETE",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({id})
+  });
+  charger();
+}
+
+// Réinitialiser le formulaire
+function resetForm(){
+  editId = null;
+  document.getElementById("form-title").innerText = "Ajouter un bénéficiaire";
+  document.getElementById("new-code").value = "";
+  document.getElementById("new-libelle").value = "";
+  document.getElementById("new-age").value = "";
+  document.getElementById("new-notes").value = "";
+  document.getElementById("btn-ajouter").style.display = "inline-block";
+  document.getElementById("btn-modifier").style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", charger);
+</script>
+</body>
+</html>
+
+admin-avantages.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Administration – Avantages</title>
+<style>
+body { background:#121212; color:#fff; font-family:Inter,sans-serif; margin:0; padding:0; }
+.container { max-width:1600px; margin:auto; padding:20px; }
+h1, h3 { color:#4fc3f7; margin-top:30px; }
+table { width:100%; border-collapse:collapse; margin-top:15px; }
+th, td { border:1px solid rgba(255,255,255,0.3); padding:6px; text-align:center; }
+th { background: rgba(255,255,255,0.15); }
+input, select, textarea { width:100%; padding:6px; border-radius:6px; border:1px solid rgba(255,255,255,0.3); background:#1e1e1e; color:#fff; }
+textarea { resize:vertical; }
+button { padding:5px 10px; border-radius:5px; border:1px solid rgba(79,195,247,0.4); background: rgba(79,195,247,0.25); color:#fff; cursor:pointer; }
+button:hover { background: rgba(79,195,247,0.45); }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Administration – Avantages</h1>
+
+<label>Pays</label>
+<select id="pays-select">
+<option value="">-- Choisir un pays --</option>
+</select>
+
+<label>Transporteur</label>
+<select id="transporteur-select">
+<option value="">-- Choisir un transporteur --</option>
+</select>
+
+<h3>Création / modification</h3>
+<table>
+<thead>
+<tr>
+<th>Bénéficiaire</th>
+<th>Nb coupons</th>
+<th>%</th>
+<th>2nde</th>
+<th>1ère</th>
+<th>Conditions</th>
+<th>Notes</th>
+<th>Début</th>
+<th>Fin</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+
+<h3>Avantages enregistrés</h3>
+<table>
+<thead>
+<tr>
+<th>Pays</th>
+<th>Transporteur</th>
+<th>Bénéficiaire</th>
+<th>Coupons</th>
+<th>%</th>
+<th>2nde</th>
+<th>1ère</th>
+<th>Début</th>
+<th>Fin</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody id="tbody-liste"></tbody>
+</table>
+
+</div>
+
+<script>
+let paysList = [], transporteurs = [], beneficiaires = [];
+
+const tbody = document.getElementById("tbody");
+const tbodyListe = document.getElementById("tbody-liste");
+
+/* ========================= LOADERS ========================= */
+
+async function chargerPays(){
+  const resp = await fetch("/api/supabasePays?simple=1&used=1");
+  const json = await resp.json();
+  paysList = json.data || [];
+
+  const sel = document.getElementById("pays-select");
+  sel.innerHTML = "<option value=''>-- Choisir un pays --</option>";
+
+  paysList.forEach(p=>{
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = p.code_iso;
+    sel.appendChild(opt);
+  });
+}
+
+async function chargerTransporteurs(pays_id){
+  const sel = document.getElementById("transporteur-select");
+  sel.innerHTML = "<option value=''>-- Choisir un transporteur --</option>";
+  if(!pays_id) return;
+
+  const resp = await fetch(`/api/supabaseTransporteurs?simple=1&pays_id=${pays_id}`);
+  const json = await resp.json();
+  transporteurs = json.data || [];
+
+  transporteurs.forEach(t=>{
+    const opt = document.createElement("option");
+    opt.value = t.id;
+    opt.textContent = t.nom;
+    sel.appendChild(opt);
+  });
+}
+
+async function chargerBeneficiaires(){
+  const resp = await fetch("/api/supabaseBeneficiaires");
+  const json = await resp.json();
+  beneficiaires = json.data || [];
+}
+
+/* ========================= TABLE SAISIE ========================= */
+
+function construireTable(){
+  tbody.innerHTML = "";
+  beneficiaires.forEach(b=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${b.code}</td>
+      <td><input type="number"></td>
+      <td><input type="number" step="0.01"></td>
+      <td><input type="number" step="0.01"></td>
+      <td><input type="number" step="0.01"></td>
+      <td><textarea></textarea></td>
+      <td><textarea></textarea></td>
+      <td><input type="date"></td>
+      <td><input type="date"></td>
+      <td><button onclick="enregistrer(this, ${b.id})">Enregistrer</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+/* ========================= SAVE ========================= */
+
+async function enregistrer(btn, beneficiaire_id){
+  const tr = btn.closest("tr");
+  const val = i => tr.children[i].querySelector("input,textarea").value;
+
+  const avantage = {
+    transporteur_id: document.getElementById("transporteur-select").value,
+    pays_id: document.getElementById("pays-select").value,
+    beneficiaire_id,
+    nb_coupons_gratuits: val(1) || null,
+    reduction_percent: val(2) || null,
+    prix_forfaitaire_2nde: val(3) || null,
+    prix_forfaitaire_1ere: val(4) || null,
+    conditions: val(5) || null,
+    notes: val(6) || null,
+    date_debut: val(7) || null,
+    date_fin: val(8) || null
+  };
+
+  if(!avantage.transporteur_id || !avantage.pays_id){
+    alert("Veuillez sélectionner un pays et un transporteur !");
+    return;
+  }
+
+  const saveResp = await fetch("/api/supabaseAvantages",{
+    method:"POST",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(avantage)
+  });
+
+  if(saveResp.ok){
+    alert("Avantage enregistré / mis à jour !");
+    chargerAvantagesListe();
+  } else {
+    const err = await saveResp.json();
+    alert("Erreur: " + (err.error || saveResp.statusText));
+  }
+}
+
+/* ========================= LISTE ========================= */
+
+async function chargerAvantagesListe(){
+  const pays_id = document.getElementById("pays-select").value;
+  const transporteur_id = document.getElementById("transporteur-select").value;
+
+  if(!pays_id || !transporteur_id){
+    tbodyListe.innerHTML = "";
+    return;
+  }
+
+  const resp = await fetch(`/api/supabaseAvantages?pays_id=${pays_id}&transporteur_id=${transporteur_id}`);
+  const json = await resp.json();
+  const data = json.data || [];
+
+  tbodyListe.innerHTML = "";
+
+  data.forEach(a=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${a.pays?.code_iso || ""}</td>
+      <td>${a.transporteur?.nom || ""}</td>
+      <td>${a.beneficiaire?.code || ""}</td>
+      <td>${a.nb_coupons_gratuits ?? ""}</td>
+      <td>${a.reduction_percent ?? ""}</td>
+      <td>${a.prix_forfaitaire_2nde ?? ""}</td>
+      <td>${a.prix_forfaitaire_1ere ?? ""}</td>
+      <td>${a.date_debut ?? ""}</td>
+      <td>${a.date_fin ?? ""}</td>
+      <td>${a.notes ?? ""}</td>
+    `;
+    tbodyListe.appendChild(tr);
+  });
+}
+
+/* ========================= EVENTS ========================= */
+
+document.getElementById("pays-select").addEventListener("change", async (e)=>{
+  await chargerTransporteurs(e.target.value);
+  chargerAvantagesListe();
+});
+
+document.getElementById("transporteur-select").addEventListener("change", chargerAvantagesListe);
+
+document.addEventListener("DOMContentLoaded", async ()=>{
+  await chargerPays();
+  await chargerBeneficiaires();
+  construireTable();
+});
+</script>
+
+</body>
+</html>
+
+Admin-avantages1.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Administration – Création Avantages</title>
+<style>
+body { background:#121212; color:#fff; font-family:Inter,sans-serif; margin:0; padding:0; }
+.container { max-width:1400px; margin:auto; padding:20px; }
+h1, h3 { color:#4fc3f7; margin-top:30px; }
+table { width:100%; border-collapse:collapse; margin-top:15px; }
+th, td { border:1px solid rgba(255,255,255,0.3); padding:6px; text-align:center; }
+th { background: rgba(255,255,255,0.15); }
+input, select, textarea { width:100%; padding:6px; border-radius:6px; border:1px solid rgba(255,255,255,0.3); background:#1e1e1e; color:#fff; }
+textarea { resize:vertical; }
+button { padding:5px 10px; border-radius:5px; border:1px solid rgba(79,195,247,0.4); background: rgba(79,195,247,0.25); color:#fff; cursor:pointer; }
+button:hover { background: rgba(79,195,247,0.45); }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>Administration – Création / Modification</h1>
+
+<label>Pays</label>
+<select id="pays-select">
+<option value="">-- Choisir un pays --</option>
+</select>
+
+<label>Transporteur</label>
+<select id="transporteur-select">
+<option value="">-- Choisir un transporteur --</option>
+</select>
+
+<h3>Avantages par bénéficiaire</h3>
+
+<table>
+<thead>
+<tr>
+<th>Bénéficiaire</th>
+<th>Nb coupons</th>
+<th>%</th>
+<th>2nde</th>
+<th>1ère</th>
+<th>Conditions</th>
+<th>Notes</th>
+<th>Début</th>
+<th>Fin</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<script>
+let beneficiaires = [];
+let transporteurs = [];
+
+const tbody = document.getElementById("tbody");
+
+async function chargerPays(){
+  const resp = await fetch("/api/supabasePays?simple=1&used=1");
+  const json = await resp.json();
+  const sel = document.getElementById("pays-select");
+  sel.innerHTML = "<option value=''>-- Choisir un pays --</option>";
+  (json.data||[]).forEach(p=>{
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = p.code_iso;
+    sel.appendChild(opt);
+  });
+}
+
+async function chargerTransporteurs(pays_id){
+  const sel = document.getElementById("transporteur-select");
+  sel.innerHTML = "<option value=''>-- Choisir un transporteur --</option>";
+  if(!pays_id) return;
+
+  const resp = await fetch(`/api/supabaseTransporteurs?simple=1&pays_id=${pays_id}`);
+  const json = await resp.json();
+
+  transporteurs = json.data || [];
+  transporteurs.forEach(t=>{
+    const opt = document.createElement("option");
+    opt.value = t.id;
+    opt.textContent = t.nom;
+    sel.appendChild(opt);
+  });
+}
+
+async function chargerBeneficiaires(){
+  const resp = await fetch("/api/supabaseBeneficiaires");
+  const json = await resp.json();
+  beneficiaires = json.data || [];
+}
+
+function construireTable(){
+  tbody.innerHTML = "";
+  beneficiaires.forEach(b=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${b.code}</td>
+      <td><input type="number"></td>
+      <td><input type="number" step="0.01"></td>
+      <td><input type="number" step="0.01"></td>
+      <td><input type="number" step="0.01"></td>
+      <td><textarea></textarea></td>
+      <td><textarea></textarea></td>
+      <td><input type="date" value="2026-01-01"></td>
+      <td><input type="date" value="2099-12-31"></td>
+      <td><button onclick="enregistrer(this, ${b.id})">Enregistrer</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+async function enregistrer(btn, beneficiaire_id){
+  const tr = btn.closest("tr");
+  const val = i => tr.children[i].querySelector("input,textarea").value;
+
+  const payload = {
+    transporteur_id: document.getElementById("transporteur-select").value,
+    pays_id: document.getElementById("pays-select").value,
+    beneficiaire_id,
+    nb_coupons_gratuits: val(1)||null,
+    reduction_percent: val(2)||null,
+    prix_forfaitaire_2nde: val(3)||null,
+    prix_forfaitaire_1ere: val(4)||null,
+    conditions: val(5)||null,
+    notes: val(6)||null,
+    date_debut: val(7)||null,
+    date_fin: val(8)||null
+  };
+
+  if(!payload.transporteur_id || !payload.pays_id){
+    alert("Sélectionner pays + transporteur");
+    return;
+  }
+
+  const resp = await fetch("/api/supabaseAvantages",{
+    method:"POST",
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  });
+
+  if(resp.ok){
+    alert("Avantage enregistré !");
+  } else {
+    const err = await resp.json();
+    alert(err.error || "Erreur");
+  }
+}
+
+document.getElementById("pays-select").addEventListener("change", e=>{
+  chargerTransporteurs(e.target.value);
+});
+
+document.addEventListener("DOMContentLoaded", async ()=>{
+  await chargerPays();
+  await chargerBeneficiaires();
+  construireTable();
+});
+</script>
+
+</body>
+</html>
+
+Admin-avantages2.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Administration – Liste complète Avantages</title>
+<style>
+body { background:#121212; color:#fff; font-family:Inter,sans-serif; margin:0; padding:0; }
+.container { max-width:1600px; margin:auto; padding:20px; }
+h1 { color:#4fc3f7; }
+table { width:100%; border-collapse:collapse; margin-top:20px; }
+th, td { border:1px solid rgba(255,255,255,0.3); padding:6px; text-align:center; }
+th { background: rgba(255,255,255,0.15); }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>Liste complète des Avantages</h1>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Pays</th>
+<th>Transporteur</th>
+<th>Bénéficiaire</th>
+<th>Coupons</th>
+<th>%</th>
+<th>2nde</th>
+<th>1ère</th>
+<th>Début</th>
+<th>Fin</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<script>
+const tbody = document.getElementById("tbody");
+
+async function chargerTous(){
+  const resp = await fetch("/api/supabaseAvantages");
+  const json = await resp.json();
+  const data = json.data || [];
+
+  tbody.innerHTML = "";
+
+  data.forEach(a=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${a.id}</td>
+      <td>${a.pays?.code_iso || ""}</td>
+      <td>${a.transporteur?.nom || ""}</td>
+      <td>${a.beneficiaire?.code || ""}</td>
+      <td>${a.nb_coupons_gratuits ?? ""}</td>
+      <td>${a.reduction_percent ?? ""}</td>
+      <td>${a.prix_forfaitaire_2nde ?? ""}</td>
+      <td>${a.prix_forfaitaire_1ere ?? ""}</td>
+      <td>${a.date_debut ?? ""}</td>
+      <td>${a.date_fin ?? ""}</td>
+      <td>${a.notes ?? ""}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", chargerTous);
+</script>
+
+</body>
+</html>
+
+Apropos.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>La Page de Test de Tintin94230</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+  <h1>A propos</h1>
+  <p>Qui suis-je ?</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="apropos.html" class="active">À propos</a></li>
+        <li><a href="projets.html">Projets</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="admin.html">Espace Admin</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <p>Bienvenue sur la page À propos 🚀</p>
+    </main>
+
+    <footer>© 2026 · Tintin94230</footer>
+  </div>
+</body>
+</html>
+
+Blog.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog – Test API Supabase</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <h1>Blog</h1>
+      <p>Test API + Supabase</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="admin.html">Espace Admin</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <h2>Ajouter un mot</h2>
+      <form id="formMot">
+        <input type="text" id="mot" placeholder="Entrez un mot" required />
+        <button type="submit">Ajouter</button>
+      </form>
+
+      <h2>Mots enregistrés</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Mot</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="tableMots">
+          <!-- contenu injecté par JS -->
+        </tbody>
+      </table>
+    </main>
+
+    <footer>© 2026 · Tintin94230</footer>
+
+  </div>
+
+  <script>
+    const tableBody = document.getElementById("tableMots");
+    const form = document.getElementById("formMot");
+    const input = document.getElementById("mot");
+
+    async function chargerMots() {
+      tableBody.innerHTML = '<tr><td colspan="3">Chargement...</td></tr>';
+      try {
+        const response = await fetch("/api/supabase001");
+        const result = await response.json();
+
+        if (!Array.isArray(result)) {
+          tableBody.innerHTML = `<tr><td colspan="3" style="color:red;">Erreur API: ${JSON.stringify(result)}</td></tr>`;
+          return;
+        }
+
+        tableBody.innerHTML = "";
+        if (result.length === 0) {
+          tableBody.innerHTML = '<tr><td colspan="3">Aucun mot enregistré</td></tr>';
+          return;
+        }
+
+        result.forEach(item => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${item.id}</td><td>${item.mot}</td><td>${new Date(item.created_at).toLocaleString("fr-FR")}</td>`;
+          tableBody.appendChild(tr);
+        });
+      } catch (error) {
+        console.error("Erreur chargement mots:", error);
+        tableBody.innerHTML = '<tr><td colspan="3" style="color:red;">Erreur réseau ou serveur</td></tr>';
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const mot = input.value.trim();
+      if (!mot) return;
+
+      try {
+        const response = await fetch("/api/supabase001", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ mot })
+        });
+        if (!response.ok) throw new Error("Erreur API");
+        input.value = "";
+        chargerMots();
+      } catch (error) {
+        console.error(error);
+        alert("Erreur lors de l'ajout du mot (voir console)");
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      chargerMots();
+    });
+  </script>
+</body>
+</html>
+
+
+Contact.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog – Test API Supabase</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+
+    <header>
+      <h1>Blog</h1>
+      <p>Test API + Supabase</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="admin.html">Espace Admin</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <h2>Ajouter un mot</h2>
+      <form id="formMot">
+        <input type="text" id="mot" placeholder="Entrez un mot" required />
+        <button type="submit">Ajouter</button>
+      </form>
+
+      <h2>Mots enregistrés</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Mot</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="tableMots">
+          <!-- contenu injecté par JS -->
+        </tbody>
+      </table>
+    </main>
+
+    <footer>© 2026 · Tintin94230</footer>
+
+  </div>
+
+  <script>
+    const tableBody = document.getElementById("tableMots");
+    const form = document.getElementById("formMot");
+    const input = document.getElementById("mot");
+
+    async function chargerMots() {
+      tableBody.innerHTML = '<tr><td colspan="3">Chargement...</td></tr>';
+      try {
+        const response = await fetch("/api/supabase001");
+        const result = await response.json();
+
+        if (!Array.isArray(result)) {
+          tableBody.innerHTML = `<tr><td colspan="3" style="color:red;">Erreur API: ${JSON.stringify(result)}</td></tr>`;
+          return;
+        }
+
+        tableBody.innerHTML = "";
+        if (result.length === 0) {
+          tableBody.innerHTML = '<tr><td colspan="3">Aucun mot enregistré</td></tr>';
+          return;
+        }
+
+        result.forEach(item => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${item.id}</td><td>${item.mot}</td><td>${new Date(item.created_at).toLocaleString("fr-FR")}</td>`;
+          tableBody.appendChild(tr);
+        });
+      } catch (error) {
+        console.error("Erreur chargement mots:", error);
+        tableBody.innerHTML = '<tr><td colspan="3" style="color:red;">Erreur réseau ou serveur</td></tr>';
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const mot = input.value.trim();
+      if (!mot) return;
+
+      try {
+        const response = await fetch("/api/supabase001", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ mot })
+        });
+        if (!response.ok) throw new Error("Erreur API");
+        input.value = "";
+        chargerMots();
+      } catch (error) {
+        console.error(error);
+        alert("Erreur lors de l'ajout du mot (voir console)");
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      chargerMots();
+    });
+  </script>
+</body>
+</html>
+
+
+Projets.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Projets – Météo</title>
+
+  <!-- Style global du site -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Police -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- ================= HEADER ================= -->
+    <header>
+      <h1>Projets</h1>
+      <p>Test d’appel API – OpenWeatherMap (version gratuite)</p>
+    </header>
+
+    <!-- ================= NAVIGATION ================= -->
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="apropos.html">À propos</a></li>
+        <li><a href="projets.html" class="active">Projets</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="admin.html">Espace Admin</a></li>
+      </ul>
+    </nav>
+
+    <!-- ================= CONTENU PRINCIPAL ================= -->
+    <main>
+      <h2>Météo actuelle</h2>
+
+      <!-- ====== ZONES MÉTÉO ====== -->
+      <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:30px;">
+
+        <!-- Paris -->
+        <div id="weather-paris"></div>
+
+        <!-- Dieppe -->
+        <div id="weather-dieppe"></div>
+
+        <!-- Ville personnalisée -->
+        <div>
+          <div style="margin-bottom:10px;">
+            <input
+              id="city-input"
+              type="text"
+              placeholder="Ville au choix"
+              style="padding:10px;border-radius:8px;border:none;width:180px;"
+            />
+            <button
+              id="fetch-btn"
+              style="padding:10px 14px;border-radius:8px;border:none;cursor:pointer;"
+            >
+              Afficher
+            </button>
+          </div>
+
+          <div id="weather-custom"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer>© 2026 · Tintin94230</footer>
+  </div>
+
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    /* =====================================================
+       🔑 CLÉ API OPENWEATHERMAP (version gratuite)
+       ===================================================== */
+    const apiKey = "e5fc1e5fa570955b439c3700e9c45d10";
+
+    /* =====================================================
+       Fonction principale : récupère et affiche la météo
+       city      → nom de la ville
+       targetId → id du conteneur HTML où afficher la météo
+       ===================================================== */
+    async function fetchWeather(city, targetId) {
+      const container = document.getElementById(targetId);
+      container.innerHTML = "<p>Chargement...</p>";
+
+      try {
+        /* ===== 1️⃣ Géocodage (ville → lat/lon) ===== */
+        const geoResponse = await fetch(
+          `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${apiKey}`
+        );
+
+        if (!geoResponse.ok) {
+          throw new Error(`Erreur géocodage (${geoResponse.status})`);
+        }
+
+        const geoData = await geoResponse.json();
+
+        if (!geoData.length) {
+          container.innerHTML = "<p>Ville non trouvée.</p>";
+          return;
+        }
+
+        const { lat, lon } = geoData[0];
+
+        /* ===== 2️⃣ Appel météo (API gratuite) ===== */
+        const weatherResponse = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&lang=fr&appid=${apiKey}`
+        );
+
+        if (!weatherResponse.ok) {
+          const err = await weatherResponse.json();
+          throw new Error(err.message);
+        }
+
+        const data = await weatherResponse.json();
+
+        /* ===== 3️⃣ Extraction des données utiles ===== */
+        const temp = data.main.temp;
+        const feels = data.main.feels_like;
+        const humidity = data.main.humidity;
+        const wind = data.wind.speed;
+        const description = data.weather[0].description;
+        const icon = data.weather[0].icon;
+
+        /* ===== 4️⃣ Affichage ===== */
+        container.innerHTML = `
+          <div style="
+            background:rgba(255,255,255,0.12);
+            border:1px solid rgba(255,255,255,0.25);
+            border-radius:16px;
+            padding:20px;
+            min-width:220px;
+          ">
+            <h3>${city}</h3>
+            <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}">
+            <p><strong>${temp.toFixed(1)} °C</strong> (ressenti ${feels.toFixed(1)} °C)</p>
+            <p>${description}</p>
+            <p>💧 Humidité : ${humidity} %</p>
+            <p>💨 Vent : ${wind} m/s</p>
+          </div>
+        `;
+      } catch (error) {
+        console.error("❌ ERREUR :", error);
+        container.innerHTML = `<p style="color:#ff8a80;">❌ ${error.message}</p>`;
+      }
+    }
+
+    /* =====================================================
+       Chargement automatique au démarrage
+       ===================================================== */
+    fetchWeather("Paris", "weather-paris");
+    fetchWeather("Dieppe", "weather-dieppe");
+
+    /* =====================================================
+       Gestion de la ville personnalisée
+       ===================================================== */
+    document.getElementById("fetch-btn").addEventListener("click", () => {
+      const city = document.getElementById("city-input").value.trim();
+      if (!city) {
+        alert("Merci de saisir une ville.");
+        return;
+      }
+      fetchWeather(city, "weather-custom");
+    });
+  </script>
+</body>
+</html>
+
+
+Index.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>La Page de Test de Tintin94230</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>La Page de Test de Tintin94230</h1>
+      <p>Accueil du site</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="index.html" class="active">Accueil</a></li>
+        <li><a href="apropos.html">À propos</a></li>
+        <li><a href="projets.html">Projets</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="admin.html">Espace Admin</a></li>
+      </ul>
+    </nav>
+
+
+
+
+
+
+
+    <main>
+      <p>Bienvenue sur la page d’accueil 🚀</p>
+    </main>
+
+    <footer>© 2026 · Tintin94230</footer>
+  </div>
+</body>
+</html>
+
+
+Style.css
+:root {
+  --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --text-main: #ffffff;
+  --text-muted: #cfd8dc;
+  --accent: #4fc3f7;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* ⬅️ au lieu de center */
+  padding-top: 30px;
+}
+
+.container {
+  width: min(900px, 90%);
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 2.3rem;
+  margin-bottom: 10px;
+}
+
+header p {
+  color: var(--text-muted);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 25px 0 35px;
+  flex-wrap: nowrap;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 60px;
+  padding: 0 22px;
+
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.12);       /* ⬅️ plus visible */
+  border: 1px solid rgba(255, 255, 255, 0.25); /* ⬅️ cadre clair */
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition: 
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+nav a:hover,
+nav a.active {
+  background: rgba(79, 195, 247, 0.25);
+  box-shadow: 0 10px 30px rgba(79, 195, 247, 0.35);
+  transform: translateY(-3px);
+}
+
+main {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 20px;
+  min-height: 300px; /* espace pour le contenu */
+}
+
+footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+table input {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 6px;
+}
+
+table button {
+  background: rgba(79,195,247,0.25);
+  border: 1px solid rgba(79,195,247,0.4);
+  color: white;
+  border-radius: 8px;
+}
+
+table button:hover {
+  background: rgba(79,195,247,0.4);
+}
+
+.form-ajout {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto auto;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+
+
+
+Documentation du projet : 
+Index-documentation.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentation – Index</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="doc.css">
+</head>
+<body>
+
+<div class="nav">
+  <a href="index-documentation.html">🏠 Index</a> |
+  <a href="page1-site.html">🧱 Site</a> |
+  <a href="page2-outils.html">🛠️ Outils</a> |
+  <a href="page3-api.html">🔌 API</a> |
+  <a href="page4-astuces.html">💡 Astuces</a>
+</div>
+
+<h1>Documentation du projet web</h1>
+
+<p>
+Cette documentation décrit le site, ses outils, ses API et son déploiement.
+Elle est pensée pour être lue facilement, sans jargon inutile.
+</p>
+
+<h2>Sommaire</h2>
+<ul>
+  <li><a href="page1-site.html">Page 1 – Le site HTML</a></li>
+  <li><a href="page2-outils.html">Page 2 – Outils & déploiement</a></li>
+  <li><a href="page3-api.html">Page 3 – API & base de données</a></li>
+  <li><a href="page4-astuces.html">Page 4 – Astuces & commandes utiles</a></li>
+</ul>
+
+<hr>
+
+<h2>🔄 Quick Restart – Checklist de vérification</h2>
+
+<h3>1️⃣ Vérifier la production (PROD)</h3>
+<ul>
+  <li>Ouvrir l’URL publique Vercel : <a href="https://site01-snowy.vercel.app/" target="_blank">https://site01-snowy.vercel.app/</a></li>
+  <li>Vérifier que la page d’accueil s’affiche</li>
+  <li>Tester <strong>blog.html</strong></li>
+  <li>Tester <strong>admin-lieux.html</strong></li>
+</ul>
+
+<p><strong>Test API PROD :</strong></p>
+<pre>https://site01-snowy.vercel.app/api/supabase001?mot=test</pre>
+<p>Si une réponse JSON apparaît → API PROD fonctionnelle.</p>
+
+<hr>
+
+<h3>2️⃣ Vérifier l’environnement local (DEV)</h3>
+<p><strong>Lancer le projet :</strong></p>
+<pre>
+npm install
+npm run dev
+</pre>
+<p>Ouvrir ensuite :</p>
+<pre>http://localhost:3000</pre>
+<p><strong>Test API DEV :</strong></p>
+<pre>http://localhost:3000/api/supabase001?mot=test</pre>
+<p>Si une réponse apparaît → API DEV fonctionnelle.</p>
+
+<hr>
+
+<h3>3️⃣ Vérifier Supabase</h3>
+<ul>
+  <li>Se connecter au dashboard Supabase</li>
+  <li>Ouvrir la table <code>mots</code></li>
+  <li>Vérifier qu’un nouvel enregistrement apparaît après test</li>
+</ul>
+
+<hr>
+
+<h3>4️⃣ Vérifier les variables d’environnement</h3>
+<p><strong>En local :</strong></p>
+<ul>
+  <li>Fichier <code>.env.local</code> présent</li>
+  <li>Variables définies : <code>SUPABASE_URL</code>, <code>SUPABASE_KEY</code></li>
+</ul>
+<p><strong>En production :</strong></p>
+<ul>
+  <li>Vérifier les variables dans le dashboard Vercel</li>
+</ul>
+
+<hr>
+
+<h3>✔️ Checklist rapide</h3>
+<ul>
+  <li>☐ PROD accessible</li>
+  <li>☐ API PROD OK</li>
+  <li>☐ DEV local OK</li>
+  <li>☐ API DEV OK</li>
+  <li>☐ Supabase OK</li>
+  <li>☐ Variables OK</li>
+</ul>
+
+<hr>
+<h2>✏️ A AJOUTER DANS LA PROCHAINE VERSION</h2>
+<textarea rows="4" style="width:100%;">abc... l'objectif final est de proposer un site web responsive s'appuyant sur ces éléments de base ... pour l'instant je construis les briques de bases étape après étape. L'objectif du site est de répondre à la question d'un salarié de la SNCF : "je souhaite aller en <pays> : comment m'y rendre, quelles solutions, réductions, ... et une fois sur place quelles facilités pour se déplacer. Nouvelle table : la table infos_pays contient : id (int4) pays_id (int4) categorie (varchar) texte (text) date_update (timestamp)"</textarea>
+
+</body>
+</html>
+
+Page1-site.html 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Page 1 – Le site web</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="doc.css">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
+      background: #fff;
+    }
+
+    h1, h2, h3, h4 {
+      font-weight: 700;
+    }
+
+    h2 {
+      margin-top: 40px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f5f5f5;
+    }
+
+    pre {
+      background: #f5f5f5;
+      padding: 15px;
+      overflow-x: auto;
+    }
+
+    .schema {
+      background: #fafafa;
+      border: 1px dashed #ccc;
+      padding: 15px;
+      margin: 15px 0;
+      font-family: monospace;
+      white-space: pre;
+    }
+
+    .nav {
+      margin-bottom: 20px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      margin-right: 15px;
+      color: #0066cc;
+    }
+
+    .nav a:hover { text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+
+<div class="nav">
+  <a href="index-documentation.html">🏠 Index</a> |
+  <a href="page1-site.html">🧱 Site</a> |
+  <a href="page2-outils.html">🛠️ Outils</a> |
+  <a href="page3-api.html">🔌 API</a> |
+  <a href="page4-astuces.html">💡 Astuces</a>
+</div>
+
+<h1>Page 1 – Le site web</h1>
+
+<p>
+Cette page décrit l’ensemble du site, ses pages HTML, ses rôles et les APIs consommées. 
+Elle sert de référence pour comprendre l’architecture front-end.
+</p>
+
+<hr>
+
+<h2>1️⃣ Présentation générale</h2>
+
+<p>
+Le projet <strong>tintin94230-page-test</strong> est un site web <strong>statique</strong> (HTML / CSS / JS) avec APIs backend serverless et base cloud Supabase. 
+L’hébergement est effectué sur <strong>Vercel</strong> et les pages HTML consomment des APIs internes ou publiques selon les besoins.
+</p>
+
+<ul>
+  <li>Front-end : HTML / CSS / JavaScript</li>
+  <li>Backend : Node.js serverless sur Vercel</li>
+  <li>Base de données : Supabase (PostgreSQL cloud)</li>
+  <li>APIs externes : météo, géocodage</li>
+  <li>Workflow : DEV local → Preview → PROD</li>
+</ul>
+
+<hr>
+
+<h2>2️⃣ Pages du site et rôles</h2>
+
+<p>Les fichiers HTML se trouvent dans <code>/public</code> :</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Page</th>
+      <th>Rôle</th>
+      <th>API consommée</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>index.html</td>
+      <td>Page d’accueil et navigation principale</td>
+      <td>Aucune</td>
+    </tr>
+    <tr>
+      <td>apropos.html</td>
+      <td>Présentation du projet</td>
+      <td>Aucune</td>
+    </tr>
+    <tr>
+      <td>projets.html</td>
+      <td>Tests d’APIs publiques</td>
+      <td>API météo (frontend)</td>
+    </tr>
+    <tr>
+      <td>blog.html</td>
+      <td>Page dynamique connectée à Supabase</td>
+      <td>/api/supabase001</td>
+    </tr>
+    <tr>
+      <td>contact.html</td>
+      <td>Page contact</td>
+      <td>Aucune</td>
+    </tr>
+    <tr>
+      <td>admin.html</td>
+      <td>Administration (future)</td>
+      <td>/api/supabase002</td>
+    </tr>
+    <tr>
+      <td>admin-lieux.html</td>
+      <td>Gestion de lieux géographiques</td>
+      <td>/api/supabase002 + API géocodage</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2>3️⃣ APIs consommées</h2>
+
+<h3>3.1 Internes</h3>
+<ul>
+  <li><code>/api/supabase001</code> → blog.html</li>
+  <li><code>/api/supabase002</code> → admin.html, admin-lieux.html</li>
+</ul>
+
+<h3>3.2 Externes publiques</h3>
+
+<h4>🌦️ API météo</h4>
+<p>Utilisée par <strong>projets.html</strong> pour tester fetch côté navigateur.</p>
+<a href="https://openweathermap.org/api" target="_blank">Documentation OpenWeatherMap</a>
+
+<h4>🗺️ API géocodage Nominatim</h4>
+<p>Utilisée par <strong>admin-lieux.html</strong> pour transformer un nom de lieu en coordonnées GPS.</p>
+<pre>https://nominatim.openstreetmap.org/search</pre>
+<a href="https://nominatim.org/release-docs/latest/api/Search/" target="_blank">Documentation Nominatim</a>
+
+<div class="schema">
+projets.html ──► API météo (publique)
+admin-lieux.html ──► API Nominatim
+         |
+         └──► /api/supabase002 ──► Supabase
+</div>
+
+<hr>
+
+<h2>4️⃣ Architecture générale</h2>
+
+<p><strong>Important :</strong> Aucune page HTML n’accède directement à la base de données.</p>
+
+<div class="schema">
+Navigateur (HTML / JS)
+        |
+        v
+API backend (Vercel)
+        |
+        v
+Base de données (Supabase)
+</div>
+
+<hr>
+
+<h2>5️⃣ Style et design</h2>
+<ul>
+  <li>Typographie : Inter</li>
+  <li>Design clair et lisible</li>
+  <li>Responsive simple</li>
+</ul>
+
+<hr>
+
+<h2>6️⃣ Évolutions possibles</h2>
+<ul>
+  <li>Ajout de nouvelles APIs</li>
+  <li>Authentification admin</li>
+  <li>Cartographie interactive</li>
+  <li>Framework JS (React / Vue)</li>
+</ul>
+
+<hr>
+
+<h2>7️⃣ Conclusion</h2>
+<p>
+Cette page fournit une vue complète du site, ses pages, et les APIs consommées. 
+Pour les détails sur l’environnement, workflow, Git, Vercel et Supabase → voir <a href="page2-outils.html">Page 2 – Outils & Déploiement</a> et <a href="page3-api.html">Page 3 – API & base de données</a>.
+</p>
+
+<hr>
+<h2>✏️ A AJOUTER DANS LA PROCHAINE VERSION</h2>
+<textarea rows="4" style="width:100%;">abc... Nouvelle API supabaseInfoPays en lien avec la table infos_pays et nouvelle page admin-infopays.html</textarea>
+
+</body>
+</html>
+
+
+Page2-outils.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentation – Outils & Déploiement (Version 2)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="doc.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; line-height: 1.6; color: #333; background: #fff; }
+    h1, h2, h3 { font-weight: 700; }
+    h2 { margin-top: 40px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+    pre { background: #f5f5f5; padding: 15px; overflow-x: auto; }
+    ul { margin: 0 0 20px 20px; }
+    li { margin-bottom: 5px; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="index-documentation.html">🏠 Index</a> |
+  <a href="page1-site.html">🧱 Site</a> |
+  <a href="page2-outils.html">🛠️ Outils</a> |
+  <a href="page3-api.html">🔌 API</a> |
+  <a href="page4-astuces.html">💡 Astuces</a>
+</div>
+
+<h1>Page 2 – Outils, workflow & déploiement (v2)</h1>
+
+<p>
+Cette page décrit le cycle complet de développement : édition du code, tests locaux, gestion Git, déploiement sur Vercel, connexion Supabase, et nom de domaine OVH.
+</p>
+
+<hr>
+
+<h2>1️⃣ Outils utilisés</h2>
+<ul>
+  <li><strong>Visual Studio Code</strong> – éditeur principal</li>
+  <li><strong>Git / GitHub</strong> – gestion de versions et hébergement du code</li>
+  <li><strong>Vercel</strong> – déploiement du site et APIs serverless</li>
+  <li><strong>Supabase</strong> – base de données PostgreSQL cloud</li>
+  <li><strong>OVH</strong> – gestion DNS / nom de domaine</li>
+  <li><strong>Node.js & npm</strong> – exécution serveur / scripts</li>
+</ul>
+
+<h2>2️⃣ Visual Studio Code</h2>
+<h3>Rôle</h3>
+<p>Édition, navigation et organisation du projet (HTML, CSS, JS, API Node.js).</p>
+
+<h3>Extensions recommandées</h3>
+<ul>
+  <li><strong>Live Server</strong> – aperçu HTML instantané</li>
+  <li><strong>Prettier</strong> – formatage automatique</li>
+  <li><strong>HTML CSS Support</strong> – autocomplétion CSS</li>
+  <li><strong>Auto Rename Tag</strong> – renomme les balises liées</li>
+  <li><strong>ESLint</strong> – détection d’erreurs JS</li>
+</ul>
+
+<h3>Terminal intégré</h3>
+<p>VS Code permet d’exécuter :</p>
+<pre>
+npm install
+npm run dev
+git status
+git commit -m "Message"
+vercel --prod
+</pre>
+
+<hr>
+
+<h2>3️⃣ Environnements DEV / PROD</h2>
+
+<h3>3.1 Développement local (DEV)</h3>
+<ul>
+  <li>Site sur <code>localhost:3000</code></li>
+  <li>Variables stockées dans <code>.env.local</code> (jamais versionnées)</li>
+  <li>Lancer serveur : <code>npm run dev</code></li>
+  <li>Arrêter serveur : <code>CTRL + C</code></li>
+</ul>
+
+<h3>3.2 Production (PROD)</h3>
+<ul>
+  <li>Site et APIs déployés sur Vercel</li>
+  <li>Variables configurées dans Vercel (Environment Variables)</li>
+  <li>URL publique : <a href="https://site01-snowy.vercel.app/" target="_blank">https://site01-snowy.vercel.app/</a></li>
+</ul>
+
+<hr>
+
+<h2>4️⃣ OVH – Gestion du nom de domaine</h2>
+<p>OVH sert uniquement de porte DNS :</p>
+<pre>
+Navigateur
+   |
+   v
+Nom de domaine OVH
+   |
+   v
+Site déployé sur Vercel
+   |
+   v
+APIs / Base Supabase
+</pre>
+
+<h3>Actions courantes OVH</h3>
+<ul>
+  <li>Redirection DNS vers Vercel</li>
+  <li>Gestion des sous-domaines</li>
+  <li>Aucun hébergement direct du site</li>
+</ul>
+
+<hr>
+
+<h2>5️⃣ Workflow complet – DEV → PROD</h2>
+
+<h3>5.1 Modifier le code</h3>
+<p>Éditer HTML, CSS, JS, APIs dans VS Code.</p>
+
+<h3>5.2 Tester en local</h3>
+<ul>
+  <li>Site simple HTML : <code>npx serve .</code></li>
+  <li>Projet avec API : <code>npm install</code> puis <code>npm run dev</code></li>
+</ul>
+
+<h3>5.3 Arrêter le serveur</h3>
+<pre>CTRL + C</pre>
+
+<h3>5.4 Git – Sauvegarde / Versionning</h3>
+<p>Commandes usuelles :</p>
+<pre>
+git status
+git add .
+git commit -m "Description claire"
+git push
+</pre>
+<p>Le dépôt GitHub est la source de vérité.</p>
+
+<h3>5.5 Déploiement Vercel</h3>
+<ul>
+  <li>Preview : <code>vercel</code></li>
+  <li>Production : <code>vercel --prod</code></li>
+  <li>Synchroniser variables d’environnement : <code>vercel env pull</code></li>
+</ul>
+
+<hr>
+
+<h2>6️⃣ Variables d’environnement</h2>
+<p>DEV :</p>
+<pre>
+.env.local
+SUPABASE_URL
+SUPABASE_KEY
+</pre>
+<p>PROD : configurées dans Vercel → Dashboard → Environment Variables</p>
+
+<hr>
+
+<h2>7️⃣ Résumé – Récupération rapide</h2>
+<ul>
+  <li>VS Code pour éditer / tester</li>
+  <li>GitHub pour versionner</li>
+  <li>Vercel pour déployer site et APIs</li>
+  <li>OVH pour DNS / nom de domaine</li>
+  <li>Supabase pour base de données</li>
+  <li>Workflow simple : Modifier → Tester DEV → Commit Git → Déployer PROD</li>
+</ul>
+
+<p>
+⬅️ <a href="page1-site.html">Page 1 – Site</a><br>
+🔌 <a href="page3-api.html">Page 3 – API</a>
+</p>
+
+<footer>
+<p>© 2026 · Tintin94230 – Documentation Outils & Déploiement (v2)</p>
+</footer>
+
+<hr>
+<h2>✏️ A AJOUTER DANS LA PROCHAINE VERSION</h2>
+<textarea rows="4" style="width:100%;">abc...</textarea>
+
+</body>
+</html>
+
+
+Page3-api.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentation – API & Base de données (Version 2)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="doc.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; line-height: 1.6; color: #333; background: #fff; }
+    h1, h2, h3 { font-weight: 700; }
+    h2 { margin-top: 40px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+    th, td { border: 1px solid #ddd; padding: 10px; vertical-align: top; }
+    th { background: #f5f5f5; }
+    pre { background: #f5f5f5; padding: 15px; overflow-x: auto; }
+    ul { margin: 0 0 20px 20px; }
+    li { margin-bottom: 5px; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="index-documentation.html">🏠 Index</a> |
+  <a href="page1-site.html">🧱 Site</a> |
+  <a href="page2-outils.html">🛠️ Outils</a> |
+  <a href="page3-api.html">🔌 API</a> |
+  <a href="page4-astuces.html">💡 Astuces</a>
+</div>
+
+<h1>Page 3 – API internes & Base de données (v2)</h1>
+
+<p>
+Cette page documente les <strong>API backend internes</strong> et la <strong>structure complète de la base Supabase</strong>. 
+Elle inclut les commandes pour explorer et modifier la base, et pour migrer DEV → PROD.
+</p>
+
+<hr>
+
+<h2>1️⃣ Principe général</h2>
+
+<p>
+Toutes les pages HTML <strong>passent par des API serverless</strong> hébergées sur Vercel. 
+Aucune page n’accède directement à la base de données.
+</p>
+
+<pre>
+Navigateur (HTML / JS)
+        |
+        v
+API serverless (/api/*)
+        |
+        v
+Supabase (PostgreSQL)
+</pre>
+
+<p>
+Avantages :
+</p>
+<ul>
+  <li>Clés Supabase protégées côté serveur</li>
+  <li>Centralisation de la logique métier</li>
+  <li>Séparation claire Frontend / Backend</li>
+  <li>Architecture prête pour évolutions futures</li>
+</ul>
+
+<hr>
+
+<h2>2️⃣ API <code>/api/supabase001</code></h2>
+
+<p>Utilisée par <strong>blog.html</strong> pour stocker un mot saisi par l’utilisateur.</p>
+
+<h3>Objectif</h3>
+<p>API simple et pédagogique d’interaction HTML → Supabase.</p>
+
+<h3>Fonctions</h3>
+<ul>
+  <li>Recevoir un mot depuis le navigateur</li>
+  <li>Calculer sa longueur</li>
+  <li>Insérer le mot dans la table <code>mots</code></li>
+</ul>
+
+<h3>Endpoint</h3>
+<pre>
+GET /api/supabase001?mot=bonjour
+</pre>
+
+<h3>Flux</h3>
+<pre>
+blog.html
+   |
+   | fetch("/api/supabase001?mot=bonjour")
+   v
+API supabase001
+   |
+   | INSERT INTO mots
+   v
+Supabase
+</pre>
+
+<h3>Table <code>mots</code></h3>
+<table>
+  <tr><th>Colonne</th><th>Description</th></tr>
+  <tr><td>id</td><td>Identifiant unique (UUID / serial)</td></tr>
+  <tr><td>mot</td><td>Mot saisi</td></tr>
+  <tr><td>created_at</td><td>Date de création automatique</td></tr>
+</table>
+
+<hr>
+
+<h2>3️⃣ API <code>/api/supabase002</code></h2>
+
+<p>Utilisée par <strong>admin.html</strong> et <strong>admin-lieux.html</strong>.</p>
+
+<h3>Objectifs</h3>
+<ul>
+  <li>Gestion structurée des données</li>
+  <li>Ajout / modification / suppression sécurisée</li>
+  <li>Logique métier côté serveur</li>
+</ul>
+
+<h3>Données manipulées</h3>
+<ul>
+  <li>Lieux géographiques</li>
+  <li>Itinéraires entre lieux</li>
+</ul>
+
+<h3>Flux typique</h3>
+<pre>
+admin-lieux.html
+      |
+      | fetch("/api/supabase002", data)
+      v
+API supabase002
+      |
+      | INSERT / UPDATE / SELECT / DELETE
+      v
+Supabase
+</pre>
+
+<h3>Sécurité</h3>
+<ul>
+  <li>API protégée (authentification, rôles, JWT)</li>
+  <li>Aucune clé exposée côté navigateur</li>
+  <li>Séparation DEV / PROD</li>
+</ul>
+
+<hr>
+
+<h2>4️⃣ Base de données Supabase</h2>
+
+<p>Base PostgreSQL managée par Supabase.</p>
+
+<h3>4.1 Table <code>mots</code></h3>
+<table>
+  <tr><th>Colonne</th><th>Description</th></tr>
+  <tr><td>id</td><td>Identifiant unique</td></tr>
+  <tr><td>mot</td><td>Mot saisi</td></tr>
+  <tr><td>created_at</td><td>Date de création</td></tr>
+</table>
+
+<h3>4.2 Table <code>lieux</code></h3>
+<table>
+  <tr><th>Colonne</th><th>Description</th></tr>
+  <tr><td>id</td><td>Identifiant unique</td></tr>
+  <tr><td>nom</td><td>Nom du lieu</td></tr>
+  <tr><td>latitude</td><td>Coordonnée GPS</td></tr>
+  <tr><td>longitude</td><td>Coordonnée GPS</td></tr>
+  <tr><td>created_at</td><td>Date de création</td></tr>
+</table>
+
+<h3>4.3 Table <code>itineraires</code></h3>
+<table>
+  <tr><th>Colonne</th><th>Description</th></tr>
+  <tr><td>id</td><td>Identifiant unique</td></tr>
+  <tr><td>lieu_depart_id</td><td>Référence vers lieux.id</td></tr>
+  <tr><td>lieu_arrivee_id</td><td>Référence vers lieux.id</td></tr>
+  <tr><td>type_voyage</td><td>Voiture / Train / Avion…</td></tr>
+  <tr><td>nom</td><td>Nom de l’itinéraire</td></tr>
+  <tr><td>description</td><td>Description libre</td></tr>
+  <tr><td>lien_http</td><td>Lien externe</td></tr>
+  <tr><td>created_at</td><td>Date de création</td></tr>
+</table>
+
+<h4>Relations</h4>
+<pre>
+lieux (id)
+   ▲        ▲
+   |        |
+itineraires
+(depart) (arrivee)
+</pre>
+
+<hr>
+
+<h2>5️⃣ Commandes utiles Supabase</h2>
+
+<h3>5.1 Explorer la base</h3>
+<pre>
+supabase db remote commit
+supabase db remote list
+supabase db remote status
+</pre>
+
+<h3>5.2 Ajouter une colonne</h3>
+<pre>
+ALTER TABLE lieux ADD COLUMN description TEXT;
+</pre>
+
+<h3>5.3 Copier la structure DEV → PROD</h3>
+<pre>
+# Export DEV schema
+supabase db dump --schema-only --file=dev_schema.sql
+
+# Import PROD schema
+supabase db restore --file=dev_schema.sql --project-ref=PROD_PROJECT_REF
+</pre>
+
+<h3>5.4 Tester les requêtes SQL</h3>
+<pre>
+# Exemple INSERT
+INSERT INTO lieux (nom, latitude, longitude) VALUES ('Paris', 48.8566, 2.3522);
+
+# Exemple SELECT
+SELECT * FROM lieux;
+
+# Exemple UPDATE
+UPDATE lieux SET nom='Paris 1' WHERE id=1;
+
+# Exemple DELETE
+DELETE FROM lieux WHERE id=1;
+</pre>
+
+<hr>
+
+<h2>6️⃣ Environnements DEV / PROD</h2>
+<p>Variables utilisées :</p>
+<pre>
+SUPABASE_URL
+SUPABASE_KEY
+</pre>
+<ul>
+  <li>DEV → <code>.env.local</code></li>
+  <li>PROD → Dashboard Vercel</li>
+</ul>
+
+<h2>7️⃣ Résumé</h2>
+<ul>
+  <li>/api/supabase001 → API pédagogique mots</li>
+  <li>/api/supabase002 → API structurante (lieux, itinéraires)</li>
+  <li>Supabase = base relationnelle PostgreSQL cloud</li>
+  <li>DEV / PROD séparés, workflow sécurisé</li>
+  <li>Commandes Supabase disponibles pour exploration, modification et migration</li>
+</ul>
+
+<p>
+⬅️ <a href="page1-site.html">Page 1 – Site</a><br>
+🛠️ <a href="page2-outils.html">Page 2 – Outils</a>
+</p>
+
+<footer>
+<p>© 2026 · Tintin94230 – Documentation API & Base (v2)</p>
+</footer>
+
+<hr>
+<h2>✏️ A AJOUTER DANS LA PROCHAINE VERSION</h2>
+<textarea rows="4" style="width:100%;">abc...</textarea>
+
+</body>
+</html>
+
+
+Page4-astuces.html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentation – Astuces & Raccourcis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="doc.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; line-height: 1.6; color: #333; background: #fff; }
+    h1, h2, h3 { font-weight: 700; }
+    h2 { margin-top: 40px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+    pre { background: #f5f5f5; padding: 15px; overflow-x: auto; }
+    ul { margin: 0 0 20px 20px; }
+    li { margin-bottom: 5px; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="index.html">⬅ Index</a> |
+  <a href="page1-site.html">🧱 Site</a> |
+  <a href="page2-outils.html">🛠️ Outils</a> |
+  <a href="page3-api.html">🔌 API</a>
+</div>
+
+<h1>Page 4 – Astuces & Raccourcis</h1>
+
+<p>
+Cette page compile toutes les commandes et astuces pour reprendre le projet rapidement après une pause, ou gérer des problèmes courants.
+</p>
+
+<hr>
+
+<h2>1️⃣ Visual Studio Code – Raccourcis essentiels</h2>
+<ul>
+  <li><strong>Ouvrir le terminal intégré :</strong> <code>CTRL + `</code></li>
+  <li><strong>Formatage automatique :</strong> <code>Shift + Alt + F</code></li>
+  <li><strong>Rechercher un fichier :</strong> <code>CTRL + P</code></li>
+  <li><strong>Basculer entre fichiers ouverts :</strong> <code>CTRL + Tab</code></li>
+  <li><strong>Fermer le terminal :</strong> <code>CTRL + Shift + `</code></li>
+</ul>
+
+<h3>Extensions utiles</h3>
+<ul>
+  <li>Live Server – aperçu rapide HTML</li>
+  <li>Prettier – formatage code</li>
+  <li>ESLint – détection erreurs JS</li>
+  <li>Auto Rename Tag / HTML CSS Support</li>
+</ul>
+
+<hr>
+
+<h2>2️⃣ Commandes npm & tests locaux</h2>
+<ul>
+  <li><strong>Installer les dépendances :</strong> <code>npm install</code></li>
+  <li><strong>Lancer le projet DEV :</strong> <code>npm run dev</code></li>
+  <li><strong>Arrêter le serveur :</strong> <code>CTRL + C</code></li>
+</ul>
+
+<h3>Port 3000 occupé</h3>
+<p>Si vous avez l’erreur <em>“Port 3000 already in use”</em> :</p>
+<pre>
+# Linux / Mac
+lsof -i :3000
+kill -9 PID
+
+# Windows (PowerShell)
+netstat -ano | findstr :3000
+taskkill /PID PID /F
+</pre>
+
+<hr>
+
+<h2>3️⃣ Commandes Git – sauvegarde et historique</h2>
+<ul>
+  <li><strong>Vérifier l’état :</strong> <code>git status</code></li>
+  <li><strong>Ajouter toutes les modifications :</strong> <code>git add .</code></li>
+  <li><strong>Commit :</strong> <code>git commit -m "Message clair"</code></li>
+  <li><strong>Envoyer sur GitHub :</strong> <code>git push</code></li>
+  <li><strong>Récupérer les mises à jour :</strong> <code>git pull</code></li>
+  <li><strong>Basculer de branche :</strong> <code>git checkout nom_branche</code></li>
+</ul>
+
+<hr>
+
+<h2>4️⃣ Supabase – exploration & modifications</h2>
+<h3>Vérifier les tables et colonnes</h3>
+<pre>
+# Lister toutes les tables
+supabase db tables list
+
+# Voir la structure d’une table
+supabase db table show noms_de_la_table
+</pre>
+
+<h3>Ajouter une colonne</h3>
+<pre>
+ALTER TABLE lieux ADD COLUMN description TEXT;
+</pre>
+
+<h3>Copier la structure DEV → PROD</h3>
+<pre>
+# Export DEV schema
+supabase db dump --schema-only --file=dev_schema.sql
+
+# Import PROD schema
+supabase db restore --file=dev_schema.sql --project-ref=PROD_PROJECT_REF
+</pre>
+
+<hr>
+
+<h2>5️⃣ Variables d’environnement</h2>
+<p>Chargement DEV :</p>
+<pre>
+# Depuis le terminal VS Code
+vercel env pull
+</pre>
+
+<p>Vérifier que <code>.env.local</code> contient :</p>
+<pre>
+SUPABASE_URL
+SUPABASE_KEY
+</pre>
+
+<p>En PROD, vérifier dans le dashboard Vercel.</p>
+
+<hr>
+
+<h2>6️⃣ Astuces pratiques pour reprise rapide</h2>
+<ul>
+  <li>⚡ Toujours commencer par <code>git pull</code> pour récupérer la dernière version</li>
+  <li>⚡ Vérifier que <code>.env.local</code> est présent et complet</li>
+  <li>⚡ Lancer <code>npm install</code> si le projet n’a pas été utilisé depuis longtemps</li>
+  <li>⚡ Tester DEV avec <code>npm run dev</code> puis vérifier <code>http://localhost:3000</code></li>
+  <li>⚡ Vérifier que les API répondent : <code>/api/supabase001?mot=test</code> et <code>/api/supabase002</code></li>
+  <li>⚡ Si le port est occupé, utiliser les commandes de section 2</li>
+  <li>⚡ Vérifier la base Supabase et les dernières migrations</li>
+</ul>
+
+<hr>
+
+<h2>7️⃣ Résumé rapide</h2>
+<ul>
+  <li>VS Code = outil central</li>
+  <li>npm run dev = tester local</li>
+  <li>Git = versionner & sauvegarder</li>
+  <li>Supabase = base cloud, DEV et PROD séparés</li>
+  <li>Vercel = hébergement et variables PROD</li>
+  <li>OVH = DNS uniquement</li>
+</ul>
+
+<div class="nav">
+  <a href="index-documentation.html">🏠 Index</a> |
+  <a href="page1-site.html">🧱 Site</a> |
+  <a href="page2-outils.html">🛠️ Outils</a> |
+  <a href="page3-api.html">🔌 API</a> |
+  <a href="page4-astuces.html">💡 Astuces</a>
+</div>
+
+<footer>
+<p>© 2026 · Tintin94230 – Astuces & Raccourcis</p>
+</footer>
+
+<hr>
+<h2>✏️ A AJOUTER DANS LA PROCHAINE VERSION</h2>
+<textarea rows="4" style="width:100%;">abc...</textarea>
+
+</body>
+</html>
+
+
+
+
+
+
+🏠 Index | 🧱 Site | 🛠️ Outils | 🔌 API | 💡 Astuces
+Documentation du projet web
+Cette documentation décrit le site, ses outils, ses API et son déploiement. Elle est pensée pour être lue facilement, sans jargon inutile.
+Sommaire
+•	Page 1 – Le site HTML
+•	Page 2 – Outils & déploiement
+•	Page 3 – API & base de données
+•	Page 4 – Astuces & commandes utiles
+________________________________________
+🔄 Quick Restart – Checklist de vérification
+1️⃣ Vérifier la production (PROD)
+•	Ouvrir l’URL publique Vercel : https://site01-snowy.vercel.app/
+•	Vérifier que la page d’accueil s’affiche
+•	Tester blog.html
+•	Tester admin-lieux.html
+Test API PROD :
+https://site01-snowy.vercel.app/api/supabase001?mot=test
+Si une réponse JSON apparaît → API PROD fonctionnelle.
+________________________________________
+2️⃣ Vérifier l’environnement local (DEV)
+Lancer le projet :
+npm install
+npm run dev
+Ouvrir ensuite :
+http://localhost:3000
+Test API DEV :
+http://localhost:3000/api/supabase001?mot=test
+Si une réponse apparaît → API DEV fonctionnelle.
+________________________________________
+3️⃣ Vérifier Supabase
+•	Se connecter au dashboard Supabase
+•	Ouvrir la tablemots
+•	Vérifier qu’un nouvel enregistrement apparaît après test
+________________________________________
+4️⃣ Vérifier les variables d’environnement
+En local :
+•	Fichier.env.localprésent
+•	Variables définies :SUPABASE_URL,SUPABASE_KEY
+En production :
+•	Vérifier les variables dans le dashboard Vercel
+________________________________________
+✔️ Checklist rapide
+•	☐ PROD accessible
+•	☐ API PROD OK
+•	☐ DEV local OK
+•	☐ API DEV OK
+•	☐ Supabase OK
+•	☐ Variables OK
+________________________________________
+✏️ A AJOUTER DANS LA PROCHAINE VERSION
+
+
+
+
+
+🏠 Index | 🧱 Site | 🛠️ Outils | 🔌 API | 💡 Astuces
+Page 1 – Le site web
+Cette page décrit l’ensemble du site, ses pages HTML, ses rôles et les APIs consommées. Elle sert de référence pour comprendre l’architecture front-end.
+________________________________________
+1️⃣ Présentation générale
+Le projet tintin94230-page-test est un site web statique (HTML / CSS / JS) avec APIs backend serverless et base cloud Supabase. L’hébergement est effectué sur Vercel et les pages HTML consomment des APIs internes ou publiques selon les besoins.
+•	Front-end : HTML / CSS / JavaScript
+•	Backend : Node.js serverless sur Vercel
+•	Base de données : Supabase (PostgreSQL cloud)
+•	APIs externes : météo, géocodage
+•	Workflow : DEV local → Preview → PROD
+________________________________________
+2️⃣ Pages du site et rôles
+Les fichiers HTML se trouvent dans/public:
+Page	Rôle	API consommée
+index.html	Page d’accueil et navigation principale	Aucune
+apropos.html	Présentation du projet	Aucune
+projets.html	Tests d’APIs publiques	API météo (frontend)
+blog.html	Page dynamique connectée à Supabase	/api/supabase001
+contact.html	Page contact	Aucune
+admin.html	Administration (future)	/api/supabase002
+admin-lieux.html	Gestion de lieux géographiques	/api/supabase002 + API géocodage
+________________________________________
+3️⃣ APIs consommées
+3.1 Internes
+•	/api/supabase001→ blog.html
+•	/api/supabase002→ admin.html, admin-lieux.html
+3.2 Externes publiques
+🌦️ API météo
+Utilisée par projets.html pour tester fetch côté navigateur.
+Documentation OpenWeatherMap
+🗺️ API géocodage Nominatim
+Utilisée par admin-lieux.html pour transformer un nom de lieu en coordonnées GPS.
+https://nominatim.openstreetmap.org/search
+Documentation Nominatim
+
+projets.html ──► API météo (publique)
+admin-lieux.html ──► API Nominatim
+         |
+         └──► /api/supabase002 ──► Supabase
+________________________________________
+4️⃣ Architecture générale
+Important : Aucune page HTML n’accède directement à la base de données.
+
+Navigateur (HTML / JS)
+        |
+        v
+API backend (Vercel)
+        |
+        v
+Base de données (Supabase)
+________________________________________
+5️⃣ Style et design
+•	Typographie : Inter
+•	Design clair et lisible
+•	Responsive simple
+________________________________________
+6️⃣ Évolutions possibles
+•	Ajout de nouvelles APIs
+•	Authentification admin
+•	Cartographie interactive
+•	Framework JS (React / Vue)
+________________________________________
+7️⃣ Conclusion
+Cette page fournit une vue complète du site, ses pages, et les APIs consommées. Pour les détails sur l’environnement, workflow, Git, Vercel et Supabase → voir Page 2 – Outils & Déploiement et Page 3 – API & base de données.
+________________________________________
+✏️ A AJOUTER DANS LA PROCHAINE VERSION
+
+
+
+🏠 Index | 🧱 Site | 🛠️ Outils | 🔌 API | 💡 Astuces
+Page 2 – Outils, workflow & déploiement (v2)
+Cette page décrit le cycle complet de développement : édition du code, tests locaux, gestion Git, déploiement sur Vercel, connexion Supabase, et nom de domaine OVH.
+________________________________________
+1️⃣ Outils utilisés
+•	Visual Studio Code – éditeur principal
+•	Git / GitHub – gestion de versions et hébergement du code
+•	Vercel – déploiement du site et APIs serverless
+•	Supabase – base de données PostgreSQL cloud
+•	OVH – gestion DNS / nom de domaine
+•	Node.js & npm – exécution serveur / scripts
+2️⃣ Visual Studio Code
+Rôle
+Édition, navigation et organisation du projet (HTML, CSS, JS, API Node.js).
+Extensions recommandées
+•	Live Server – aperçu HTML instantané
+•	Prettier – formatage automatique
+•	HTML CSS Support – autocomplétion CSS
+•	Auto Rename Tag – renomme les balises liées
+•	ESLint – détection d’erreurs JS
+Terminal intégré
+VS Code permet d’exécuter :
+npm install
+npm run dev
+git status
+git commit -m "Message"
+vercel --prod
+________________________________________
+3️⃣ Environnements DEV / PROD
+3.1 Développement local (DEV)
+•	Site surlocalhost:3000
+•	Variables stockées dans.env.local(jamais versionnées)
+•	Lancer serveur :npm run dev
+•	Arrêter serveur :CTRL + C
+3.2 Production (PROD)
+•	Site et APIs déployés sur Vercel
+•	Variables configurées dans Vercel (Environment Variables)
+•	URL publique : https://site01-snowy.vercel.app/
+________________________________________
+4️⃣ OVH – Gestion du nom de domaine
+OVH sert uniquement de porte DNS :
+Navigateur
+   |
+   v
+Nom de domaine OVH
+   |
+   v
+Site déployé sur Vercel
+   |
+   v
+APIs / Base Supabase
+Actions courantes OVH
+•	Redirection DNS vers Vercel
+•	Gestion des sous-domaines
+•	Aucun hébergement direct du site
+________________________________________
+5️⃣ Workflow complet – DEV → PROD
+5.1 Modifier le code
+Éditer HTML, CSS, JS, APIs dans VS Code.
+5.2 Tester en local
+•	Site simple HTML :npx serve .
+•	Projet avec API :npm installpuisnpm run dev
+5.3 Arrêter le serveur
+CTRL + C
+5.4 Git – Sauvegarde / Versionning
+Commandes usuelles :
+git status
+git add .
+git commit -m "Description claire"
+git push
+Le dépôt GitHub est la source de vérité.
+5.5 Déploiement Vercel
+•	Preview :vercel
+•	Production :vercel --prod
+•	Synchroniser variables d’environnement :vercel env pull
+________________________________________
+6️⃣ Variables d’environnement
+DEV :
+.env.local
+SUPABASE_URL
+SUPABASE_KEY
+PROD : configurées dans Vercel → Dashboard → Environment Variables
+________________________________________
+7️⃣ Résumé – Récupération rapide
+•	VS Code pour éditer / tester
+•	GitHub pour versionner
+•	Vercel pour déployer site et APIs
+•	OVH pour DNS / nom de domaine
+•	Supabase pour base de données
+•	Workflow simple : Modifier → Tester DEV → Commit Git → Déployer PROD
+⬅️ Page 1 – Site
+🔌 Page 3 – API
+© 2026 · Tintin94230 – Documentation Outils & Déploiement (v2)
+________________________________________
+✏️ A AJOUTER DANS LA PROCHAINE VERSION
+
+
+
+
+
+🏠 Index | 🧱 Site | 🛠️ Outils | 🔌 API | 💡 Astuces
+Page 3 – API internes & Base de données (v2)
+Cette page documente les API backend internes et la structure complète de la base Supabase. Elle inclut les commandes pour explorer et modifier la base, et pour migrer DEV → PROD.
+________________________________________
+1️⃣ Principe général
+Toutes les pages HTML passent par des API serverless hébergées sur Vercel. Aucune page n’accède directement à la base de données.
+Navigateur (HTML / JS)
+        |
+        v
+API serverless (/api/*)
+        |
+        v
+Supabase (PostgreSQL)
+Avantages :
+•	Clés Supabase protégées côté serveur
+•	Centralisation de la logique métier
+•	Séparation claire Frontend / Backend
+•	Architecture prête pour évolutions futures
+________________________________________
+2️⃣ API/api/supabase001
+Utilisée par blog.html pour stocker un mot saisi par l’utilisateur.
+Objectif
+API simple et pédagogique d’interaction HTML → Supabase.
+Fonctions
+•	Recevoir un mot depuis le navigateur
+•	Calculer sa longueur
+•	Insérer le mot dans la tablemots
+Endpoint
+GET /api/supabase001?mot=bonjour
+Flux
+blog.html
+   |
+   | fetch("/api/supabase001?mot=bonjour")
+   v
+API supabase001
+   |
+   | INSERT INTO mots
+   v
+Supabase
+Tablemots
+Colonne	Description
+id	Identifiant unique (UUID / serial)
+mot	Mot saisi
+created_at	Date de création automatique
+________________________________________
+3️⃣ API/api/supabase002
+Utilisée par admin.html et admin-lieux.html.
+Objectifs
+•	Gestion structurée des données
+•	Ajout / modification / suppression sécurisée
+•	Logique métier côté serveur
+Données manipulées
+•	Lieux géographiques
+•	Itinéraires entre lieux
+Flux typique
+admin-lieux.html
+      |
+      | fetch("/api/supabase002", data)
+      v
+API supabase002
+      |
+      | INSERT / UPDATE / SELECT / DELETE
+      v
+Supabase
+Sécurité
+•	API protégée (authentification, rôles, JWT)
+•	Aucune clé exposée côté navigateur
+•	Séparation DEV / PROD
+________________________________________
+4️⃣ Base de données Supabase
+Base PostgreSQL managée par Supabase.
+4.1 Tablemots
+Colonne	Description
+id	Identifiant unique
+mot	Mot saisi
+created_at	Date de création
+4.2 Tablelieux
+Colonne	Description
+id	Identifiant unique
+nom	Nom du lieu
+latitude	Coordonnée GPS
+longitude	Coordonnée GPS
+created_at	Date de création
+4.3 Tableitineraires
+Colonne	Description
+id	Identifiant unique
+lieu_depart_id	Référence vers lieux.id
+lieu_arrivee_id	Référence vers lieux.id
+type_voyage	Voiture / Train / Avion…
+nom	Nom de l’itinéraire
+description	Description libre
+lien_http	Lien externe
+created_at	Date de création
+Relations
+lieux (id)
+   ▲        ▲
+   |        |
+itineraires
+(depart) (arrivee)
+________________________________________
+5️⃣ Commandes utiles Supabase
+5.1 Explorer la base
+supabase db remote commit
+supabase db remote list
+supabase db remote status
+5.2 Ajouter une colonne
+ALTER TABLE lieux ADD COLUMN description TEXT;
+5.3 Copier la structure DEV → PROD
+# Export DEV schema
+supabase db dump --schema-only --file=dev_schema.sql
+
+# Import PROD schema
+supabase db restore --file=dev_schema.sql --project-ref=PROD_PROJECT_REF
+5.4 Tester les requêtes SQL
+# Exemple INSERT
+INSERT INTO lieux (nom, latitude, longitude) VALUES ('Paris', 48.8566, 2.3522);
+
+# Exemple SELECT
+SELECT * FROM lieux;
+
+# Exemple UPDATE
+UPDATE lieux SET nom='Paris 1' WHERE id=1;
+
+# Exemple DELETE
+DELETE FROM lieux WHERE id=1;
+________________________________________
+6️⃣ Environnements DEV / PROD
+Variables utilisées :
+SUPABASE_URL
+SUPABASE_KEY
+•	DEV →.env.local
+•	PROD → Dashboard Vercel
+7️⃣ Résumé
+•	/api/supabase001 → API pédagogique mots
+•	/api/supabase002 → API structurante (lieux, itinéraires)
+•	Supabase = base relationnelle PostgreSQL cloud
+•	DEV / PROD séparés, workflow sécurisé
+•	Commandes Supabase disponibles pour exploration, modification et migration
+⬅️ Page 1 – Site
+🛠️ Page 2 – Outils
+© 2026 · Tintin94230 – Documentation API & Base (v2)
+________________________________________
+✏️ A AJOUTER DANS LA PROCHAINE VERSION
+
+
+
+⬅ Index | 🧱 Site | 🛠️ Outils | 🔌 API
+Page 4 – Astuces & Raccourcis
+Cette page compile toutes les commandes et astuces pour reprendre le projet rapidement après une pause, ou gérer des problèmes courants.
+________________________________________
+1️⃣ Visual Studio Code – Raccourcis essentiels
+•	Ouvrir le terminal intégré :CTRL + `
+•	Formatage automatique :Shift + Alt + F
+•	Rechercher un fichier :CTRL + P
+•	Basculer entre fichiers ouverts :CTRL + Tab
+•	Fermer le terminal :CTRL + Shift + `
+Extensions utiles
+•	Live Server – aperçu rapide HTML
+•	Prettier – formatage code
+•	ESLint – détection erreurs JS
+•	Auto Rename Tag / HTML CSS Support
+________________________________________
+2️⃣ Commandes npm & tests locaux
+•	Installer les dépendances :npm install
+•	Lancer le projet DEV :npm run dev
+•	Arrêter le serveur :CTRL + C
+Port 3000 occupé
+Si vous avez l’erreur “Port 3000 already in use” :
+# Linux / Mac
+lsof -i :3000
+kill -9 PID
+
+# Windows (PowerShell)
+netstat -ano | findstr :3000
+taskkill /PID PID /F
+________________________________________
+3️⃣ Commandes Git – sauvegarde et historique
+•	Vérifier l’état :git status
+•	Ajouter toutes les modifications :git add .
+•	Commit :git commit -m "Message clair"
+•	Envoyer sur GitHub :git push
+•	Récupérer les mises à jour :git pull
+•	Basculer de branche :git checkout nom_branche
+________________________________________
+4️⃣ Supabase – exploration & modifications
+Vérifier les tables et colonnes
+# Lister toutes les tables
+supabase db tables list
+
+# Voir la structure d’une table
+supabase db table show noms_de_la_table
+Ajouter une colonne
+ALTER TABLE lieux ADD COLUMN description TEXT;
+Copier la structure DEV → PROD
+# Export DEV schema
+supabase db dump --schema-only --file=dev_schema.sql
+
+# Import PROD schema
+supabase db restore --file=dev_schema.sql --project-ref=PROD_PROJECT_REF
+________________________________________
+5️⃣ Variables d’environnement
+Chargement DEV :
+# Depuis le terminal VS Code
+vercel env pull
+Vérifier que.env.localcontient :
+SUPABASE_URL
+SUPABASE_KEY
+En PROD, vérifier dans le dashboard Vercel.
+________________________________________
+6️⃣ Astuces pratiques pour reprise rapide
+•	⚡ Toujours commencer pargit pullpour récupérer la dernière version
+•	⚡ Vérifier que.env.localest présent et complet
+•	⚡ Lancernpm installsi le projet n’a pas été utilisé depuis longtemps
+•	⚡ Tester DEV avecnpm run devpuis vérifierhttp://localhost:3000
+•	⚡ Vérifier que les API répondent :/api/supabase001?mot=testet/api/supabase002
+•	⚡ Si le port est occupé, utiliser les commandes de section 2
+•	⚡ Vérifier la base Supabase et les dernières migrations
+________________________________________
+7️⃣ Résumé rapide
+•	VS Code = outil central
+•	npm run dev = tester local
+•	Git = versionner & sauvegarder
+•	Supabase = base cloud, DEV et PROD séparés
+•	Vercel = hébergement et variables PROD
+•	OVH = DNS uniquement
+🏠 Index | 🧱 Site | 🛠️ Outils | 🔌 API | 💡 Astuces
+© 2026 · Tintin94230 – Astuces & Raccourcis
+________________________________________
+✏️ A AJOUTER DANS LA PROCHAINE VERSION
+
+
+
+

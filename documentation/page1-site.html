@@ -3,224 +3,166 @@
 <head>
   <meta charset="UTF-8">
   <title>Page 1 – Le site web</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="doc.css">
 
   <style>
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
-      padding: 0;
-      background: #ffffff;
-      color: #333;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: auto;
       padding: 20px;
+      line-height: 1.6;
+      color: #333;
+      background: #fff;
     }
-
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    h1, h2, h3, h4 {
-      font-weight: 700;
-    }
-
-    h2 {
-      margin-top: 40px;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 5px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      vertical-align: top;
-    }
-
-    th {
-      background: #f5f5f5;
-    }
-
-    pre {
-      background: #f5f5f5;
-      padding: 15px;
-      overflow-x: auto;
-    }
-
-    .schema {
-      background: #fafafa;
-      border: 1px dashed #ccc;
-      padding: 15px;
-      margin: 15px 0;
-      font-family: monospace;
-      white-space: pre;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 60px;
-      font-size: 0.9em;
-      color: #666;
-    }
+    h1, h2, h3, h4 { font-weight: 700; }
+    h2 { margin-top: 40px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #ddd; padding: 10px; vertical-align: top; }
+    th { background: #f5f5f5; }
+    pre { background: #f5f5f5; padding: 15px; overflow-x: auto; }
+    .schema { background: #fafafa; border: 1px dashed #ccc; padding: 15px; margin: 15px 0; font-family: monospace; white-space: pre; }
+    .nav { margin-bottom: 20px; }
+    .nav a { text-decoration: none; margin-right: 15px; color: #0066cc; }
+    .nav a:hover { text-decoration: underline; }
   </style>
 </head>
 
 <body>
-  <div class="container">
 
-    <header>
-      <h1>Page 1 – Le site web</h1>
-      <p><a href="index.html">⬅ Retour au menu principal</a></p>
-    </header>
+<div class="nav">
+  <a href="index-documentation.html">🏠 Index</a> |
+  <a href="page1-site.html">🧱 Site</a> |
+  <a href="page2-outils.html">🛠️ Outils</a> |
+  <a href="page3-api.html">🔌 API</a> |
+  <a href="page4-astuces.html">💡 Astuces</a>
+</div>
 
-    <main>
+<h1>Page 1 – Le site web</h1>
 
-      <!-- ===================================================== -->
-      <h2>1️⃣ Présentation générale</h2>
+<p>
+Cette page décrit l’ensemble du site, ses pages HTML, ses rôles et les APIs consommées. 
+Elle sert de référence pour comprendre l’architecture front-end.
+</p>
 
-      <p>
-        Le projet <strong>tintin94230-page-test</strong> est un site web
-        <strong>statique</strong> (HTML / CSS / JavaScript) hébergé sur
-        <strong>Vercel</strong>.
-      </p>
+<hr>
 
-      <ul>
-        <li>Front-end HTML / CSS / JavaScript</li>
-        <li>APIs backend serverless (Node.js)</li>
-        <li>Base de données cloud Supabase</li>
-        <li>APIs externes publiques (météo, géocodage)</li>
-        <li>Déploiement moderne DEV → PROD</li>
-      </ul>
+<h2>1️⃣ Présentation générale</h2>
 
-      <!-- ===================================================== -->
-      <h2>2️⃣ Pages du site et rôles</h2>
+<p>
+Le projet <strong>tintin94230-page-test</strong> est un site web <strong>statique</strong> (HTML / CSS / JS) avec APIs backend serverless et base cloud Supabase. 
+L’hébergement est effectué sur <strong>Vercel</strong> et les pages HTML consomment des APIs internes ou publiques selon les besoins.
+</p>
 
-      <p>
-        Les pages HTML du site sont situées dans le dossier <code>/public</code>.
-      </p>
+<ul>
+  <li>Front-end : HTML / CSS / JavaScript</li>
+  <li>Backend : Node.js serverless sur Vercel</li>
+  <li>Base de données : Supabase (PostgreSQL cloud)</li>
+  <li>APIs externes : météo, géocodage</li>
+  <li>Workflow : DEV local → Preview → PROD</li>
+</ul>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Page</th>
-            <th>Rôle</th>
-            <th>API consommée</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>index.html</strong></td>
-            <td>Page d’accueil et navigation principale</td>
-            <td>Aucune</td>
-          </tr>
-          <tr>
-            <td><strong>apropos.html</strong></td>
-            <td>Présentation du projet</td>
-            <td>Aucune</td>
-          </tr>
-          <tr>
-            <td><strong>projets.html</strong></td>
-            <td>Tests d’APIs publiques</td>
-            <td>API météo (frontend)</td>
-          </tr>
-          <tr>
-            <td><strong>blog.html</strong></td>
-            <td>Page dynamique connectée à la base</td>
-            <td><code>/api/supabase001</code></td>
-          </tr>
-          <tr>
-            <td><strong>contact.html</strong></td>
-            <td>Page de contact</td>
-            <td>Aucune</td>
-          </tr>
-          <tr>
-            <td><strong>admin.html</strong></td>
-            <td>Administration (future)</td>
-            <td><code>/api/supabase002</code></td>
-          </tr>
-          <tr>
-            <td><strong>admin-lieux.html</strong></td>
-            <td>Gestion de lieux géographiques</td>
-            <td>
-              <code>/api/supabase002</code><br>
-              API de géocodage
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<hr>
 
-      <!-- ===================================================== -->
-      <h2>3️⃣ APIs consommées par le site</h2>
+<h2>2️⃣ Pages du site et rôles</h2>
 
-      <h3>3.1 APIs internes (backend du projet)</h3>
+<p>Les fichiers HTML se trouvent dans <code>/public</code> :</p>
 
-      <ul>
-        <li><code>/api/supabase001</code> – utilisée par <strong>blog.html</strong></li>
-        <li><code>/api/supabase002</code> – utilisée par <strong>admin.html</strong> et <strong>admin-lieux.html</strong></li>
-      </ul>
+<table>
+  <thead>
+    <tr>
+      <th>Page</th>
+      <th>Rôle</th>
+      <th>API consommée</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>index.html</td>
+      <td>Page d’accueil et navigation principale</td>
+      <td>Aucune</td>
+    </tr>
+    <tr>
+      <td>apropos.html</td>
+      <td>Présentation du projet</td>
+      <td>Aucune</td>
+    </tr>
+    <tr>
+      <td>projets.html</td>
+      <td>Tests d’APIs publiques</td>
+      <td>API météo (frontend)</td>
+    </tr>
+    <tr>
+      <td>blog.html</td>
+      <td>Page dynamique connectée à Supabase</td>
+      <td>/api/supabase001</td>
+    </tr>
+    <tr>
+      <td>admin.html</td>
+      <td>Administration (future)</td>
+      <td>/api/supabase002</td>
+    </tr>
+    <tr>
+      <td>admin-lieux.html</td>
+      <td>Gestion de lieux géographiques</td>
+      <td>/api/supabase002 + API géocodage</td>
+    </tr>
+    <tr>
+      <td>admin-pays.html</td>
+      <td>Gestion de pays (CRUD, export CSV)</td>
+      <td>/api/supabasePays</td>
+    </tr>
+    <tr>
+      <td>admin-infopays.html</td>
+      <td>Informations détaillées par pays</td>
+      <td>/api/supabaseInfoPays (future)</td>
+    </tr>
+  </tbody>
+</table>
 
-      <p>
-        👉 Voir <a href="page3-api.html">Page 3 – API & base de données</a>
-      </p>
+<hr>
 
-      <h3>3.2 APIs externes publiques</h3>
+<h2>3️⃣ APIs consommées</h2>
 
-      <h4>🌦️ API météo</h4>
-      <p>
-        Utilisée par <strong>projets.html</strong> pour tester les appels
-        <code>fetch()</code> côté navigateur.
-      </p>
-      <p>
-        📚 Documentation :
-        <a href="https://openweathermap.org/api" target="_blank">
-          https://openweathermap.org/api
-        </a>
-      </p>
+<h3>3.1 Internes</h3>
+<ul>
+  <li><code>/api/supabase001</code> → blog.html</li>
+  <li><code>/api/supabase002</code> → admin.html, admin-lieux.html</li>
+  <li><code>/api/supabasePays</code> → admin-pays.html</li>
+  <li><code>/api/supabaseInfoPays</code> → admin-infopays.html (à venir)</li>
+</ul>
 
-      <h4>🗺️ API de géocodage (Nominatim / OpenStreetMap)</h4>
-      <p>
-        Utilisée par <strong>admin-lieux.html</strong> pour convertir un nom de lieu
-        en coordonnées GPS (latitude / longitude).
-      </p>
+<h3>3.2 Externes publiques</h3>
 
-      <pre>
-https://nominatim.openstreetmap.org/search
-      </pre>
+<h4>🌦️ API météo</h4>
+<p>Utilisée par <strong>projets.html</strong> pour tester fetch côté navigateur.</p>
+<a href="https://openweathermap.org/api" target="_blank">Documentation OpenWeatherMap</a>
 
-      <p>
-        📚 Documentation :
-        <a href="https://nominatim.org/release-docs/latest/api/Search/" target="_blank">
-          https://nominatim.org/release-docs/latest/api/Search/
-        </a>
-      </p>
+<h4>🗺️ API géocodage Nominatim</h4>
+<p>Utilisée par <strong>admin-lieux.html</strong> pour transformer un nom de lieu en coordonnées GPS.</p>
+<pre>https://nominatim.openstreetmap.org/search</pre>
+<a href="https://nominatim.org/release-docs/latest/api/Search/" target="_blank">Documentation Nominatim</a>
 
-      <div class="schema">
+<div class="schema">
 projets.html ──► API météo (publique)
-
 admin-lieux.html ──► API Nominatim
-        |
-        └──► /api/supabase002 ──► Supabase
-      </div>
+         |
+         └──► /api/supabase002 ──► Supabase
+admin-pays.html ──► /api/supabasePays ──► Supabase
+admin-infopays.html ──► /api/supabaseInfoPays ──► Supabase
+</div>
 
-      <!-- ===================================================== -->
-      <h2>4️⃣ Principe fondamental d’architecture</h2>
+<hr>
 
-      <p><strong>Aucune page HTML n’accède directement à la base de données.</strong></p>
+<h2>4️⃣ Architecture générale</h2>
 
-      <div class="schema">
+<p><strong>Important :</strong> Aucune page HTML n’accède directement à la base de données.</p>
+
+<div class="schema">
 Navigateur (HTML / JS)
         |
         v
@@ -228,46 +170,39 @@ API backend (Vercel)
         |
         v
 Base de données (Supabase)
-      </div>
+</div>
 
-      <!-- ===================================================== -->
-      <h2>5️⃣ Style et design</h2>
+<hr>
 
-      <ul>
-        <li>Typographie : Inter</li>
-        <li>Design clair et lisible</li>
-        <li>Responsive simple</li>
-      </ul>
+<h2>5️⃣ Style et design</h2>
+<ul>
+  <li>Typographie : Inter</li>
+  <li>Design clair et lisible</li>
+  <li>Responsive simple</li>
+</ul>
 
-      <!-- ===================================================== -->
-      <h2>6️⃣ Évolutions possibles</h2>
+<hr>
 
-      <ul>
-        <li>Ajout de nouvelles APIs</li>
-        <li>Authentification admin</li>
-        <li>Cartographie interactive</li>
-        <li>Framework JS (React / Vue)</li>
-      </ul>
+<h2>6️⃣ Évolutions possibles</h2>
+<ul>
+  <li>Ajout de nouvelles APIs</li>
+  <li>Authentification admin</li>
+  <li>Cartographie interactive</li>
+  <li>Framework JS (React / Vue)</li>
+  <li>Gestion complète des pays et infos par pays (supabasePays, supabaseInfoPays)</li>
+</ul>
 
-      <!-- ===================================================== -->
-      <h2>7️⃣ Conclusion</h2>
+<hr>
 
-      <p>
-        Cette page fournit une vue complète du site, de ses pages
-        et des APIs consommées.
-      </p>
+<h2>7️⃣ Conclusion</h2>
+<p>
+Cette page fournit une vue complète du site, ses pages, et les APIs consommées. 
+Pour les détails sur l’environnement, workflow, Git, Vercel et Supabase → voir <a href="page2-outils.html">Page 2 – Outils & Déploiement</a> et <a href="page3-api.html">Page 3 – API & base de données</a>.
+</p>
 
-      <p>
-        ➡️ Voir <a href="page2-outils.html">Page 2 – Outils & déploiement</a><br>
-        ➡️ Voir <a href="page3-api.html">Page 3 – API & base de données</a>
-      </p>
+<hr>
+<h2>✏️ A AJOUTER DANS LA PROCHAINE VERSION</h2>
+<textarea rows="4" style="width:100%;">Nouvelle API supabaseInfoPays en lien avec la table infos_pays et nouvelle page admin-infopays.html</textarea>
 
-    </main>
-
-    <footer>
-      © 2026 · Tintin94230
-    </footer>
-
-  </div>
 </body>
 </html>

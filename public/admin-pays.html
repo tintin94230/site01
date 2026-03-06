@@ -2,157 +2,157 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Admin Pays</title>
-
+<title>Voyager en train</title>
 <style>
-body{background:#121212;color:#fff;font-family:Inter;padding:20px}
-table{width:100%;border-collapse:collapse;margin-top:15px}
-th,td{border:1px solid #333;padding:6px}
-th{cursor:pointer;background:#1e1e1e}
-input,textarea{width:100%;background:#1e1e1e;color:white;border:1px solid #444}
-textarea{resize:vertical}
-button{background:#2a7bd6;border:none;color:white;padding:6px 10px;margin:3px;border-radius:4px;cursor:pointer}
-.toast{position:fixed;bottom:20px;right:20px;background:#333;padding:10px;border-radius:6px}
-.invalid{border:2px solid red}
+body { background:#121212; color:#fff; font-family:Inter,sans-serif; margin:0; padding:20px; }
+h1,h2,h3 { color:#4fc3f7; }
+select,table { width:100%; margin:10px 0; }
+table { border-collapse:collapse; }
+th,td { border:1px solid rgba(255,255,255,0.3); padding:6px; text-align:left; }
+th { background: rgba(255,255,255,0.15); }
 </style>
 </head>
-
 <body>
 
-<h2>Gestion des pays</h2>
+<h1>Voyager en train</h1>
 
-<div>
-🔍 <input id="search" placeholder="Recherche">
-<button onclick="exportCSV()">Export CSV</button>
-<input type="file" id="csvFile" hidden onchange="importCSV(this)">
-<button onclick="csvFile.click()">Import CSV</button>
-</div>
+<label for="pays-select">Choisir un pays :</label>
+<select id="pays-select">
+  <option value="">-- Sélectionner --</option>
+</select>
 
-<table>
+<h2>Infos du pays</h2>
+<p>Nom : <span id="pays-nom">-</span></p>
+<p>Code ISO : <span id="pays-code">-</span></p>
+
+<h2>Avantages FIP</h2>
+<table id="table-avantages">
 <thead>
 <tr>
-<th onclick="sortBy('nom')">Nom ⬍</th>
-<th onclick="sortBy('code_iso')">ISO ⬍</th>
+<th>ID</th>
+<th>Transporteur</th>
+<th>Bénéficiaire</th>
+<th>Coupons</th>
+<th>%</th>
+<th>2nde</th>
+<th>1ère</th>
+<th>Début</th>
+<th>Fin</th>
 <th>Notes</th>
-<th></th>
 </tr>
 </thead>
-<tbody></tbody>
+<tbody>
+<tr><td colspan="10">Aucun avantage pour ce pays.</td></tr>
+</tbody>
 </table>
 
-<h3>Ajouter</h3>
-<input id="newNom" placeholder="Nom">
-<input id="newCode" placeholder="ISO">
-<textarea id="newNotes" placeholder="Notes"></textarea>
-<button onclick="add()">Ajouter</button>
-
-<div>
-<button onclick="prev()">◀</button>
-<span id="info"></span>
-<button onclick="next()">▶</button>
-</div>
-
-<div id="toast" class="toast" style="display:none"></div>
+<h2>Infos détaillées</h2>
+<table id="table-info">
+<thead>
+<tr>
+<th>Catégorie</th>
+<th>Texte</th>
+</tr>
+</thead>
+<tbody>
+<tr><td colspan="2">Aucune info détaillée pour ce pays.</td></tr>
+</tbody>
+</table>
 
 <script>
-const tbody=document.querySelector('tbody');
-const ISO=/^[A-Z]{2}$/;
+let paysList = [];
+let beneficiaires = {};
+let transporteurs = {};
 
-let page=0,limit=20,search="",sort="nom",dir="asc";
+const selectPays = document.getElementById("pays-select");
+const spanNom = document.getElementById("pays-nom");
+const spanCode = document.getElementById("pays-code");
+const tableAvantages = document.getElementById("table-avantages").querySelector("tbody");
+const tableInfo = document.getElementById("table-info").querySelector("tbody");
 
-function toast(msg){
-  toastDiv.textContent=msg;
-  toastDiv.style.display='block';
-  setTimeout(()=>toastDiv.style.display='none',1500);
-}
-
-async function load(){
-  const res=await fetch(`/api/supabasePays?page=${page}&limit=${limit}&search=${search}&sort=${sort}&dir=${dir}`);
-  const json=await res.json();
-
-  tbody.innerHTML='';
-
-  json.data.forEach(p=>{
-    const tr=document.createElement('tr');
-
-    tr.innerHTML=`
-      <td><input value="${p.nom}" data-field="nom"></td>
-      <td><input value="${p.code_iso}" data-field="code_iso"></td>
-      <td><textarea data-field="notes">${p.notes??''}</textarea></td>
-      <td><button onclick="del(${p.id})">🗑️</button></td>
-    `;
-
-    tr.querySelectorAll('[data-field]').forEach(i=>{
-      i.onchange=()=>autoSave(p.id,tr);
-    });
-
-    tbody.appendChild(tr);
+// ===================== Chargement initial =====================
+async function init() {
+  // 1. Tous les pays
+  const resPays = await fetch("/api/supabasePays?simple=1");
+  const jsonPays = await resPays.json();
+  paysList = jsonPays.data || [];
+  selectPays.innerHTML = "<option value=''>-- Sélectionner --</option>";
+  paysList.forEach(p => {
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = `${p.nom} (${p.code_iso})`;
+    selectPays.appendChild(opt);
   });
 
-  info.textContent=`Page ${page+1}`;
+  // 2. Tous les bénéficiaires
+  const resBen = await fetch("/api/supabaseBeneficiaires");
+  const jsonBen = await resBen.json();
+  (jsonBen.data||[]).forEach(b => beneficiaires[b.id] = b.libelle);
+
+  // 3. Tous les transporteurs
+  const resTransp = await fetch("/api/supabaseTransporteurs");
+  const jsonTransp = await resTransp.json();
+  (jsonTransp.data||[]).forEach(t => transporteurs[t.id] = t.nom);
 }
 
-async function autoSave(id,row){
-  const inputs=row.querySelectorAll('[data-field]');
-  const data={id};
+selectPays.addEventListener("change", async ()=>{
+  const id = selectPays.value;
+  if(!id) return resetDisplay();
 
-  inputs.forEach(i=>data[i.dataset.field]=i.value);
+  const pays = paysList.find(p=>p.id==id);
+  spanNom.textContent = pays?.nom || "-";
+  spanCode.textContent = pays?.code_iso || "-";
 
-  if(!ISO.test(data.code_iso)){
-    row.querySelector('[data-field="code_iso"]').classList.add('invalid');
-    toast('ISO invalide (2 lettres)');
-    return;
+  // ---------------- Avantages ----------------
+  const resAv = await fetch(`/api/supabaseAvantages?pays_id=${id}`);
+  const jsonAv = await resAv.json();
+  const dataAv = jsonAv.data || [];
+  tableAvantages.innerHTML = "";
+  if(dataAv.length===0){
+    tableAvantages.innerHTML = "<tr><td colspan='10'>Aucun avantage pour ce pays.</td></tr>";
+  } else {
+    dataAv.forEach(a=>{
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${a.id}</td>
+        <td>${transporteurs[a.transporteur_id]||"?"}</td>
+        <td>${beneficiaires[a.beneficiaire_id]||"?"}</td>
+        <td>${a.nb_coupons_gratuits??""}</td>
+        <td>${a.reduction_percent??""}</td>
+        <td>${a.prix_forfaitaire_2nde??""}</td>
+        <td>${a.prix_forfaitaire_1ere??""}</td>
+        <td>${a.date_debut??""}</td>
+        <td>${a.date_fin??""}</td>
+        <td>${a.notes??""}</td>
+      `;
+      tableAvantages.appendChild(tr);
+    });
   }
 
-  await fetch('/api/supabasePays',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-  toast('Sauvé');
-}
-
-async function add(){
-  const data={nom:newNom.value,code_iso:newCode.value,notes:newNotes.value};
-
-  if(!ISO.test(data.code_iso)){toast('ISO invalide');return;}
-
-  await fetch('/api/supabasePays',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-  newNom.value=newCode.value=newNotes.value='';
-  load();
-}
-
-async function del(id){
-  if(!confirm('Supprimer ?'))return;
-  await fetch('/api/supabasePays',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
-  load();
-}
-
-function searchInput(e){search=e.target.value;page=0;load();}
-search.oninput=searchInput;
-
-function next(){page++;load();}
-function prev(){if(page>0)page--;load();}
-
-function sortBy(col){
-  if(sort===col) dir=dir==='asc'?'desc':'asc';
-  else{sort=col;dir='asc';}
-  load();
-}
-
-function exportCSV(){window.location='/api/supabasePays?exportCsv=1';}
-
-function importCSV(input){
-  const reader=new FileReader();
-  reader.onload=async()=>{
-    const rows=reader.result.split('\n').slice(1).filter(Boolean).map(l=>{
-      const [nom,code,notes]=l.replaceAll('"','').split(',');
-      return {nom,code_iso:code,notes};
+  // ---------------- Infos détaillées ----------------
+  const resInfo = await fetch(`/api/supabaseInfoPays?pays_id=${id}`);
+  const jsonInfo = await resInfo.json();
+  const dataInfo = jsonInfo.data || [];
+  tableInfo.innerHTML = "";
+  if(dataInfo.length===0){
+    tableInfo.innerHTML = "<tr><td colspan='2'>Aucune info détaillée pour ce pays.</td></tr>";
+  } else {
+    dataInfo.forEach(info=>{
+      tableInfo.innerHTML += `<tr><td>${info.categorie}</td><td>${info.texte??""}</td></tr>`;
     });
+  }
+});
 
-    await fetch('/api/supabasePays?importCsv=1',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(rows)});
-    load();
-  };
-  reader.readAsText(input.files[0]);
+// ---------------- Reset display ----------------
+function resetDisplay(){
+  spanNom.textContent = "-";
+  spanCode.textContent = "-";
+  tableAvantages.innerHTML = "<tr><td colspan='10'>Aucun avantage pour ce pays.</td></tr>";
+  tableInfo.innerHTML = "<tr><td colspan='2'>Aucune info détaillée pour ce pays.</td></tr>";
 }
 
-load();
+// ---------------- Init ----------------
+document.addEventListener("DOMContentLoaded", init);
 </script>
 
 </body>

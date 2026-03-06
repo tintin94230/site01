@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Voyager en train</title>
+<style>
+body { background:#121212; color:#fff; font-family:Inter,sans-serif; margin:0; padding:20px; }
+h1,h2 { color:#4fc3f7; }
+select,table { width:100%; margin:10px 0; }
+table { border-collapse:collapse; }
+th,td { border:1px solid rgba(255,255,255,0.3); padding:6px; text-align:left; }
+th { background: rgba(255,255,255,0.15); }
+</style>
+</head>
+<body>
+
+<h1>Voyager en train</h1>
+
+<label for="pays">Choisir un pays :</label>
+<select id="pays" disabled>
+  <option value="">-- Chargement... --</option>
+</select>
+
+<h2>Infos du pays</h2>
+<p>Nom : <span id="nomPays">---</span></p>
+<p>Code ISO : <span id="codeISO">---</span></p>
+
+<h2>Avantages FIP</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Transporteur</th>
+<th>Bénéficiaire</th>
+<th>Coupons</th>
+<th>%</th>
+<th>2nde</th>
+<th>1ère</th>
+<th>Début</th>
+<th>Fin</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody id="tbodyAvantages">
+<tr><td colspan="10">Aucun avantage pour ce pays.</td></tr>
+</tbody>
+</table>
+
+<h2>Infos détaillées</h2>
+<table>
+<thead>
+<tr>
+<th>Catégorie</th>
+<th>Texte</th>
+</tr>
+</thead>
+<tbody id="tbodyInfo">
+<tr><td colspan="2">Aucune info détaillée pour ce pays.</td></tr>
+</tbody>
+</table>
+
+<script>
+const selectPays = document.getElementById("pays");
+const spanNom = document.getElementById("nomPays");
+const spanCode = document.getElementById("codeISO");
+const tbodyAvantages = document.getElementById("tbodyAvantages");
+const tbodyInfo = document.getElementById("tbodyInfo");
+
+let paysList = [];
+
+// Charger la liste des pays
+async function init() {
+  try {
+    const resPays = await fetch("/api/supabasePays?simple=1");
+    const jsonPays = await resPays.json();
+    paysList = jsonPays.data || [];
+
+    selectPays.innerHTML = "<option value=''>-- Sélectionner --</option>";
+    paysList.forEach(p => {
+      const opt = document.createElement("option");
+      opt.value = p.id;
+      opt.textContent = `${p.nom} (${p.code_iso})`;
+      selectPays.appendChild(opt);
+    });
+
+    selectPays.disabled = false;
+  } catch(err) {
+    console.error("Erreur init:", err);
+  }
+}
+
+// Réinitialiser l'affichage
+function resetDisplay() {
+  spanNom.textContent = "-";
+  spanCode.textContent = "-";
+  tbodyAvantages.innerHTML = "<tr><td colspan='10'>Aucun avantage pour ce pays.</td></tr>";
+  tbodyInfo.innerHTML = "<tr><td colspan='2'>Aucune info détaillée pour ce pays.</td></tr>";
+}
+
+// Afficher les avantages et infos détaillées d’un pays
+async function afficherPays(id) {
+  if (!id) return resetDisplay();
+
+  const pays = paysList.find(p => p.id == id);
+  spanNom.textContent = pays?.nom ?? "-";
+  spanCode.textContent = pays?.code_iso ?? "-";
+
+  // Avantages
+  try {
+    const resAv = await fetch(`/api/supabaseAvantages?pays_id=${id}`);
+    const jsonAv = await resAv.json();
+    const dataAv = jsonAv.data || [];
+
+    tbodyAvantages.innerHTML = "";
+    if(dataAv.length === 0){
+      tbodyAvantages.innerHTML = "<tr><td colspan='10'>Aucun avantage pour ce pays.</td></tr>";
+    } else {
+      dataAv.forEach(a=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${a.id}</td>
+          <td>${a.transporteur?.nom || "?"}</td>
+          <td>${a.beneficiaire?.code || "?"}</td>
+          <td>${a.nb_coupons_gratuits ?? ""}</td>
+          <td>${a.reduction_percent ?? ""}</td>
+          <td>${a.prix_forfaitaire_2nde ?? ""}</td>
+          <td>${a.prix_forfaitaire_1ere ?? ""}</td>
+          <td>${a.date_debut ?? ""}</td>
+          <td>${a.date_fin ?? ""}</td>
+          <td>${a.notes ?? ""}</td>
+        `;
+        tbodyAvantages.appendChild(tr);
+      });
+    }
+  } catch(err) {
+    console.error("Erreur avantages:", err);
+    tbodyAvantages.innerHTML = "<tr><td colspan='10'>Erreur chargement avantages.</td></tr>";
+  }
+
+  // Infos détaillées
+  try {
+    const resInfo = await fetch(`/api/supabaseInfoPays?pays_id=${id}`);
+    const jsonInfo = await resInfo.json();
+    const dataInfo = jsonInfo.data || [];
+
+    tbodyInfo.innerHTML = "";
+    if(dataInfo.length === 0){
+      tbodyInfo.innerHTML = "<tr><td colspan='2'>Aucune info détaillée pour ce pays.</td></tr>";
+    } else {
+      dataInfo.forEach(info=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${info.categorie}</td><td>${info.texte ?? ""}</td>`;
+        tbodyInfo.appendChild(tr);
+      });
+    }
+  } catch(err) {
+    console.error("Erreur infos:", err);
+    tbodyInfo.innerHTML = "<tr><td colspan='2'>Erreur chargement infos détaillées.</td></tr>";
+  }
+}
+
+selectPays.addEventListener("change", e => afficherPays(e.target.value));
+document.addEventListener("DOMContentLoaded", init);
+</script>
+
+</body>
+</html>

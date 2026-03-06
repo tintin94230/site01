@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Vérification gares CSV</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  table { border-collapse: collapse; margin-top: 10px; width: 100%; max-width: 900px; }
+  th, td { border: 1px solid #ccc; padding: 5px 10px; text-align: left; }
+  tr.success td { background-color: #d4edda; }
+  tr.error td { background-color: #f8d7da; }
+  #status { margin-top: 10px; font-weight: bold; }
+</style>
+</head>
+<body>
+<h2>Vérification de gares CSV</h2>
+<input type="file" id="csvFile" accept=".csv"><br><br>
+<button id="processBtn">Traiter et télécharger CSV</button>
+<p id="status">Prêt.</p>
+<p>Succès: <span id="successCount">0</span> | Erreurs: <span id="errorCount">0</span></p>
+<table id="logTable">
+  <thead>
+    <tr><th>#</th><th>Nom</th><th>Pays</th><th>Lat</th><th>Long</th><th>GARE</th></tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+function csvToArray(csvString) {
+  const rows = csvString.split(/\r?\n/).filter(r => r.trim() !== '');
+  return rows.map(r => r.split(';'));
+}
+
+function arrayToCsv(data) {
+  return data.map(row => row.join(';')).join('\n');
+}
+
+// Vérification gare via Overpass API, renvoie Y/N ou code d'erreur
+async function checkGare(lat, lon) {
+  const query = `[out:json];node(around:5000,${lat},${lon})[railway=station];out;`;
+  const url = 'https://overpass-api.de/api/interpreter?data=' + encodeURIComponent(query);
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      return `ERR${res.status}`; // code HTTP d'erreur
+    }
+    const text = await res.text();
+    try {
+      const data = JSON.parse(text);
+      return data.elements.length > 0 ? 'Y' : 'N';
+    } catch (e) {
+      return 'ERRPARSE';
+    }
+  } catch (err) {
+    return 'ERRFETCH';
+  }
+}
+
+function addLogRow(index, row, status) {
+  const tbody = document.querySelector('#logTable tbody');
+  const tr = document.createElement('tr');
+  tr.className = (status.startsWith('ERR')) ? 'error' : 'success';
+  tr.innerHTML = `<td>${index}</td>` +
+                 `<td>${row[0]}</td>` +
+                 `<td>${row[1]}</td>` +
+                 `<td>${row[2]}</td>` +
+                 `<td>${row[3]}</td>` +
+                 `<td>${status}</td>`;
+  tbody.appendChild(tr);
+  if(tbody.rows.length > 20) tbody.deleteRow(0);
+}
+
+document.getElementById('processBtn').addEventListener('click', async () => {
+  const fileInput = document.getElementById('csvFile');
+  const statusElem = document.getElementById('status');
+  const successElem = document.getElementById('successCount');
+  const errorElem = document.getElementById('errorCount');
+
+  if (!fileInput.files.length) {
+    alert("Veuillez sélectionner un fichier CSV !");
+    return;
+  }
+
+  const file = fileInput.files[0];
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    let csvData = e.target.result;
+    let data = csvToArray(csvData);
+
+    if (!data[0].includes('GARE')) data[0].push('GARE');
+
+    let successCount = 0;
+    let errorCount = 0;
+
+    for (let i = 1; i < data.length; i++) {
+      const nom = data[i][0].trim();
+      const lat = parseFloat(data[i][2]);
+      const lon = parseFloat(data[i][3]);
+      statusElem.textContent = `Traitement ligne ${i}/${data.length}: ${nom}`;
+
+      let gareStatus = 'ERREUR';
+      if(lat && lon) {
+        gareStatus = await checkGare(lat, lon);
+      }
+
+      data[i].push(gareStatus);
+
+      if(gareStatus === 'Y' || gareStatus === 'N') successCount++;
+      else errorCount++;
+
+      successElem.textContent = successCount;
+      errorElem.textContent = errorCount;
+
+      addLogRow(i, data[i], gareStatus);
+
+      await new Promise(r => setTimeout(r, 5000));
+    }
+
+    const newCsv = arrayToCsv(data);
+    const blob = new Blob([newCsv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'fichier2.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    statusElem.textContent = "Traitement terminé ! Fichier téléchargé.";
+  };
+
+  reader.readAsText(file, 'UTF-8');
+});
+</script>
+</body>
+</html>

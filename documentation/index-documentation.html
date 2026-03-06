@@ -8,6 +8,14 @@
 </head>
 <body>
 
+<div class="nav">
+  <a href="index-documentation.html">🏠 Index</a> |
+  <a href="page1-site.html">🧱 Site</a> |
+  <a href="page2-outils.html">🛠️ Outils</a> |
+  <a href="page3-api.html">🔌 API</a> |
+  <a href="page4-astuces.html">💡 Astuces</a>
+</div>
+
 <h1>Documentation du projet web</h1>
 
 <p>
@@ -20,6 +28,7 @@ Elle est pensée pour être lue facilement, sans jargon inutile.
   <li><a href="page1-site.html">Page 1 – Le site HTML</a></li>
   <li><a href="page2-outils.html">Page 2 – Outils & déploiement</a></li>
   <li><a href="page3-api.html">Page 3 – API & base de données</a></li>
+  <li><a href="page4-astuces.html">Page 4 – Astuces & commandes utiles</a></li>
 </ul>
 
 <hr>
@@ -27,57 +36,34 @@ Elle est pensée pour être lue facilement, sans jargon inutile.
 <h2>🔄 Quick Restart – Checklist de vérification</h2>
 
 <h3>1️⃣ Vérifier la production (PROD)</h3>
-
 <ul>
-  <li>Ouvrir l’URL publique Vercel : https://site01-snowy.vercel.app/</li>
+  <li>Ouvrir l’URL publique Vercel : <a href="https://site01-snowy.vercel.app/" target="_blank">https://site01-snowy.vercel.app/</a></li>
   <li>Vérifier que la page d’accueil s’affiche</li>
   <li>Tester <strong>blog.html</strong></li>
   <li>Tester <strong>admin-lieux.html</strong></li>
 </ul>
 
 <p><strong>Test API PROD :</strong></p>
-
-<pre>
-https://site01-snowy.vercel.app/api/supabase001?mot=test
-</pre>
-
-<p>
-Si une réponse JSON apparaît → API PROD fonctionnelle.
-</p>
+<pre>https://site01-snowy.vercel.app/api/supabase001?mot=test</pre>
+<p>Si une réponse JSON apparaît → API PROD fonctionnelle.</p>
 
 <hr>
 
 <h3>2️⃣ Vérifier l’environnement local (DEV)</h3>
-
 <p><strong>Lancer le projet :</strong></p>
-
 <pre>
 npm install
 npm run dev
 </pre>
-
-<p>
-Ouvrir ensuite :
-</p>
-
-<pre>
-http://localhost:3000
-</pre>
-
+<p>Ouvrir ensuite :</p>
+<pre>http://localhost:3000</pre>
 <p><strong>Test API DEV :</strong></p>
-
-<pre>
-http://localhost:3000/api/supabase001?mot=test
-</pre>
-
-<p>
-Si une réponse apparaît → API DEV fonctionnelle.
-</p>
+<pre>http://localhost:3000/api/supabase001?mot=test</pre>
+<p>Si une réponse apparaît → API DEV fonctionnelle.</p>
 
 <hr>
 
 <h3>3️⃣ Vérifier Supabase</h3>
-
 <ul>
   <li>Se connecter au dashboard Supabase</li>
   <li>Ouvrir la table <code>mots</code></li>
@@ -87,21 +73,12 @@ Si une réponse apparaît → API DEV fonctionnelle.
 <hr>
 
 <h3>4️⃣ Vérifier les variables d’environnement</h3>
-
 <p><strong>En local :</strong></p>
-
 <ul>
   <li>Fichier <code>.env.local</code> présent</li>
-  <li>Variables définies :</li>
+  <li>Variables définies : <code>SUPABASE_URL</code>, <code>SUPABASE_KEY</code></li>
 </ul>
-
-<pre>
-SUPABASE_URL
-SUPABASE_KEY
-</pre>
-
 <p><strong>En production :</strong></p>
-
 <ul>
   <li>Vérifier les variables dans le dashboard Vercel</li>
 </ul>
@@ -109,7 +86,6 @@ SUPABASE_KEY
 <hr>
 
 <h3>✔️ Checklist rapide</h3>
-
 <ul>
   <li>☐ PROD accessible</li>
   <li>☐ API PROD OK</li>
@@ -118,6 +94,58 @@ SUPABASE_KEY
   <li>☐ Supabase OK</li>
   <li>☐ Variables OK</li>
 </ul>
+
+<hr>
+<h2>✏️ A AJOUTER DANS LA PROCHAINE VERSION</h2>
+<textarea rows="6" style="width:100%;">Objectif final : proposer un site web responsive pour répondre à la question d'un salarié SNCF : "je souhaite aller en <pays> : comment m'y rendre, quelles solutions, réductions, ... et sur place quelles facilités pour se déplacer."
+- Nouvelle table : infos_pays (id int, pays_id int, categorie varchar, texte text, date_update timestamp)
+- Nouvelle API : supabasePays (CRUD + export CSV + filtre "utilisés")
+- Préparation future : API supabaseInfoPays + page admin-infopays.html
+SELECT
+    c.table_name,
+    c.column_name,
+    c.data_type,
+    c.is_nullable,
+    c.column_default,
+    CASE WHEN tc.constraint_type = 'PRIMARY KEY' THEN true ELSE false END AS is_primary_key,
+    kcu.foreign_table_name AS foreign_table,
+    kcu.foreign_column_name AS foreign_column
+FROM
+    information_schema.columns c
+LEFT JOIN (
+    SELECT
+        kcu.table_name,
+        kcu.column_name,
+        kcu.constraint_name,
+        ccu.table_name AS foreign_table_name,
+        ccu.column_name AS foreign_column_name
+    FROM
+        information_schema.key_column_usage kcu
+    LEFT JOIN information_schema.table_constraints tc
+        ON kcu.constraint_name = tc.constraint_name
+        AND kcu.table_schema = tc.table_schema
+    LEFT JOIN information_schema.constraint_column_usage ccu
+        ON kcu.constraint_name = ccu.constraint_name
+        AND kcu.table_schema = ccu.table_schema
+    WHERE tc.constraint_type = 'FOREIGN KEY'
+) kcu
+    ON c.table_name = kcu.table_name
+    AND c.column_name = kcu.column_name
+LEFT JOIN information_schema.table_constraints tc
+    ON c.table_name = tc.table_name
+    AND c.column_name IN (
+        SELECT column_name
+        FROM information_schema.key_column_usage k
+        WHERE k.table_name = c.table_name
+          AND k.constraint_name = tc.constraint_name
+    )
+    AND tc.constraint_type = 'PRIMARY KEY'
+WHERE
+    c.table_schema = 'public'
+ORDER BY
+    c.table_name,
+    c.ordinal_position;
+</textarea>
 
 </body>
 </html>

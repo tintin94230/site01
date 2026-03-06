@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Administration des agences</title>
+<style>
+body { background:#121212; color:#fff; font-family:Inter,sans-serif; margin:0; padding:20px; }
+h1 { color:#4fc3f7; }
+table { width:100%; border-collapse: collapse; margin: 10px 0; }
+th, td { border:1px solid rgba(255,255,255,0.3); padding:6px; text-align:left; }
+th { background: rgba(255,255,255,0.15); }
+button { margin:5px; padding:5px 10px; }
+input[type="text"] { padding:4px; margin-right:10px; }
+.pagination { margin:10px 0; display:flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<h1>Administration des agences</h1>
+
+<div>
+  <label for="search-agency">Rechercher (2-3 lettres) : </label>
+  <input type="text" id="search-agency" placeholder="Ex : SNCF">
+  <button id="btn-search">Rechercher</button>
+</div>
+
+<div class="pagination" id="pagination-top">
+  <button id="prev-page">Précédente</button>
+  <span id="page-info">Page 1</span>
+  <button id="next-page">Suivante</button>
+</div>
+
+<table id="table-agency">
+<thead>
+<tr>
+  <th>agency_id</th>
+  <th>agency_name</th>
+  <th>agency_url</th>
+  <th>agency_timezone</th>
+  <th>agency_lang</th>
+</tr>
+</thead>
+<tbody>
+<tr><td colspan="5">Chargement...</td></tr>
+</tbody>
+</table>
+
+<div class="pagination" id="pagination-bottom">
+  <button id="prev-page-b">Précédente</button>
+  <span id="page-info-b">Page 1</span>
+  <button id="next-page-b">Suivante</button>
+</div>
+
+<script>
+const tableBody = document.querySelector("#table-agency tbody");
+const searchInput = document.getElementById("search-agency");
+const btnSearch = document.getElementById("btn-search");
+const pageInfo = document.getElementById("page-info");
+const pageInfoB = document.getElementById("page-info-b");
+const prevPageBtns = [document.getElementById("prev-page"), document.getElementById("prev-page-b")];
+const nextPageBtns = [document.getElementById("next-page"), document.getElementById("next-page-b")];
+
+let currentPage = 1;
+const pageSize = 100;
+let totalRows = 0;
+let currentSearch = "";
+
+// ---------------- Fonction pour charger les agences ----------------
+async function loadAgency(page = 1, search = "") {
+  currentPage = page;
+  currentSearch = search;
+
+  let query = `/api/supabaseAgency?sort=agency_name&dir=asc&limit=${pageSize}&offset=${(page-1)*pageSize}`;
+  if(search) query += `&search=${encodeURIComponent(search)}`;
+
+  const res = await fetch(query);
+  const json = await res.json();
+  const data = json.data || [];
+  totalRows = json.total || 0;
+
+  tableBody.innerHTML = "";
+  if(data.length===0){
+    tableBody.innerHTML = `<tr><td colspan="5">Aucune agence trouvée</td></tr>`;
+  } else {
+    data.forEach(a => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${a.agency_id}</td>
+        <td>${a.agency_name}</td>
+        <td>${a.agency_url ?? ""}</td>
+        <td>${a.agency_timezone ?? ""}</td>
+        <td>${a.agency_lang ?? ""}</td>
+      `;
+      tableBody.appendChild(tr);
+    });
+  }
+
+  const totalPages = Math.ceil(totalRows / pageSize) || 1;
+  pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
+  pageInfoB.textContent = `Page ${currentPage} / ${totalPages}`;
+
+  prevPageBtns.forEach(btn => btn.disabled = currentPage <= 1);
+  nextPageBtns.forEach(btn => btn.disabled = currentPage >= totalPages);
+}
+
+// ---------------- Pagination ----------------
+prevPageBtns.forEach(btn => btn.addEventListener("click", ()=>loadAgency(currentPage-1, currentSearch)));
+nextPageBtns.forEach(btn => btn.addEventListener("click", ()=>loadAgency(currentPage+1, currentSearch)));
+
+// ---------------- Recherche ----------------
+btnSearch.addEventListener("click", ()=>{
+  const val = searchInput.value.trim().toLowerCase();
+  if(val.length >= 2){
+    loadAgency(1, val);
+  } else {
+    alert("Tapez au moins 2 lettres pour rechercher");
+  }
+});
+
+// ---------------- Init ----------------
+document.addEventListener("DOMContentLoaded", ()=>loadAgency());
+</script>
+
+</body>
+</html>

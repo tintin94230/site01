@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentation – Astuces & Raccourcis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="doc.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; line-height: 1.6; color: #333; background: #fff; }
+    h1, h2, h3 { font-weight: 700; }
+    h2 { margin-top: 30px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+    th, td { border: 1px solid #ddd; padding: 10px; vertical-align: top; }
+    th { background: #f5f5f5; }
+    pre { background: #f5f5f5; padding: 15px; overflow-x: auto; }
+    ul { margin: 0 0 20px 20px; }
+    li { margin-bottom: 5px; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .tip { background: #e7f3ff; border-left: 4px solid #2196F3; padding: 10px; margin: 15px 0; }
+  </style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="index-documentation.html">🏠 Index</a> |
+  <a href="page1-site.html">🧱 Site</a> |
+  <a href="page2-outils.html">🛠️ Outils</a> |
+  <a href="page3-api.html">🔌 API</a> |
+  <a href="page4-astuces.html">💡 Astuces</a>
+</div>
+
+<h1>Page 4 – Astuces, Raccourcis & Bonnes pratiques</h1>
+
+<p>Cette page rassemble toutes les astuces et raccourcis pour manipuler les APIs et la base Supabase rapidement et en toute sécurité.</p>
+
+<hr>
+
+<h2>1️⃣ Astuces générales</h2>
+<ul>
+  <li>Utiliser <code>fetch("/api/...")</code> pour tester rapidement vos APIs depuis le navigateur ou un script JS.</li>
+  <li>Mettre à jour <strong>DEV</strong> avant PROD pour éviter les conflits de schéma.</li>
+  <li>Conserver toutes les commandes SQL fréquentes dans un fichier <code>sql-requetes.txt</code>.</li>
+  <li>Pour les nouvelles tables <code>pays</code> et <code>infos_pays</code>, toujours vérifier que <code>pays_id</code> existe avant insertion.</li>
+</ul>
+
+<div class="tip">
+💡 Astuce : Pour éviter les erreurs de clé étrangère, utiliser <code>SELECT id FROM pays WHERE nom='France'</code> avant d'insérer dans <code>infos_pays</code>.
+</div>
+
+<hr>
+
+<h2>2️⃣ Raccourcis DEV / PROD</h2>
+<table>
+<tr><th>Action</th><th>Commande / Astuce</th></tr>
+<tr><td>Voir la structure DEV</td><td><code>supabase db remote status</code></td></tr>
+<tr><td>Exporter schema DEV</td><td><code>supabase db dump --schema-only --file=dev_schema.sql</code></td></tr>
+<tr><td>Importer schema PROD</td><td><code>supabase db restore --file=dev_schema.sql --project-ref=PROD_PROJECT_REF</code></td></tr>
+<tr><td>Test fetch API pays</td><td><code>fetch('/api/supabasePays').then(r=&gt;r.json()).then(console.log)</code></td></tr>
+<tr><td>Test fetch API infos_pays</td><td><code>fetch('/api/supabaseInfoPays').then(r=&gt;r.json()).then(console.log)</code></td></tr>
+</table>
+
+<hr>
+
+<h2>3️⃣ Astuces API spécifiques</h2>
+<ul>
+  <li><strong>supabase001 :</strong> parfait pour tester des inputs texte simples et montrer la logique JS → API → Supabase.</li>
+  <li><strong>supabase002 :</strong> toujours vérifier les <code>id</code> des lieux avant INSERT ou UPDATE.</li>
+  <li><strong>supabasePays :</strong> privilégier le CRUD via <code>admin-pays.html</code> pour éviter des doublons.</li>
+  <li><strong>supabaseInfoPays :</strong> stocker les catégories cohérentes : transport, logement, réduction, loisir.</li>
+</ul>
+
+<div class="tip">
+💡 Astuce : utiliser <code>console.table()</code en JS pour visualiser rapidement les données récupérées via fetch.
+</div>
+
+<hr>
+
+<h2>4️⃣ Bonnes pratiques tables</h2>
+<ul>
+  <li>Ne jamais modifier directement PROD, passer par DEV → migration.</li>
+  <li>Tenir à jour les <code>date_update</code> dans <code>infos_pays</code> à chaque modification.</li>
+  <li>Ajouter des contraintes SQL pour éviter les doublons, ex : <code>UNIQUE(nom, code_iso)</code> pour <code>pays</code>.</li>
+  <li>Pour les tests rapides, utiliser <code>SELECT * FROM infos_pays WHERE pays_id=1</code> pour récupérer toutes les infos France.</li>
+</ul>
+
+<hr>
+
+<h2>5️⃣ Trucs & astuces rapides</h2>
+<ul>
+  <li>💾 Sauvegarde rapide : exporter uniquement le schema ou une table spécifique.</li>
+  <li>🧹 Nettoyage : <code>DELETE FROM mots WHERE created_at &lt; NOW() - INTERVAL '30 days'</code></li>
+  <li>📊 Debug front : <code>console.log(await fetch('/api/supabasePays').then(r=>r.json()))</code></li>
+  <li>⚡ Autocomplétion VSCode : installer plugin Supabase pour voir tables & colonnes directement.</li>
+</ul>
+
+<hr>
+
+<h2>6️⃣ Notes finales</h2>
+<p>
+- Toujours vérifier DEV avant PROD.<br>
+- Utiliser fetch côté navigateur pour tests rapides.<br>
+- Respecter les relations clés étrangères (pays → infos_pays, lieux → itineraires).<br>
+- Documenter chaque modification pour garder une trace dans <code>CHANGELOG.md</code>.
+</p>
+
+<p>
+⬅️ <a href="page3-api.html">Page 3 – API</a><br>
+🏠 <a href="index-documentation.html">Index</a>
+</p>
+
+<footer>
+<p>© 2026 · Tintin94230 – Documentation Astuces & Raccourcis</p>
+</footer>
+
+</body>
+</html>

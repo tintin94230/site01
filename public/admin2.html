@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Admin2 – Paramètres CSS</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* Ajustements spécifiques pour le WYSIWYG */
+.admin-controls { display:flex; flex-direction:column; gap:12px; margin-bottom:20px; }
+.admin-controls label { display:flex; align-items:center; gap:10px; }
+.admin-controls input[type="color"], .admin-controls input[type="text"] { padding:4px 6px; }
+table { width:100%; border-collapse:collapse; margin-top:10px; }
+thead { background: var(--table-head-bg, var(--primary)); color: var(--table-head-text, #fff); }
+th, td { padding:8px 12px; text-align:left; font-family: var(--table-font, inherit); color: var(--table-text, var(--text)); }
+tbody tr:nth-child(even) { background: var(--table-bg, var(--white)); }
+tbody tr:nth-child(odd) { background: var(--table-bg, var(--white)); }
+tbody tr:hover { background: var(--table-hover, #f0f4f8); }
+</style>
+</head>
+<body>
+
+<div class="container">
+<header>
+  <h1>Paramètres CSS</h1>
+  <p>Expérimentez les variables de style</p>
+</header>
+
+<main>
+  <section>
+    <h2>Réglages principaux</h2>
+    <div class="admin-controls">
+      <label>Fond de page : <input type="color" id="background-color" value="#fafafa"></label>
+      <label>Couleur texte : <input type="color" id="text-color" value="#222222"></label>
+      <label>Couleur titre : <input type="color" id="title-color" value="#1a73e8"></label>
+      <label>Couleur principale (accent) : <input type="color" id="primary-color" value="#e2001a"></label>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tableau exemple</h2>
+    <div class="admin-controls">
+      <label>Fond tableau : <input type="color" id="table-bg-color" value="#ffffff"></label>
+      <label>Texte tableau : <input type="color" id="table-text-color" value="#222222"></label>
+      <label>Fond entête tableau : <input type="color" id="table-head-bg-color" value="#e2001a"></label>
+      <label>Texte entête tableau : <input type="color" id="table-head-text-color" value="#ffffff"></label>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Latitude</th>
+          <th>Longitude</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Exemple A</td><td>48.8566</td><td>2.3522</td></tr>
+        <tr><td>2</td><td>Exemple B</td><td>43.6047</td><td>1.4442</td></tr>
+        <tr><td>3</td><td>Exemple C</td><td>45.7640</td><td>4.8357</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <button id="generate-css">Générer styles.css</button>
+  </section>
+</main>
+</div>
+
+<script>
+// ======================= Contrôle des variables CSS =======================
+function updateCSSVar(varName, value) {
+  document.documentElement.style.setProperty(varName, value);
+}
+
+// Liens inputs → variables CSS
+document.getElementById("background-color").addEventListener("input", e=>updateCSSVar("--background", e.target.value));
+document.getElementById("text-color").addEventListener("input", e=>updateCSSVar("--text", e.target.value));
+document.getElementById("title-color").addEventListener("input", e=>updateCSSVar("--title-color", e.target.value));
+document.getElementById("primary-color").addEventListener("input", e=>updateCSSVar("--primary", e.target.value));
+
+document.getElementById("table-bg-color").addEventListener("input", e=>updateCSSVar("--table-bg", e.target.value));
+document.getElementById("table-text-color").addEventListener("input", e=>updateCSSVar("--table-text", e.target.value));
+document.getElementById("table-head-bg-color").addEventListener("input", e=>updateCSSVar("--table-head-bg", e.target.value));
+document.getElementById("table-head-text-color").addEventListener("input", e=>updateCSSVar("--table-head-text", e.target.value));
+
+// ======================= Génération styles.css =======================
+document.getElementById("generate-css").addEventListener("click", ()=>{
+  const styles = `
+:root {
+  --background: ${document.getElementById("background-color").value};
+  --text: ${document.getElementById("text-color").value};
+  --title-color: ${document.getElementById("title-color").value};
+  --primary: ${document.getElementById("primary-color").value};
+  --table-bg: ${document.getElementById("table-bg-color").value};
+  --table-text: ${document.getElementById("table-text-color").value};
+  --table-head-bg: ${document.getElementById("table-head-bg-color").value};
+  --table-head-text: ${document.getElementById("table-head-text-color").value};
+}
+`;
+
+  const blob = new Blob([styles], { type: 'text/css' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'styles.css';
+  a.click();
+  URL.revokeObjectURL(url);
+  alert("styles.css généré !");
+});
+</script>
+
+</body>
+</html>

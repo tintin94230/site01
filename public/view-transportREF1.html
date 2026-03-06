@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Test API Transport GTFS</title>
+<style>
+body{ background:#121212; color:#fff; font-family:Inter,sans-serif; margin:0; padding:20px; }
+h1{ color:#4fc3f7; }
+h2{ margin-top:40px; color:#90caf9; }
+table{ width:100%; border-collapse: collapse; margin:10px 0; }
+th,td{ border:1px solid rgba(255,255,255,0.3); padding:6px; text-align:left; }
+th{ background:rgba(255,255,255,0.15); }
+button{ margin:5px; padding:5px 10px; cursor:pointer; }
+input{ padding:5px; margin-right:10px; width:200px; }
+.result{ margin-top:10px; max-height:300px; overflow:auto; }
+label.checkbox-label{margin-left:20px; font-weight:normal;}
+</style>
+</head>
+<body>
+
+<h1>Test API Transport GTFS</h1>
+
+<h2>Recherche de gare</h2>
+<div>
+<label>Nom de gare :</label>
+<input type="text" id="search-stop" placeholder="ex : Paris">
+<button id="btn-search-stop">Rechercher</button>
+</div>
+<table id="table-stops-search">
+<thead>
+<tr>
+<th>stop_id</th>
+<th>Nom</th>
+<th>Type</th>
+<th>Latitude</th>
+<th>Longitude</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody><tr><td colspan="6">Aucune recherche</td></tr></tbody>
+</table>
+
+<h2>Recherche trajet entre deux gares</h2>
+<div>
+<label>Départ :</label>
+<input type="text" id="from-stop" placeholder="ex: StopArea:OCE87384008">
+<label>Arrivée :</label>
+<input type="text" id="to-stop" placeholder="ex: StopArea:OCE87391005">
+<button id="btn-search-trip">Rechercher</button>
+</div>
+<table id="table-trips">
+<thead>
+<tr>
+<th>Trip ID</th>
+<th>Route</th>
+<th>Départ</th>
+<th>Arrivée</th>
+</tr>
+</thead>
+<tbody><tr><td colspan="4">Aucune recherche</td></tr></tbody>
+</table>
+
+<h2>Trips associés</h2>
+<div>
+<label class="checkbox-label">
+  <input type="checkbox" id="enable-trips-from" checked>
+  Activer les Trips du départ
+</label>
+<label class="checkbox-label">
+  <input type="checkbox" id="enable-trips-to" checked>
+  Activer les Trips de l'arrivée
+</label>
+</div>
+<div style="display:flex; gap:40px; flex-wrap:wrap;">
+  <div style="flex:1; min-width:300px;">
+    <h3>Trips du départ</h3>
+    <table id="table-trips-from">
+      <thead><tr><th>Trip ID</th><th>Route</th><th>Départ</th></tr></thead>
+      <tbody><tr><td colspan="3">Aucune recherche</td></tr></tbody>
+    </table>
+  </div>
+  <div style="flex:1; min-width:300px;">
+    <h3>Trips de l'arrivée</h3>
+    <table id="table-trips-to">
+      <thead><tr><th>Trip ID</th><th>Route</th><th>Arrivée</th></tr></thead>
+      <tbody><tr><td colspan="3">Aucune recherche</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+document.getElementById("btn-search-stop").addEventListener("click", async ()=>{
+  const search = document.getElementById("search-stop").value.trim();
+  const tbody = document.querySelector("#table-stops-search tbody");
+  if(search.length<2){ alert("Tapez au moins 2 lettres"); return; }
+  tbody.innerHTML=`<tr><td colspan="6">Recherche...</td></tr>`;
+  try{
+    const res = await fetch(`/api/transport/stops/search?q=${encodeURIComponent(search)}`);
+    const data = (await res.json()).data||[];
+    tbody.innerHTML="";
+    if(!data.length){ tbody.innerHTML=`<tr><td colspan="6">Aucune gare trouvée</td></tr>`; return; }
+    data.forEach(stop=>{
+      const tr = document.createElement("tr");
+      tr.innerHTML=`
+        <td>${stop.stop_id}</td>
+        <td>${stop.stop_name}</td>
+        <td>${stop.location_type ?? ""}</td>
+        <td>${stop.stop_lat ?? ""}</td>
+        <td>${stop.stop_lon ?? ""}</td>
+        <td>
+          <button onclick="setFrom('${stop.stop_id}')">Départ</button>
+          <button onclick="setTo('${stop.stop_id}')">Arrivée</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }catch(err){
+    tbody.innerHTML=`<tr><td colspan="6">Erreur API</td></tr>`;
+    console.error("Erreur stops/search:", err);
+  }
+});
+
+function setFrom(id){ document.getElementById("from-stop").value=id; }
+function setTo(id){ document.getElementById("to-stop").value=id; }
+
+async function loadTripsExpanded(stopId, tableId, type){
+  const enableFrom = document.getElementById("enable-trips-from")?.checked;
+  const enableTo = document.getElementById("enable-trips-to")?.checked;
+
+  if(tableId === "table-trips-from" && !enableFrom){
+    const tbody = document.querySelector(`#${tableId} tbody`);
+    tbody.innerHTML=`<tr><td colspan="3">Affichage désactivé</td></tr>`;
+    return;
+  }
+  if(tableId === "table-trips-to" && !enableTo){
+    const tbody = document.querySelector(`#${tableId} tbody`);
+    tbody.innerHTML=`<tr><td colspan="3">Affichage désactivé</td></tr>`;
+    return;
+  }
+
+  const tbody = document.querySelector(`#${tableId} tbody`);
+  tbody.innerHTML=`<tr><td colspan="3">Chargement...</td></tr>`;
+  if(!stopId){ tbody.innerHTML=`<tr><td colspan="3">Stop non défini</td></tr>`; return; }
+  try{
+    const res = await fetch(`/api/transport/station/trips-expanded?stop_id=${encodeURIComponent(stopId)}`);
+    const data = (await res.json()).data||[];
+    tbody.innerHTML="";
+    if(!data.length){ tbody.innerHTML=`<tr><td colspan="3">Aucun trip trouvé</td></tr>`; return; }
+    data.forEach(t=>{
+      const tr = document.createElement("tr");
+      tr.innerHTML = type==="departure"?`
+        <td>${t.trip_id}</td>
+        <td>${t.trips?.routes?.route_short_name||""}</td>
+        <td>${t.departure_time||""}</td>
+      `:`<td>${t.trip_id}</td>
+        <td>${t.trips?.routes?.route_short_name||""}</td>
+        <td>${t.arrival_time||""}</td>`;
+      tbody.appendChild(tr);
+    });
+  }catch(err){
+    tbody.innerHTML=`<tr><td colspan="3">Erreur API</td></tr>`;
+    console.error(`Erreur trips-expanded ${type}:`,err);
+  }
+}
+
+document.getElementById("btn-search-trip").addEventListener("click", async ()=>{
+  const from = document.getElementById("from-stop").value.trim();
+  const to = document.getElementById("to-stop").value.trim();
+  const tbody = document.querySelector("#table-trips tbody");
+  if(!from||!to){ alert("Veuillez renseigner départ et arrivée"); return; }
+
+  loadTripsExpanded(from,"table-trips-from","departure");
+  loadTripsExpanded(to,"table-trips-to","arrival");
+
+  tbody.innerHTML=`<tr><td colspan="4">Chargement...</td></tr>`;
+  try{
+    const res = await fetch(`/api/transport/journey/search?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`);
+    const data = (await res.json()).data||[];
+    tbody.innerHTML="";
+    if(!data.length){ tbody.innerHTML=`<tr><td colspan="4">Aucun trajet trouvé</td></tr>`; return; }
+    data.forEach(t=>{
+      const tr = document.createElement("tr");
+      tr.innerHTML=`
+        <td>${t.trip_id}</td>
+        <td>${t.route_id||""}</td>
+        <td>${t.departure_time||""}</td>
+        <td>${t.arrival_time||""}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }catch(err){
+    tbody.innerHTML=`<tr><td colspan="4">Erreur API</td></tr>`;
+    console.error("Erreur journey/search:",err);
+  }
+});
+</script>
+
+</body>
+</html>

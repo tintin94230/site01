@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Carte points CSV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+  html, body { height: 100%; margin: 0; padding: 0; }
+  #map { height: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- PapaParse pour CSV -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+<script>
+  const map = L.map('map').setView([48.8566, 2.3522], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const pointsDict = {};
+
+  async function loadCSV(url) {
+    const res = await fetch(url);
+    const text = await res.text();
+    return Papa.parse(text, { header:true, skipEmptyLines:true }).data;
+  }
+
+  async function initMap() {
+    // Charger les points depuis points.csv
+    const points = await loadCSV('points.csv');
+    points.forEach(p => {
+      const lat = parseFloat(p.latitude);
+      const lon = parseFloat(p.longitude);
+      if (!isNaN(lat) && !isNaN(lon)) {
+        // Utiliser "name" pour le popup
+        L.marker([lat, lon]).addTo(map).bindPopup(p.name);
+        pointsDict[p.name] = [lat, lon];
+      }
+    });
+
+    // Si tu veux gérer les segments plus tard, tu peux réutiliser pointsDict
+    // const segments = await loadCSV('segments.csv');
+    // segments.forEach(s => {
+    //   const p1 = pointsDict[s.name1];
+    //   const p2 = pointsDict[s.name2];
+    //   if (p1 && p2) {
+    //     const color = s.type === 'rail' ? 'black' : 'red';
+    //     L.polyline([p1, p2], { color: color, weight: 3 }).addTo(map);
+    //   }
+    // });
+  }
+
+  initMap();
+</script>
+</body>
+</html>

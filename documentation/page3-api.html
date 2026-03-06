@@ -2,40 +2,48 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Documentation – API internes & base de données</title>
+  <title>Documentation – API & Base de données (Version 3)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="doc.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; margin: 0; padding: 20px; line-height: 1.6; color: #333; background: #fff; }
+    h1, h2, h3 { font-weight: 700; }
+    h2 { margin-top: 40px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 15px; }
+    th, td { border: 1px solid #ddd; padding: 10px; vertical-align: top; }
+    th { background: #f5f5f5; }
+    pre { background: #f5f5f5; padding: 15px; overflow-x: auto; }
+    ul { margin: 0 0 20px 20px; }
+    li { margin-bottom: 5px; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
 
 <div class="nav">
-  <a href="index.html">⬅ Index</a>
-  |
-  <a href="page1-site.html">🧱 Site</a>
-  |
-  <a href="page2-outils.html">🛠️ Outils</a>
+  <a href="index-documentation.html">🏠 Index</a> |
+  <a href="page1-site.html">🧱 Site</a> |
+  <a href="page2-outils.html">🛠️ Outils</a> |
+  <a href="page3-api.html">🔌 API</a> |
+  <a href="page4-astuces.html">💡 Astuces</a>
 </div>
 
-<h1>Page 3 – API internes & base de données</h1>
+<h1>Page 3 – API internes & Base de données (v3)</h1>
 
 <p>
-Cette page documente les <strong>API backend internes</strong> du projet
-et la <strong>structure de la base de données Supabase</strong>.
+Cette page documente les <strong>API backend internes</strong> et la <strong>structure complète de la base Supabase</strong>. 
+Elle inclut les commandes pour explorer et modifier la base, et pour migrer DEV → PROD.
+De nouvelles tables et APIs sont désormais disponibles pour gérer les pays et leurs informations détaillées.
 </p>
 
 <hr>
 
-<!-- ===================================================== -->
 <h2>1️⃣ Principe général</h2>
 
 <p>
-Les pages HTML du site n’accèdent <strong>jamais directement</strong>
-à la base de données.
-</p>
-
-<p>
-Toutes les opérations passent par des <strong>API serverless</strong>
-hébergées sur Vercel.
+Toutes les pages HTML <strong>passent par des API serverless</strong> hébergées sur Vercel. 
+Aucune page n’accède directement à la base de données.
 </p>
 
 <pre>
@@ -48,37 +56,27 @@ API serverless (/api/*)
 Supabase (PostgreSQL)
 </pre>
 
-<p>
-Ce principe garantit :
-</p>
-
+<p>Avantages :</p>
 <ul>
-  <li>la protection des clés Supabase</li>
-  <li>la centralisation de la logique métier</li>
-  <li>une séparation claire frontend / backend</li>
-  <li>une architecture évolutive</li>
+  <li>Clés Supabase protégées côté serveur</li>
+  <li>Centralisation de la logique métier</li>
+  <li>Séparation claire Frontend / Backend</li>
+  <li>Architecture prête pour évolutions futures</li>
 </ul>
 
 <hr>
 
-<!-- ===================================================== -->
 <h2>2️⃣ API <code>/api/supabase001</code></h2>
-
-<p>
-API utilisée par la page <strong>blog.html</strong>.
-</p>
+<p>Utilisée par <strong>blog.html</strong> pour stocker un mot saisi par l’utilisateur.</p>
 
 <h3>Objectif</h3>
-<p>
-API simple et pédagogique servant d’exemple d’interaction
-entre une page HTML et Supabase.
-</p>
+<p>API simple et pédagogique d’interaction HTML → Supabase.</p>
 
 <h3>Fonctions</h3>
 <ul>
   <li>Recevoir un mot depuis le navigateur</li>
-  <li>Calculer la longueur du mot</li>
-  <li>Insérer le mot dans la base</li>
+  <li>Calculer sa longueur</li>
+  <li>Insérer le mot dans la table <code>mots</code></li>
 </ul>
 
 <h3>Endpoint</h3>
@@ -86,7 +84,7 @@ entre une page HTML et Supabase.
 GET /api/supabase001?mot=bonjour
 </pre>
 
-<h3>Flux de traitement</h3>
+<h3>Flux</h3>
 <pre>
 blog.html
    |
@@ -99,33 +97,23 @@ API supabase001
 Supabase
 </pre>
 
-<h3>Table utilisée : <code>mots</code></h3>
-
+<h3>Table <code>mots</code></h3>
 <table>
   <tr><th>Colonne</th><th>Description</th></tr>
-  <tr><td>id</td><td>Identifiant unique</td></tr>
-  <tr><td>mot</td><td>Mot saisi par l’utilisateur</td></tr>
-  <tr><td>created_at</td><td>Date d’insertion</td></tr>
+  <tr><td>id</td><td>Identifiant unique (UUID / serial)</td></tr>
+  <tr><td>mot</td><td>Mot saisi</td></tr>
+  <tr><td>created_at</td><td>Date de création automatique</td></tr>
 </table>
-
-<p>
-👉 Cette API sert principalement de démonstration.
-</p>
 
 <hr>
 
-<!-- ===================================================== -->
 <h2>3️⃣ API <code>/api/supabase002</code></h2>
-
-<p>
-API utilisée par <strong>admin.html</strong> et
-<strong>admin-lieux.html</strong>.
-</p>
+<p>Utilisée par <strong>admin.html</strong> et <strong>admin-lieux.html</strong>.</p>
 
 <h3>Objectifs</h3>
 <ul>
   <li>Gestion structurée des données</li>
-  <li>Ajout, modification, suppression</li>
+  <li>Ajout / modification / suppression sécurisée</li>
   <li>Logique métier côté serveur</li>
 </ul>
 
@@ -143,47 +131,65 @@ admin-lieux.html
       v
 API supabase002
       |
-      | INSERT / UPDATE / SELECT
+      | INSERT / UPDATE / SELECT / DELETE
       v
 Supabase
 </pre>
 
-<p>
-⚠️ Cette API est destinée à être protégée
-(authentification, rôles, etc.).
-</p>
+<h3>Sécurité</h3>
+<ul>
+  <li>API protégée (authentification, rôles, JWT)</li>
+  <li>Aucune clé exposée côté navigateur</li>
+  <li>Séparation DEV / PROD</li>
+</ul>
 
 <hr>
 
-<!-- ===================================================== -->
-<h2>4️⃣ Base de données Supabase</h2>
+<h2>4️⃣ API <code>/api/supabasePays</code> & <code>/api/supabaseInfoPays</code></h2>
 
-<p>
-La base est hébergée sur <strong>Supabase</strong>
-(PostgreSQL managé).
-</p>
+<h3>Objectif</h3>
+<ul>
+  <li>Gérer les pays (CRUD complet)</li>
+  <li>Gérer les informations détaillées par pays via table <code>infos_pays</code></li>
+  <li>Permettre l’administration via <code>admin-pays.html</code> et <code>admin-infopays.html</code></li>
+</ul>
 
-<h3>Table : <code>mots</code></h3>
+<h3>Flux général</h3>
+<pre>
+admin-pays.html
+      |
+      | fetch("/api/supabasePays", data)
+      v
+API supabasePays
+      |
+      | INSERT / UPDATE / SELECT / DELETE
+      v
+Supabase (table pays)
 
-<p>
-Utilisée par <code>/api/supabase001</code>.
-</p>
+admin-infopays.html
+      |
+      | fetch("/api/supabaseInfoPays", data)
+      v
+API supabaseInfoPays
+      |
+      | INSERT / UPDATE / SELECT / DELETE
+      v
+Supabase (table infos_pays)
+</pre>
 
+<hr>
+
+<h2>5️⃣ Base de données Supabase – Tables principales</h2>
+
+<h3>5.1 Table <code>mots</code></h3>
 <table>
   <tr><th>Colonne</th><th>Description</th></tr>
   <tr><td>id</td><td>Identifiant unique</td></tr>
-  <tr><td>mot</td><td>Mot stocké</td></tr>
+  <tr><td>mot</td><td>Mot saisi</td></tr>
   <tr><td>created_at</td><td>Date de création</td></tr>
 </table>
 
-<hr>
-
-<h3>Table : <code>lieux</code></h3>
-
-<p>
-Représente des lieux géographiques.
-</p>
-
+<h3>5.2 Table <code>lieux</code></h3>
 <table>
   <tr><th>Colonne</th><th>Description</th></tr>
   <tr><td>id</td><td>Identifiant unique</td></tr>
@@ -193,102 +199,127 @@ Représente des lieux géographiques.
   <tr><td>created_at</td><td>Date de création</td></tr>
 </table>
 
-<p>
-Ces données sont gérées via <code>/api/supabase002</code>.
-</p>
-
-<hr>
-
-<h3>Table : <code>itineraires</code></h3>
-
-<p>
-Représente un trajet entre deux lieux.
-</p>
-
+<h3>5.3 Table <code>itineraires</code></h3>
 <table>
   <tr><th>Colonne</th><th>Description</th></tr>
   <tr><td>id</td><td>Identifiant unique</td></tr>
   <tr><td>lieu_depart_id</td><td>Référence vers lieux.id</td></tr>
   <tr><td>lieu_arrivee_id</td><td>Référence vers lieux.id</td></tr>
-  <tr><td>type_voyage</td><td>Voiture, train, avion…</td></tr>
+  <tr><td>type_voyage</td><td>Voiture / Train / Avion…</td></tr>
   <tr><td>nom</td><td>Nom de l’itinéraire</td></tr>
   <tr><td>description</td><td>Description libre</td></tr>
   <tr><td>lien_http</td><td>Lien externe</td></tr>
   <tr><td>created_at</td><td>Date de création</td></tr>
 </table>
 
+<h3>5.4 Table <code>pays</code></h3>
+<table>
+  <tr><th>Colonne</th><th>Description</th></tr>
+  <tr><td>id</td><td>Identifiant unique</td></tr>
+  <tr><td>nom</td><td>Nom du pays</td></tr>
+  <tr><td>code_iso</td><td>Code ISO (FR, DE, IT…)</td></tr>
+  <tr><td>created_at</td><td>Date de création</td></tr>
+</table>
+
+<h3>5.5 Table <code>infos_pays</code></h3>
+<table>
+  <tr><th>Colonne</th><th>Description</th></tr>
+  <tr><td>id</td><td>Identifiant unique</td></tr>
+  <tr><td>pays_id</td><td>Référence vers pays.id</td></tr>
+  <tr><td>categorie</td><td>Type d’information (transport, réduction, logement…)</td></tr>
+  <tr><td>texte</td><td>Contenu textuel</td></tr>
+  <tr><td>date_update</td><td>Date de mise à jour</td></tr>
+</table>
+
 <h4>Relations</h4>
-
 <pre>
-lieux (id)
-   ▲        ▲
-   |        |
-   |        |
-itineraires
-(depart) (arrivee)
+lieux (id)           pays (id)
+   ▲                     ▲
+   |                     |
+itineraires           infos_pays
+(depart/arrivée)     (pays_id)
 </pre>
-
-<p>
-Les clés étrangères garantissent la cohérence
-des itinéraires.
-</p>
 
 <hr>
 
-<!-- ===================================================== -->
-<h2>5️⃣ Environnements DEV / PROD</h2>
+<h2>6️⃣ Commandes utiles Supabase</h2>
 
-<p>
-Les API utilisent des variables d’environnement :
-</p>
+<h3>6.1 Explorer la base</h3>
+<pre>
+supabase db remote commit
+supabase db remote list
+supabase db remote status
+</pre>
 
+<h3>6.2 Ajouter une colonne</h3>
+<pre>
+ALTER TABLE lieux ADD COLUMN description TEXT;
+ALTER TABLE infos_pays ADD COLUMN source TEXT;
+</pre>
+
+<h3>6.3 Copier la structure DEV → PROD</h3>
+<pre>
+# Export DEV schema
+supabase db dump --schema-only --file=dev_schema.sql
+
+# Import PROD schema
+supabase db restore --file=dev_schema.sql --project-ref=PROD_PROJECT_REF
+</pre>
+
+<h3>6.4 Tester les requêtes SQL</h3>
+<pre>
+# Exemple INSERT
+INSERT INTO pays (nom, code_iso) VALUES ('France', 'FR');
+INSERT INTO infos_pays (pays_id, categorie, texte, date_update) 
+VALUES (1, 'transport', 'TGV et TER disponibles', NOW());
+
+# Exemple SELECT
+SELECT * FROM pays;
+SELECT * FROM infos_pays WHERE pays_id=1;
+
+# Exemple UPDATE
+UPDATE infos_pays SET texte='Nouvelle info' WHERE id=1;
+
+# Exemple DELETE
+DELETE FROM infos_pays WHERE id=1;
+</pre>
+
+<hr>
+
+<h2>7️⃣ Environnements DEV / PROD</h2>
+<p>Variables utilisées :</p>
 <pre>
 SUPABASE_URL
 SUPABASE_KEY
 </pre>
-
-<p>
-Chargées depuis :
-</p>
-
 <ul>
-  <li><code>.env.local</code> en développement</li>
-  <li>Vercel Environment Variables en production</li>
+  <li>DEV → <code>.env.local</code></li>
+  <li>PROD → Dashboard Vercel</li>
+</ul>
+
+<h2>8️⃣ Résumé</h2>
+<ul>
+  <li>/api/supabase001 → API pédagogique mots</li>
+  <li>/api/supabase002 → API structurante (lieux, itinéraires)</li>
+  <li>/api/supabasePays → API CRUD pays</li>
+  <li>/api/supabaseInfoPays → API CRUD infos_pays</li>
+  <li>Supabase = base relationnelle PostgreSQL cloud</li>
+  <li>DEV / PROD séparés, workflow sécurisé</li>
+  <li>Commandes Supabase disponibles pour exploration, modification et migration</li>
 </ul>
 
 <p>
-👉 Voir
-<a href="page2-outils.html">Page 2 – Outils & déploiement</a>
+⬅️ <a href="page1-site.html">Page 1 – Site</a><br>
+🛠️ <a href="page2-outils.html">Page 2 – Outils</a>
 </p>
+
+<footer>
+<p>© 2026 · Tintin94230 – Documentation API & Base (v3)</p>
+</footer>
 
 <hr>
-
-<!-- ===================================================== -->
-<h2>6️⃣ Sécurité</h2>
-
-<ul>
-  <li>❌ Aucune clé dans le HTML</li>
-  <li>✅ Accès base uniquement via API</li>
-  <li>✅ Séparation DEV / PROD</li>
-  <li>✅ Clés stockées côté serveur</li>
-</ul>
-
-<hr>
-
-<!-- ===================================================== -->
-<h2>7️⃣ Résumé</h2>
-
-<ul>
-  <li><code>/api/supabase001</code> → API simple et pédagogique</li>
-  <li><code>/api/supabase002</code> → API structurante (lieux, itinéraires)</li>
-  <li>Supabase fournit une base relationnelle robuste</li>
-  <li>L’architecture est prête pour des évolutions futures</li>
-</ul>
-
-<p>
-⬅️ <a href="page1-site.html">Page 1 – Le site</a><br>
-🛠️ <a href="page2-outils.html">Page 2 – Outils & déploiement</a>
-</p>
+<h2>✏️ A AJOUTER DANS LA PROCHAINE VERSION</h2>
+<textarea rows="4" style="width:100%;">Ajouter exemples de fetch JS pour /api/supabasePays et /api/supabaseInfoPays, captures écran admin-pays.html et admin-infopays.html</textarea>
 
 </body>
 </html>

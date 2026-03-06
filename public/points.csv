@@ -1,0 +1,692 @@
+id;name;slug;uic;uic8_sncf;latitude;longitude;parent_station_id;hub_id;country;time_zone
+;Ch�teau-Arnoux � St-Auban;chateau-arnoux-st-auban;;;44.081790;6.001625;;;FR;Europe/Paris
+;name;slug;;;latitude;longitude;;;;Europe/Paris
+;Aéroport Charles de Gaulle 2 TGV;Aeroport Charles de Gaulle 2;;;49.0040156;2.5711085;;;FR;Europe/Paris
+;Abancourt;Abancourt;;;49.6977145;1.7646826;;;FR;Europe/Paris
+;Abbeville;Abbeville;;;50.1060835;1.8337029;;;FR;Europe/Paris
+;Ã‰gletons;A‰gletons;;;45.4065225;2.0450180;;;FR;Europe/Paris
+;Ã‰pernay;A‰pernay;;;47.4448900;0.4868883;;;FR;Europe/Paris
+;Ã‰pierre - Saint-LÃ©ger;A‰pierre - Saint-LA©ger;;;47.2187205;-1.5498947;;;FR;Europe/Paris
+;Ã‰pinal;A‰pinal;;;44.6433903;5.7637402;;;FR;Europe/Paris
+;Ã‰vian-les-Bains;A‰vian-les-Bains;;;45.7090328;5.8943117;;;FR;Europe/Paris
+;Agen;Agen;;;44.2015827;0.6176112;;;FR;Europe/Paris
+;Aillevillers;Aillevillers;;;47.9138972;6.3373124;;;FR;Europe/Paris
+;Aiton-Salle-Polyvalente;Aiton-Salle-Polyvalente;;;45.5628531;6.2501736;;;FR;Europe/Paris
+;Aix-en-Provence;Aix-en-Provence;;;43.5298424;5.4474738;;;FR;Europe/Paris
+;Aix-en-Provence TGV;Aix-en-Provence;;;43.5298424;5.4474738;;;FR;Europe/Paris
+;Aix-les-Bains le Revard;Aix-les-Bains le Revard;;;45.6881380;5.9089276;;;FR;Europe/Paris
+;Alès;Ales;;;44.1253665;4.0852818;;;FR;Europe/Paris
+;Albert;Albert;;;50.0018022;2.6509223;;;FR;Europe/Paris
+;Albertville;Albertville;;;45.6754622;6.3925417;;;FR;Europe/Paris
+;Albi Ville;Albi Ville;;;43.9224030;2.1379469;;;FR;Europe/Paris
+;Alençon;Alencon;;;48.4312059;0.0911374;;;FR;Europe/Paris
+;Altkirch;Altkirch;;;47.6238204;7.2401542;;;FR;Europe/Paris
+;Ambérieu-en-Bugey;Amberieu-en-Bugey;;;45.9584309;5.3595099;;;FR;Europe/Paris
+;Amiens;Amiens;;;49.8941708;2.2956951;;;FR;Europe/Paris
+;Ancenis;Ancenis;;;47.3648141;-1.1816088;;;FR;Europe/Paris
+;Andelot;Andelot;;;46.8593999;5.9236614;;;FR;Europe/Paris
+;Angers Saint-Laud;Angers Saint-Laud;;;47.4643613;-0.5562093;;;FR;Europe/Paris
+;Angerville;Angerville;;;49.2430262;-0.0328008;;;FR;Europe/Paris
+;Angoulême;Angouleme;;;45.6484505;0.1561947;;;FR;Europe/Paris
+;Annecy;Annecy;;;45.8992348;6.1288847;;;FR;Europe/Paris
+;Annemasse;Annemasse;;;46.1934005;6.2341093;;;FR;Europe/Paris
+;Annonay-Gare Routière;Annonay- Routiere;;;45.2434488;4.6686386;;;FR;Europe/Paris
+;Appenweier;Appenweier;;;48.0271170;7.4406042;;;FR;Europe/Paris
+;Arcachon;Arcachon;;;44.6616428;-1.1700018;;;FR;Europe/Paris
+;Argentan;Argentan;;;48.7428900;-0.0223386;;;FR;Europe/Paris
+;Argentine;Argentine;;;45.4942711;6.3128738;;;FR;Europe/Paris
+;Argenton-sur-Creuse;Argenton-sur-Creuse;;;46.5885956;1.5190466;;;FR;Europe/Paris
+;Arles;Arles;;;43.6776223;4.6309653;;;FR;Europe/Paris
+;Arras;Arras;;;50.2910480;2.7772211;;;FR;Europe/Paris
+;Arvant;Arvant;;;45.3654066;3.3103819;;;FR;Europe/Paris
+;Aubagne;Aubagne;;;43.2924385;5.5703031;;;FR;Europe/Paris
+;Aubenas Place de la Paix;Aubenas Place de la Paix;;;44.6181095;4.3892768;;;FR;Europe/Paris
+;Auch;Auch;;;43.6463558;0.5850507;;;FR;Europe/Paris
+;Auch Allée Baylac;Auch Allee Baylac;;;43.6478797;0.5833838;;;FR;Europe/Paris
+;Aulnoye-Aymeries;Aulnoye-Aymeries;;;50.2002502;3.8336383;;;FR;Europe/Paris
+;Auray;Auray;;;47.6664485;-2.9833718;;;FR;Europe/Paris
+;Aurillac;Aurillac;;;44.9285441;2.4433101;;;FR;Europe/Paris
+;Auterive;Auterive;;;43.3524028;1.4775095;;;FR;Europe/Paris
+;Autun;Autun;;;46.9510313;4.2989478;;;FR;Europe/Paris
+;Auxerre Saint-Gervais;Auxerre Saint-Gervais;;;47.7976817;3.5851639;;;FR;Europe/Paris
+;Auxonne;Auxonne;;;47.1936509;5.3882954;;;FR;Europe/Paris
+;Avallon;Avallon;;;47.4885365;3.9070658;;;FR;Europe/Paris
+;Avignon Centre;Avignon Centre;;;43.9418927;4.8053389;;;FR;Europe/Paris
+;Avignon TGV;Avignon;;;43.9492493;4.8059012;;;FR;Europe/Paris
+;Ax-les-Thermes;Ax-les-Thermes;;;42.7193011;1.8378400;;;FR;Europe/Paris
+;Bédarieux;Bedarieux;;;43.6155109;3.1576143;;;FR;Europe/Paris
+;Béning-lès-Saint-Avold;Bening-les-Saint-Avold;;;49.1371435;6.8393714;;;FR;Europe/Paris
+;Béthune;Bethune;;;50.5309351;2.6389115;;;FR;Europe/Paris
+;Béziers;Beziers;;;43.3426562;3.2131307;;;FR;Europe/Paris
+;Bagnères-de-Luchon Lycée;Bagneres-de-Luchon Lycee;;;42.7915158;0.5978506;;;FR;Europe/Paris
+;Bar sur Aube Collége;Bar sur Aube College;;;48.3846439;4.5251669;;;FR;Europe/Paris
+;Bar-le-Duc;Bar-le-Duc;;;48.7712673;5.1623805;;;FR;Europe/Paris
+;Barr;Barr;;;48.4088704;7.4492808;;;FR;Europe/Paris
+;Bar-sur-Aube;Bar-sur-Aube;;;48.2332047;4.7058337;;;FR;Europe/Paris
+;Bar-sur-Aube Lycée;Bar-sur-Aube Lycee;;;48.2279204;4.7030271;;;FR;Europe/Paris
+;Bas - Monistrol;Bas - Monistrol;;;45.2976156;4.1394908;;;FR;Europe/Paris
+;Bayonne;Bayonne;;;43.4945144;-1.4736657;;;FR;Europe/Paris
+;Beaumont-de-Lomagne Place Jean Moulin;Beaumont-de-Lomagne Place Jean Moulin;;;43.8823733;0.9840243;;;FR;Europe/Paris
+;Beauvais;Beauvais;;;49.4300997;2.0823355;;;FR;Europe/Paris
+;Bedous;Bedous;;;42.9992191;-0.6002255;;;FR;Europe/Paris
+;Belfort-Ville;Belfort-Ville;;;47.6335286;6.8537846;;;FR;Europe/Paris
+;Bellegarde;Bellegarde;;;43.4255556;0.6244444;;;FR;Europe/Paris
+;Benfeld;Benfeld;;;48.3707281;7.5952375;;;FR;Europe/Paris
+;Bergerac;Bergerac;;;44.8534568;0.4875310;;;FR;Europe/Paris
+;Bern;Bern;;;45.0073345;-0.6268971;;;FR;Europe/Paris
+;Berthelming Mairie;Berthelming Mairie;;;48.8186182;7.0088638;;;FR;Europe/Paris
+;Besançon Franche-Comté TGV;Besancon Franche-Comte;;;47.2380222;6.0243622;;;FR;Europe/Paris
+;Besançon Viotte;Besancon Viotte;;;47.2470171;6.0218662;;;FR;Europe/Paris
+;Bettembourg;Bettembourg;;;49.3564273;6.1995200;;;FR;Europe/Paris
+;Bettembourg Gare;Bettembourg;;;49.3564273;6.1995200;;;FR;Europe/Paris
+;Bidos;Bidos;;;43.1790523;-0.6047222;;;FR;Europe/Paris
+;Biganos Facture;Biganos Facture;;;44.6372409;-0.9661780;;;FR;Europe/Paris
+;Bitche Ancienne Gare;Bitche Ancienne;;;49.0406620;7.5507948;;;FR;Europe/Paris
+;Bitche Camp;Bitche Camp;;;49.0702094;7.4931889;;;FR;Europe/Paris
+;Bitche Quartier Driant;Bitche Quartier Driant;;;49.0578885;7.4565091;;;FR;Europe/Paris
+;Bléré - la Croix;Blere - la Croix;;;47.3377308;0.9877615;;;FR;Europe/Paris
+;Blois - Chambord;Blois - Chambord;;;47.5854590;1.3232893;;;FR;Europe/Paris
+;Boën;Boen;;;45.7456231;4.0042790;;;FR;Europe/Paris
+;Bois d'Oingt;Bois d'Oingt;;;45.9065156;4.5755632;;;FR;Europe/Paris
+;Bonneville;Bonneville;;;50.0825670;2.2486687;;;FR;Europe/Paris
+;Bons-en-Chablais;Bons-en-Chablais;;;46.2649180;6.3702817;;;FR;Europe/Paris
+;Bordeaux Saint-Jean;Bordeaux Saint-Jean;;;44.8255227;-0.5556498;;;FR;Europe/Paris
+;Bort-les-Orgues;Bort-les-Orgues;;;45.4010305;2.4992935;;;FR;Europe/Paris
+;Boulogne sur Mer;Boulogne sur Mer;;;50.7259985;1.6118771;;;FR;Europe/Paris
+;Bourg-en-Bresse;Bourg-en-Bresse;;;46.2051192;5.2250324;;;FR;Europe/Paris
+;Bourg-en-Bresse Gare Routière;Bourg-en-Bresse Routiere;;;46.1988292;5.2155626;;;FR;Europe/Paris
+;Bourges;Bourges;;;47.0811658;2.3991250;;;FR;Europe/Paris
+;Bourgoin-Jallieu;Bourgoin-Jallieu;;;45.5860438;5.2772265;;;FR;Europe/Paris
+;Bourg-Saint-Maurice;Bourg-Saint-Maurice;;;45.6186105;6.7695277;;;FR;Europe/Paris
+;Boussens;Boussens;;;43.1765718;0.9728531;;;FR;Europe/Paris
+;Bouzonville;Bouzonville;;;49.2901634;6.5352470;;;FR;Europe/Paris
+;Bréauté - Beuzeville;Breaute - Beuzeville;;;49.6035509;0.4174199;;;FR;Europe/Paris
+;Breil-sur-Roya;Breil-sur-Roya;;;43.9375321;7.5139664;;;FR;Europe/Paris
+;Bressuire;Bressuire;;;46.8425572;-0.4929017;;;FR;Europe/Paris
+;Brest;Brest;;;48.3905283;-4.4860088;;;FR;Europe/Paris
+;Bretenoux - Biars;Bretenoux - Biars;;;44.9275487;1.8442422;;;FR;Europe/Paris
+;Briançon;Briancon;;;44.8984037;6.6436313;;;FR;Europe/Paris
+;Brignais;Brignais;;;45.6739755;4.7540703;;;FR;Europe/Paris
+;Brioude;Brioude;;;45.2938970;3.3853711;;;FR;Europe/Paris
+;Brive-la-Gaillarde;Brive-la-Gaillarde;;;45.1584982;1.5332389;;;FR;Europe/Paris
+;Brou;Brou;;;48.2110511;1.1662579;;;FR;Europe/Paris
+;Bruyères;Bruyeres;;;48.2115397;6.7204365;;;FR;Europe/Paris
+;Bueil;Bueil;;;48.9301195;1.4415715;;;FR;Europe/Paris
+;Busigny;Busigny;;;50.0350792;3.4692426;;;FR;Europe/Paris
+;Bussac;Bussac;;;45.2722400;0.6060000;;;FR;Europe/Paris
+;Buswiller-Eglise;Buswiller-Eglise;;;48.8197095;7.5596548;;;FR;Europe/Paris
+;Caen;Caen;;;49.1813403;-0.3635615;;;FR;Europe/Paris
+;Cahors;Cahors;;;44.4495000;1.4364999;;;FR;Europe/Paris
+;Calais - Fréthun;Calais - Frethun;;;50.9019122;1.8114399;;;FR;Europe/Paris
+;Calais Ville;Calais Ville;;;50.9533777;1.8503652;;;FR;Europe/Paris
+;Callac;Callac;;;48.4049107;-3.4263150;;;FR;Europe/Paris
+;Cambo-les-Bains;Cambo-les-Bains;;;43.3609139;-1.3994687;;;FR;Europe/Paris
+;Cambrai;Cambrai;;;50.1757546;3.2346145;;;FR;Europe/Paris
+;Cannes;Cannes;;;43.5515198;7.0134418;;;FR;Europe/Paris
+;Cannes La Bocca;Cannes La Bocca;;;43.5488470;6.9865913;;;FR;Europe/Paris
+;Capdenac;Capdenac;;;44.5808234;2.0696065;;;FR;Europe/Paris
+;Carcassonne;Carcassonne;;;43.2130358;2.3491069;;;FR;Europe/Paris
+;Carhaix;Carhaix;;;48.2779955;-3.5621984;;;FR;Europe/Paris
+;Carmaux;Carmaux;;;44.0496296;2.1583033;;;FR;Europe/Paris
+;Carnoules;Carnoules;;;43.3024863;6.1898612;;;FR;Europe/Paris
+;Carpentras;Carpentras;;;44.0554043;5.0487681;;;FR;Europe/Paris
+;Castelnaudary;Castelnaudary;;;43.3192021;1.9533495;;;FR;Europe/Paris
+;Castres;Castres;;;49.8044444;3.2383333;;;FR;Europe/Paris
+;Cavaillon;Cavaillon;;;43.8356808;5.0383522;;;FR;Europe/Paris
+;Cerbère;Cerbere;;;42.4412951;3.1646952;;;FR;Europe/Paris
+;Cercy-la-Tour;Cercy-la-Tour;;;46.8696643;3.6457483;;;FR;Europe/Paris
+;Châlons-en-Champagne;Chalons-en-Champagne;;;48.9566218;4.3628851;;;FR;Europe/Paris
+;Châlons-en-Champagne Greta;Chalons-en-Champagne Greta;;;48.9739155;4.3600355;;;FR;Europe/Paris
+;Châlons-en-Champagne Tissier;Chalons-en-Champagne Tissier;;;48.9575421;4.3644883;;;FR;Europe/Paris
+;Châteaubriant;Chateaubriant;;;47.7194057;-1.3757282;;;FR;Europe/Paris
+;Châteaubriant Tram Train;Chateaubriant Tram Train;;;47.7170797;-1.3714532;;;FR;Europe/Paris
+;Château-du-Loir;Chateau-du-Loir;;;47.6995399;0.4311486;;;FR;Europe/Paris
+;Châteaudun;Chateaudun;;;48.0702298;1.3284948;;;FR;Europe/Paris
+;Châteaulin;Chateaulin;;;48.1968026;-4.0916875;;;FR;Europe/Paris
+;Châteauroux;Chateauroux;;;46.8203785;1.6770956;;;FR;Europe/Paris
+;Château-Thierry;Chateau-Thierry;;;49.0457362;3.4027111;;;FR;Europe/Paris
+;Châtellerault;Chatellerault;;;46.8180047;0.5458120;;;FR;Europe/Paris
+;Châtenois Gare;Chatenois;;;48.2725480;7.4013652;;;FR;Europe/Paris
+;Chagny;Chagny;;;46.9105780;4.7523461;;;FR;Europe/Paris
+;Chalon-sur-Saône;Chalon-sur-Saone;;;46.7831001;4.8534326;;;FR;Europe/Paris
+;Chambéry - Challes-les-Eaux;Chambery - Challes-les-Eaux;;;45.5710720;5.9197355;;;FR;Europe/Paris
+;Chambery-Jacob-Bellecombette;Chambery-Jacob-Bellecombette;;;45.5517030;5.9169790;;;FR;Europe/Paris
+;Chamonix-Mont-Blanc;Chamonix-Mont-Blanc;;;45.9246705;6.8727506;;;FR;Europe/Paris
+;Champagne-Ardenne TGV;Champagne-Ardenne;;;48.8730660;4.2079100;;;FR;Europe/Paris
+;Champagnole;Champagnole;;;46.7456049;5.9083581;;;FR;Europe/Paris
+;Chantilly - Gouvieux;Chantilly - Gouvieux;;;49.1872381;2.4595267;;;FR;Europe/Paris
+;Chantonnay;Chantonnay;;;46.6868121;-1.0505509;;;FR;Europe/Paris
+;Charleville-Mézières;Charleville-Mezieres;;;49.7735712;4.7206939;;;FR;Europe/Paris
+;Charmes;Charmes;;;49.6516667;3.3786111;;;FR;Europe/Paris
+;Chartres;Chartres;;;48.4438601;1.4881434;;;FR;Europe/Paris
+;Chartres Gare Rue Nicole;Chartres Rue Nicole;;;48.4457583;1.4786239;;;FR;Europe/Paris
+;Chauffailles Gambetta;Chauffailles Gambetta;;;46.2063919;4.3358038;;;FR;Europe/Paris
+;Chaumont;Chaumont;;;48.1111324;5.1395849;;;FR;Europe/Paris
+;Chedde;Chedde;;;45.9263465;6.7197662;;;FR;Europe/Paris
+;Cherbourg;Cherbourg;;;49.6425343;-1.6249565;;;FR;Europe/Paris
+;Chinon;Chinon;;;47.1667182;0.2402095;;;FR;Europe/Paris
+;Cholet;Cholet;;;47.0617293;-0.8801359;;;FR;Europe/Paris
+;Clamecy;Clamecy;;;49.4286111;3.3619444;;;FR;Europe/Paris
+;Clelles - Mens;Clelles - Mens;;;44.8272514;5.6050226;;;FR;Europe/Paris
+;Clelles-Mairie;Clelles-Mairie;;;44.8271725;5.6225573;;;FR;Europe/Paris
+;Clermont-Ferrand;Clermont-Ferrand;;;45.7774551;3.0819427;;;FR;Europe/Paris
+;Clisson;Clisson;;;47.0877218;-1.2817422;;;FR;Europe/Paris
+;Cluses;Cluses;;;46.0603171;6.5804218;;;FR;Europe/Paris
+;Coarraze - Nay;Coarraze - Nay;;;43.1818438;-0.2416231;;;FR;Europe/Paris
+;Colmar;Colmar;;;48.0777517;7.3579641;;;FR;Europe/Paris
+;Colomiers;Colomiers;;;43.6112476;1.3367443;;;FR;Europe/Paris
+;Commentry;Commentry;;;46.2901030;2.7439800;;;FR;Europe/Paris
+;Commercy;Commercy;;;48.7632030;5.5914753;;;FR;Europe/Paris
+;Communay;Communay;;;45.6043302;4.8324705;;;FR;Europe/Paris
+;Compiègne;Compiegne;;;49.4179497;2.8263171;;;FR;Europe/Paris
+;Conflans - Jarny;Conflans - Jarny;;;49.1665897;5.8682334;;;FR;Europe/Paris
+;Connerré - Beillé;Connerre - Beille;;;48.0737604;0.4869483;;;FR;Europe/Paris
+;Contrexéville Centre;Contrexeville Centre;;;48.1894746;5.9072966;;;FR;Europe/Paris
+;Coppet;Coppet;;;45.5485276;5.7505940;;;FR;Europe/Paris
+;Corbigny;Corbigny;;;47.2574315;3.6843003;;;FR;Europe/Paris
+;Cosne-sur-Loire;Cosne-sur-Loire;;;47.4139645;2.9319441;;;FR;Europe/Paris
+;Courtalain - Saint-Pellerin;Courtalain - Saint-Pellerin;;;48.0735924;1.1270003;;;FR;Europe/Paris
+;Courtrai;Courtrai;;;43.3057454;5.4403425;;;FR;Europe/Paris
+;Coutances;Coutances;;;49.0477920;-1.4454857;;;FR;Europe/Paris
+;Coutras;Coutras;;;45.0407298;-0.1289533;;;FR;Europe/Paris
+;Crépy-en-Valois;Crepy-en-Valois;;;49.2358509;2.8900507;;;FR;Europe/Paris
+;Creil;Creil;;;49.2607914;2.4733771;;;FR;Europe/Paris
+;Creutzwald Gare Routière;Creutzwald Routiere;;;49.2076123;6.6968010;;;FR;Europe/Paris
+;Culmont - Chalindrey;Culmont - Chalindrey;;;47.8100902;5.4432217;;;FR;Europe/Paris
+;Culoz;Culoz;;;45.8476517;5.7809063;;;FR;Europe/Paris
+;Dax;Dax;;;43.7084065;-1.0518771;;;FR;Europe/Paris
+;Decize;Decize;;;46.8284259;3.4616097;;;FR;Europe/Paris
+;Delle;Delle;;;47.5075682;6.9977521;;;FR;Europe/Paris
+;Die;Die;;;44.7533712;5.3689136;;;FR;Europe/Paris
+;Diemeringen;Diemeringen;;;48.9395197;7.1895939;;;FR;Europe/Paris
+;Dieppe;Dieppe;;;49.9246182;1.0791444;;;FR;Europe/Paris
+;Digoin;Digoin;;;46.4810422;3.9786291;;;FR;Europe/Paris
+;Dijon;Dijon;;;47.3215806;5.0414701;;;FR;Europe/Paris
+;Dinan;Dinan;;;48.4539775;-2.0476870;;;FR;Europe/Paris
+;Dives - Cabourg;Dives - Cabourg;;;49.2865082;-0.1075936;;;FR;Europe/Paris
+;Dol-de-Bretagne;Dol-de-Bretagne;;;48.5498295;-1.7542570;;;FR;Europe/Paris
+;Dole;Dole;;;47.0921047;5.4925463;;;FR;Europe/Paris
+;Douai;Douai;;;50.3675677;3.0804641;;;FR;Europe/Paris
+;Drap - Cantaron;Drap - Cantaron;;;43.7599595;7.3168793;;;FR;Europe/Paris
+;Dreux;Dreux;;;48.7358807;1.3684254;;;FR;Europe/Paris
+;Dunkerque;Dunkerque;;;51.0347708;2.3772525;;;FR;Europe/Paris
+;Ecole-Valentin;Ecole-Valentin;;;47.2720000;5.9820600;;;FR;Europe/Paris
+;Elbeuf - Saint-Aubin;Elbeuf - Saint-Aubin;;;49.3026780;1.0101801;;;FR;Europe/Paris
+;Ettendorf  Rue du Pont;Ettendorf Rue du Pont;;;48.8128970;7.5821490;;;FR;Europe/Paris
+;Eymoutiers Vassivière;Eymoutiers Vassiviere;;;45.7398075;1.7411821;;;FR;Europe/Paris
+;Fécamp;Fecamp;;;49.7577729;0.3748910;;;FR;Europe/Paris
+;Fénétrange Gendarmerie;Fenetrange Gendarmerie;;;48.8441010;7.0207433;;;FR;Europe/Paris
+;Faubourg d'Orléans;Faubourg d'Orleans;;;47.3670024;1.7406513;;;FR;Europe/Paris
+;Feurs;Feurs;;;45.7440738;4.2215124;;;FR;Europe/Paris
+;Figeac;Figeac;;;44.6092335;2.0324321;;;FR;Europe/Paris
+;Firminy;Firminy;;;45.3869665;4.2858597;;;FR;Europe/Paris
+;Fismes;Fismes;;;49.3072444;3.6802766;;;FR;Europe/Paris
+;Foix;Foix;;;42.9638998;1.6053807;;;FR;Europe/Paris
+;Font-Romeu-Odeillo-Via;Font-Romeu-Odeillo-Via;;;42.4965705;2.0416766;;;FR;Europe/Paris
+;Forbach;Forbach;;;49.1862822;6.8958562;;;FR;Europe/Paris
+;Franois;Franois;;;47.2342087;5.9243606;;;FR;Europe/Paris
+;Frasne;Frasne;;;46.8570466;6.1617717;;;FR;Europe/Paris
+;Frohmuhl Lavoir;Frohmuhl Lavoir;;;48.9077752;7.2810614;;;FR;Europe/Paris
+;Génolhac;Genolhac;;;44.3511996;3.9499106;;;FR;Europe/Paris
+;Gannat;Gannat;;;46.0996068;3.1995251;;;FR;Europe/Paris
+;Gap;Gap;;;44.5612032;6.0820639;;;FR;Europe/Paris
+;Gare de Champagnole Paul-Emile Victor;de Champagnole Paul-Emile Victor;;;46.7425433;5.9194569;;;FR;Europe/Paris
+;Gare de Damblain Eglise;de Damblain Eglise;;;48.0977659;5.6524541;;;FR;Europe/Paris
+;Gare de Etang-sur-Arroux;de Etang-sur-Arroux;;;46.8671471;4.1852671;;;FR;Europe/Paris
+;Gare de Etaples - Le Touquet;de Etaples - Le Touquet;;;50.5168803;1.6423717;;;FR;Europe/Paris
+;Gare de Evreux Normandie;de Evreux Normandie;;;49.0068420;1.0890917;;;FR;Europe/Paris
+;Gare de Griesbach-le-Bastberg Eglise;de Griesbach-le-Bastberg Eglise;;;48.8151345;7.4333534;;;FR;Europe/Paris
+;Gare de Hirson Ecoles;de Hirson Ecoles;;;49.9290293;4.0861352;;;FR;Europe/Paris
+;Gare de K�dange (Eglise);de Kedange (Eglise);;;49.3084830;6.3382369;;;FR;Europe/Paris
+;Gare de Lichtenberg Eglise;de Lichtenberg Eglise;;;48.9217256;7.4815423;;;FR;Europe/Paris
+;Gare de Poule-les-Echarmeaux Mairie;de Poule-les-Echarmeaux Mairie;;;46.1480920;4.4565515;;;FR;Europe/Paris
+;Gare de Saint-Jean-de-Bassel Eglise;de Saint-Jean-de-Bassel Eglise;;;48.8038025;6.9912677;;;FR;Europe/Paris
+;Geneve-Aeroport;Geneve-Aeroport;;;46.2467040;6.0937472;;;FR;Europe/Paris
+;Gièvres;Gievres;;;47.2756700;1.6679000;;;FR;Europe/Paris
+;Gironde;Gironde;;;44.8837460;-0.6051264;;;FR;Europe/Paris
+;Givet;Givet;;;50.1362582;4.8248698;;;FR;Europe/Paris
+;Givors Ville;Givors Ville;;;45.5851435;4.7657018;;;FR;Europe/Paris
+;Grand-Combe la Pise;Grand-Combe la Pise;;;44.2099530;4.0329499;;;FR;Europe/Paris
+;Granville;Granville;;;48.8376296;-1.5959177;;;FR;Europe/Paris
+;Grasse;Grasse;;;43.6589011;6.9239103;;;FR;Europe/Paris
+;Grenoble;Grenoble;;;45.1875602;5.7357819;;;FR;Europe/Paris
+;Grenoble Europole;Grenoble Europole;;;45.1913071;5.7141017;;;FR;Europe/Paris
+;Grenoble Universités - Gières;Grenoble Universites - Gieres;;;45.1850579;5.7849348;;;FR;Europe/Paris
+;Guéret;Gueret;;;46.1689521;1.8715763;;;FR;Europe/Paris
+;Guingamp;Guingamp;;;48.5618483;-3.1502007;;;FR;Europe/Paris
+;Hagondange;Hagondange;;;49.2540313;6.1678213;;;FR;Europe/Paris
+;Haguenau;Haguenau;;;48.8172236;7.7885978;;;FR;Europe/Paris
+;Hazebrouck;Hazebrouck;;;50.7226113;2.5360331;;;FR;Europe/Paris
+;Hendaye;Hendaye;;;43.3641518;-1.7616499;;;FR;Europe/Paris
+;Herbitzheim Mairie;Herbitzheim Mairie;;;49.0166075;7.0826244;;;FR;Europe/Paris
+;Herbitzheim Rue de Hambach;Herbitzheim Rue de Hambach;;;49.0230772;7.0753116;;;FR;Europe/Paris
+;Herrlisheim;Herrlisheim;;;48.7288855;7.9061317;;;FR;Europe/Paris
+;Hirson;Hirson;;;49.9203419;4.0837186;;;FR;Europe/Paris
+;Hombourg Chapelle;Hombourg Chapelle;;;47.7418015;7.5050817;;;FR;Europe/Paris
+;Hyères;Hyeres;;;43.1202573;6.1301614;;;FR;Europe/Paris
+;Igney Mairie;Igney Mairie;;;48.2731427;6.3963079;;;FR;Europe/Paris
+;Ingwiller;Ingwiller;;;48.8718112;7.4798581;;;FR;Europe/Paris
+;Issoire;Issoire;;;45.5432962;3.2501874;;;FR;Europe/Paris
+;Issoire Lycée Deville;Issoire Lycee Deville;;;45.5399347;3.2579836;;;FR;Europe/Paris
+;Is-sur-Tille;Is-sur-Tille;;;47.5219136;5.1123622;;;FR;Europe/Paris
+;Jeumont;Jeumont;;;50.2971012;4.0996569;;;FR;Europe/Paris
+;Joinville;Joinville;;;48.4433253;5.1377537;;;FR;Europe/Paris
+;Jougne;Jougne;;;46.7630230;6.3883634;;;FR;Europe/Paris
+;Juvancourt;Juvancourt;;;48.1147600;4.7981100;;;FR;Europe/Paris
+;Kehl;Kehl;;;48.9119025;6.9010556;;;FR;Europe/Paris
+;Keskastel Gare;Keskastel;;;48.9694119;7.0434540;;;FR;Europe/Paris
+;Krimmeri Meinau;Krimmeri Meinau;;;48.5635816;7.7526323;;;FR;Europe/Paris
+;Kruth;Kruth;;;47.9305570;6.9645918;;;FR;Europe/Paris
+;La Brohinière;La Brohiniere;;;48.2134663;-2.1103354;;;FR;Europe/Paris
+;La Charité-sur-Loire;La Charite-sur-Loire;;;47.1771359;3.0188106;;;FR;Europe/Paris
+;La Ferté-Bernard;La Ferte-Bernard;;;48.1860576;0.6554511;;;FR;Europe/Paris
+;La Ferté-sur-Chiers;La Ferte-sur-Chiers;;;49.5745200;5.2418000;;;FR;Europe/Paris
+;La Rochelle;La Rochelle;;;46.1597320;-1.1515951;;;FR;Europe/Paris
+;La Rochelle Porte Dauphine;La Rochelle Porte Dauphine;;;46.1675560;-1.1518694;;;FR;Europe/Paris
+;La Roche-sur-Foron;La Roche-sur-Foron;;;46.0672189;6.3121658;;;FR;Europe/Paris
+;La Roche-sur-Yon;La Roche-sur-Yon;;;46.6705431;-1.4269698;;;FR;Europe/Paris
+;La Souterraine;La Souterraine;;;46.2374832;1.4857176;;;FR;Europe/Paris
+;La Tour-du-Pin;La Tour-du-Pin;;;45.5666202;5.4424054;;;FR;Europe/Paris
+;Laferté-sur-Aube;Laferte-sur-Aube;;;48.0974797;4.7825937;;;FR;Europe/Paris
+;Lamure-sur-Azergues;Lamure-sur-Azergues;;;46.0615827;4.4932835;;;FR;Europe/Paris
+;Landerneau;Landerneau;;;48.4514803;-4.2557901;;;FR;Europe/Paris
+;Langeac;Langeac;;;45.1001248;3.4941798;;;FR;Europe/Paris
+;Langogne;Langogne;;;44.7266369;3.8550146;;;FR;Europe/Paris
+;Langon;Langon;;;44.5530659;-0.2449274;;;FR;Europe/Paris
+;Lannion;Lannion;;;48.7322183;-3.4587994;;;FR;Europe/Paris
+;Laon;Laon;;;49.5646650;3.6206860;;;FR;Europe/Paris
+;L'Arbresle;L'Arbresle;;;45.8362368;4.6165809;;;FR;Europe/Paris
+;Laroche - Migennes;Laroche - Migennes;;;47.9610304;3.5130434;;;FR;Europe/Paris
+;Latour-de-Carol - Enveitg;Latour-de-Carol - Enveitg;;;42.4590511;1.9044727;;;FR;Europe/Paris
+;Lausanne;Lausanne;;;47.0433932;1.1821018;;;FR;Europe/Paris
+;Lauterbourg;Lauterbourg;;;48.9751103;8.1767166;;;FR;Europe/Paris
+;Laval;Laval;;;48.0706687;-0.7734022;;;FR;Europe/Paris
+;Laval-de-Cère;Laval-de-Cere;;;44.9526333;1.9339670;;;FR;Europe/Paris
+;Laveline-devant-Bruyères Maison pour Tous;Laveline-devant-Bruyeres Maison pour Tous;;;48.1849546;6.7518282;;;FR;Europe/Paris
+;Le Buisson;Le Buisson;;;48.7612610;4.7507809;;;FR;Europe/Paris
+;Le Croisic;Le Croisic;;;47.2933971;-2.5094404;;;FR;Europe/Paris
+;Le Dorat;Le Dorat;;;46.2144367;1.0822603;;;FR;Europe/Paris
+;Le Grau-du-Roi;Le Grau-du-Roi;;;43.5360061;4.1371755;;;FR;Europe/Paris
+;Le Havre;Le Havre;;;49.4938975;0.1079732;;;FR;Europe/Paris
+;Le Mans;Le Mans;;;48.0073849;0.1967849;;;FR;Europe/Paris
+;Le Mont-Saint-Michel;Le Mont-Saint-Michel;;;48.6355232;-1.5102571;;;FR;Europe/Paris
+;Le Péage-de-Roussillon;Le Peage-de-Roussillon;;;45.3732685;4.7961586;;;FR;Europe/Paris
+;Le Puy-en-Velay;Le Puy-en-Velay;;;45.0459739;3.8855537;;;FR;Europe/Paris
+;Le Tréport - Mers-les-Bains;Le Treport - Mers-les-Bains;;;50.0628408;1.3761266;;;FR;Europe/Paris
+;Le Valdahon;Le Valdahon;;;47.1498566;6.3423367;;;FR;Europe/Paris
+;Le Verdon;Le Verdon;;;43.8003619;6.2544415;;;FR;Europe/Paris
+;Lens;Lens;;;50.4291723;2.8319805;;;FR;Europe/Paris
+;Les Arcs - Draguignan;Les Arcs - Draguignan;;;43.4556558;6.4825112;;;FR;Europe/Paris
+;Les Aubrais;Les Aubrais;;;47.9266755;1.9063088;;;FR;Europe/Paris
+;Les Granges-Narboz;Les Granges-Narboz;;;46.8854345;6.3282637;;;FR;Europe/Paris
+;Les Houches;Les Houches;;;45.8915080;6.7991380;;;FR;Europe/Paris
+;Les Laumes - Alésia;Les Laumes - Alesia;;;47.5432729;4.4626185;;;FR;Europe/Paris
+;Les Sables-d'Olonne;Les Sables-d'Olonne;;;46.4990505;-1.7767859;;;FR;Europe/Paris
+;Lesparre;Lesparre;;;45.3036181;-0.9453635;;;FR;Europe/Paris
+;Lièpvre Rue Robert Guth;Liepvre Rue Robert Guth;;;48.2706444;7.2736877;;;FR;Europe/Paris
+;Libourne;Libourne;;;44.9133742;-0.2427217;;;FR;Europe/Paris
+;Lille Europe;Lille Europe;;;50.6389830;3.0757140;;;FR;Europe/Paris
+;Lille Flandres;Lille Flandres;;;50.6363801;3.0705299;;;FR;Europe/Paris
+;Limoges Bénédictins;Limoges Benedictins;;;45.8362805;1.2674823;;;FR;Europe/Paris
+;Limoux;Limoux;;;43.0538068;2.2176533;;;FR;Europe/Paris
+;Lisieux;Lisieux;;;49.1460831;0.2255168;;;FR;Europe/Paris
+;L'Isle-Jourdain;L'Isle-Jourdain;;;43.6141153;1.0822036;;;FR;Europe/Paris
+;Lison;Lison;;;49.2476975;-1.0449376;;;FR;Europe/Paris
+;Loches;Loches;;;47.1281692;0.9979549;;;FR;Europe/Paris
+;Longuyon;Longuyon;;;49.4461066;5.6007320;;;FR;Europe/Paris
+;Longwy;Longwy;;;49.5145564;5.7679082;;;FR;Europe/Paris
+;Lons-le-Saunier;Lons-le-Saunier;;;46.6727037;5.5589973;;;FR;Europe/Paris
+;Lorient;Lorient;;;47.7477336;-3.3660907;;;FR;Europe/Paris
+;Lorraine TGV;Lorraine;;;48.4845157;6.1130350;;;FR;Europe/Paris
+;Loudrefing Rue Principale;Loudrefing Rue Principale;;;48.8513317;6.8777783;;;FR;Europe/Paris
+;Louhans;Louhans;;;46.6291425;5.2232175;;;FR;Europe/Paris
+;Lourdes;Lourdes;;;43.0940904;-0.0464975;;;FR;Europe/Paris
+;Lozanne;Lozanne;;;45.8563065;4.6833980;;;FR;Europe/Paris
+;Luçay-le-Mâle;Lucay-le-Male;;;47.1264192;1.4379064;;;FR;Europe/Paris
+;Lucay-le-Mâle Champ de Foire;Lucay-le-Male Champ de Foire;;;47.1239971;1.4369311;;;FR;Europe/Paris
+;Luc-en-Diois;Luc-en-Diois;;;44.6152000;5.4517754;;;FR;Europe/Paris
+;Luchon;Luchon;;;42.7910617;0.5912279;;;FR;Europe/Paris
+;Lunéville;Luneville;;;48.5916164;6.4919563;;;FR;Europe/Paris
+;Lunel;Lunel;;;43.6745265;4.1348062;;;FR;Europe/Paris
+;Lure;Lure;;;47.6863376;6.4946806;;;FR;Europe/Paris
+;Luxembourg;Luxembourg;;;48.8454719;2.3398080;;;FR;Europe/Paris
+;Luxembourg Gare;Luxembourg;;;48.8454719;2.3398080;;;FR;Europe/Paris
+;Luzy;Luzy;;;46.7896000;3.9707020;;;FR;Europe/Paris
+;Lyon Gorge de Loup;Lyon Gorge de Loup;;;45.7660080;4.8047300;;;FR;Europe/Paris
+;Lyon Part Dieu;Lyon Part Dieu;;;45.7605357;4.8604242;;;FR;Europe/Paris
+;Lyon Perrache;Lyon Perrache;;;45.7483223;4.8253267;;;FR;Europe/Paris
+;Lyon Saint-Paul;Lyon Saint-Paul;;;45.7660653;4.8269615;;;FR;Europe/Paris
+;Lyon Vaise;Lyon Vaise;;;45.7803015;4.8034302;;;FR;Europe/Paris
+;Lyon-Part-Dieu Gare Routière;Lyon-Part-Dieu Routiere;;;45.7604955;4.8627230;;;FR;Europe/Paris
+;Lyon-Saint-Paul La Feuillée;Lyon-Saint-Paul La Feuillee;;;45.7666582;4.8282580;;;FR;Europe/Paris
+;Lyon-Saint-Paul Quai de Bondy;Lyon-Saint-Paul Quai de Bondy;;;45.7664733;4.8284623;;;FR;Europe/Paris
+;Mâcon;Macon;;;46.3036683;4.8322266;;;FR;Europe/Paris
+;Mâcon - Loché TGV;Macon - Loche;;;46.2812070;4.7728291;;;FR;Europe/Paris
+;Macau;Macau;;;45.0080000;-0.6150200;;;FR;Europe/Paris
+;Mantes-la-Jolie;Mantes-la-Jolie;;;48.9891971;1.7140683;;;FR;Europe/Paris
+;Marle sur Serre;Marle sur Serre;;;49.7472727;3.7696597;;;FR;Europe/Paris
+;Marmande;Marmande;;;44.5007939;0.1642740;;;FR;Europe/Paris
+;Marne-la-Vallée Chessy;Marne-la-Vallee Chessy;;;48.8699134;2.7821727;;;FR;Europe/Paris
+;Marseille Blancarde;Marseille Blancarde;;;43.2968705;5.4065892;;;FR;Europe/Paris
+;Marseille Saint-Charles;Marseille Saint-Charles;;;43.3032635;5.3811927;;;FR;Europe/Paris
+;Martigny;Martigny;;;49.8597222;4.1375000;;;FR;Europe/Paris
+;Martigny-les-Bains Thiébaut;Martigny-les-Bains Thiebaut;;;48.1050038;5.8263157;;;FR;Europe/Paris
+;Martigues;Martigues;;;43.4057279;5.0548176;;;FR;Europe/Paris
+;Marvejols;Marvejols;;;44.5527580;3.2870644;;;FR;Europe/Paris
+;Maubeuge;Maubeuge;;;50.2785723;3.9743070;;;FR;Europe/Paris
+;Mauzé;Mauze;;;46.1957534;-0.6709409;;;FR;Europe/Paris
+;Mazamet;Mazamet;;;43.4902317;2.3764363;;;FR;Europe/Paris
+;Menchhoffen Abri;Menchhoffen Abri;;;48.8588429;7.4965254;;;FR;Europe/Paris
+;Mende;Mende;;;44.5180226;3.4991057;;;FR;Europe/Paris
+;Menton;Menton;;;43.7753495;7.5029213;;;FR;Europe/Paris
+;Mertzwiller;Mertzwiller;;;48.8659947;7.6823034;;;FR;Europe/Paris
+;Messac - Guipry;Messac - Guipry;;;47.8222816;-1.8182295;;;FR;Europe/Paris
+;Metz;Metz;;;49.1196964;6.1763552;;;FR;Europe/Paris
+;Metzeral;Metzeral;;;48.0128917;7.0712023;;;FR;Europe/Paris
+;Meymac;Meymac;;;45.5366795;2.1464895;;;FR;Europe/Paris
+;Mignaloux - Nouaillé;Mignaloux - Nouaille;;;46.5261914;0.4117566;;;FR;Europe/Paris
+;Millau;Millau;;;44.1006693;3.0777594;;;FR;Europe/Paris
+;Miramas;Miramas;;;43.5827330;5.0025809;;;FR;Europe/Paris
+;Mirecourt;Mirecourt;;;48.3005302;6.1312974;;;FR;Europe/Paris
+;Mirecourt Lycée Agricole;Mirecourt Lycee Agricole;;;48.2933697;6.1318376;;;FR;Europe/Paris
+;Mitry - Claye;Mitry - Claye;;;48.9758874;2.6423120;;;FR;Europe/Paris
+;Modane;Modane;;;45.2015369;6.6728169;;;FR;Europe/Paris
+;Molsheim;Molsheim;;;48.5419351;7.4924679;;;FR;Europe/Paris
+;Mommenheim;Mommenheim;;;48.7573160;7.6418687;;;FR;Europe/Paris
+;Monsempron-Libos;Monsempron-Libos;;;44.4990000;0.9341240;;;FR;Europe/Paris
+;Montauban la Fobio;Montauban la Fobio;;;44.0123478;1.3685080;;;FR;Europe/Paris
+;Montauban Prax Paris;Montauban Prax Paris;;;44.0173784;1.3582848;;;FR;Europe/Paris
+;Montauban Ville Bourbon;Montauban Ville Bourbon;;;44.0143078;1.3411846;;;FR;Europe/Paris
+;Montbéliard;Montbeliard;;;47.5102368;6.7977564;;;FR;Europe/Paris
+;Montbrison;Montbrison;;;45.6072875;4.0627318;;;FR;Europe/Paris
+;Montchanin;Montchanin;;;46.7474270;4.4699684;;;FR;Europe/Paris
+;Mont-de-Marsan;Mont-de-Marsan;;;43.8911318;-0.5009720;;;FR;Europe/Paris
+;Montelimar Gare Routière;Montelimar Routiere;;;44.5596298;4.7453690;;;FR;Europe/Paris
+;Montereau;Montereau;;;47.8564484;2.5717138;;;FR;Europe/Paris
+;Mont-Louis - La Cabanasse;Mont-Louis - La Cabanasse;;;42.5020571;2.1132183;;;FR;Europe/Paris
+;Montluçon;Montlucon;;;46.3400296;2.6073963;;;FR;Europe/Paris
+;Montmélian;Montmelian;;;45.5009946;6.0587974;;;FR;Europe/Paris
+;Montmorillon;Montmorillon;;;46.4249573;0.8682027;;;FR;Europe/Paris
+;Montpellier Saint-Roch;Montpellier Saint-Roch;;;43.6042456;3.8803219;;;FR;Europe/Paris
+;Montpellier Sud de France;Montpellier Sud de France;;;43.5951150;3.9239637;;;FR;Europe/Paris
+;Montréjeau - Gourdan-Polignan;Montrejeau - Gourdan-Polignan;;;43.0780671;0.5734995;;;FR;Europe/Paris
+;Montreuil-sur-Ille;Montreuil-sur-Ille;;;48.3064590;-1.6710597;;;FR;Europe/Paris
+;Montreux-Vieux;Montreux-Vieux;;;47.6204698;7.0232709;;;FR;Europe/Paris
+;Morcenx;Morcenx;;;44.0323042;-0.9113736;;;FR;Europe/Paris
+;Morez Lycée;Morez Lycee;;;46.5175599;6.0267104;;;FR;Europe/Paris
+;Morhange;Morhange;;;48.9250518;6.6458064;;;FR;Europe/Paris
+;Morlaix;Morlaix;;;48.5824932;-3.8331972;;;FR;Europe/Paris
+;Morteau;Morteau;;;47.0569367;6.6047189;;;FR;Europe/Paris
+;Mouchard;Mouchard;;;46.9752018;5.7975847;;;FR;Europe/Paris
+;Moulins sur Allier;Moulins sur Allier;;;46.5615946;3.3393685;;;FR;Europe/Paris
+;Mouscron;Mouscron;;;50.7116695;3.2190653;;;FR;Europe/Paris
+;Mulhouse;Mulhouse;;;47.7467233;7.3389937;;;FR;Europe/Paris
+;Mulhouse Gare Centrale;Mulhouse Centrale;;;47.7734743;7.5209606;;;FR;Europe/Paris
+;Munich;Munich;;;50.0865757;2.6668728;;;FR;Europe/Paris
+;Munster;Munster;;;48.9154719;6.9037077;;;FR;Europe/Paris
+;Murat;Murat;;;46.4008462;2.9084037;;;FR;Europe/Paris
+;Muret;Muret;;;43.4599858;1.3262332;;;FR;Europe/Paris
+;Mussidan;Mussidan;;;45.0369509;0.3642959;;;FR;Europe/Paris
+;Nîmes Centre;Nimes Centre;;;43.8323742;4.3662548;;;FR;Europe/Paris
+;Najac;Najac;;;44.2201877;1.9809309;;;FR;Europe/Paris
+;Nancy;Nancy;;;48.6937223;6.1834097;;;FR;Europe/Paris
+;Nantes;Nantes;;;47.2186371;-1.5541362;;;FR;Europe/Paris
+;Narbonne;Narbonne;;;43.1837757;3.0041906;;;FR;Europe/Paris
+;Neuchatel;Neuchatel;;;47.3751545;6.7304521;;;FR;Europe/Paris
+;Neufchâteau;Neufchateau;;;48.3553014;5.6948571;;;FR;Europe/Paris
+;Neufchâteau Lycée Professionnel;Neufchateau Lycee Professionnel;;;48.3584535;5.6917077;;;FR;Europe/Paris
+;Neuilly-lès-Dijon;Neuilly-les-Dijon;;;47.2751088;5.1013394;;;FR;Europe/Paris
+;Neussargues;Neussargues;;;45.1253278;2.9791705;;;FR;Europe/Paris
+;Nevers;Nevers;;;46.9876601;3.1577203;;;FR;Europe/Paris
+;Nevers le Banlay;Nevers le Banlay;;;47.0069381;3.1635328;;;FR;Europe/Paris
+;Nice-Ville;Nice-Ville;;;43.7047837;7.2618318;;;FR;Europe/Paris
+;Niederbronn-les-Bains;Niederbronn-les-Bains;;;48.9510314;7.6421767;;;FR;Europe/Paris
+;Niedermodern Pont de la Moder;Niedermodern Pont de la Moder;;;48.8465308;7.6277071;;;FR;Europe/Paris
+;Niort;Niort;;;46.3239233;-0.4646064;;;FR;Europe/Paris
+;Niversac;Niversac;;;45.1382240;0.8081078;;;FR;Europe/Paris
+;Nogent-le-Rotrou;Nogent-le-Rotrou;;;48.3218090;0.8211488;;;FR;Europe/Paris
+;Nogent-sur-Seine;Nogent-sur-Seine;;;48.4924390;3.4978181;;;FR;Europe/Paris
+;Nort-sur-Erdre;Nort-sur-Erdre;;;47.4398626;-1.4990370;;;FR;Europe/Paris
+;Obermodern;Obermodern;;;48.8423302;7.5474613;;;FR;Europe/Paris
+;Obernai;Obernai;;;48.4623358;7.4817123;;;FR;Europe/Paris
+;Objat;Objat;;;45.2628546;1.4097899;;;FR;Europe/Paris
+;Oloron-Sainte-Marie;Oloron-Sainte-Marie;;;43.1922408;-0.6115586;;;FR;Europe/Paris
+;Orléans;Orleans;;;47.9027336;1.9086066;;;FR;Europe/Paris
+;Orléans Avenue de Paris;Orleans Avenue de Paris;;;47.9078019;1.9047080;;;FR;Europe/Paris
+;Oyonnax;Oyonnax;;;46.2575174;5.6556181;;;FR;Europe/Paris
+;Périgueux;Perigueux;;;45.1840214;0.7160392;;;FR;Europe/Paris
+;Paimpol;Paimpol;;;48.7794818;-3.0484022;;;FR;Europe/Paris
+;Pamiers;Pamiers;;;43.1147515;1.6082177;;;FR;Europe/Paris
+;Paray-le-Monial;Paray-le-Monial;;;46.4505590;4.1177959;;;FR;Europe/Paris
+;Paris Austerlitz;Paris Austerlitz;;;48.8412440;2.3664552;;;FR;Europe/Paris
+;Paris Est;Paris Est;;;48.8770979;2.3594905;;;FR;Europe/Paris
+;Paris Gare du Nord;Paris du Nord;;;48.8819585;2.3562878;;;FR;Europe/Paris
+;Paris Montparnasse Hall 1 - 2;Paris Montparnasse Hall 1 - 2;;;48.8400624;2.3191085;;;FR;Europe/Paris
+;Paris Montparnasse Vaugirard;Paris Montparnasse Vaugirard;;;48.8383847;2.3158319;;;FR;Europe/Paris
+;Paris Saint-Lazare;Paris Saint-Lazare;;;48.8765300;2.3252374;;;FR;Europe/Paris
+;Pau;Pau;;;43.2957547;-0.3685668;;;FR;Europe/Paris
+;Pauillac;Pauillac;;;45.1995626;-0.7484994;;;FR;Europe/Paris
+;Perpignan;Perpignan;;;42.6985304;2.8953121;;;FR;Europe/Paris
+;Persan - Beaumont;Persan - Beaumont;;;49.1478544;2.2782258;;;FR;Europe/Paris
+;Pertuis;Pertuis;;;43.6951468;5.5032671;;;FR;Europe/Paris
+;Pessac;Pessac;;;44.8056150;-0.6308396;;;FR;Europe/Paris
+;Petange;Petange;;;47.1636283;1.0935359;;;FR;Europe/Paris
+;Pierrelatte;Pierrelatte;;;44.3778474;4.6976609;;;FR;Europe/Paris
+;Plouaret Trégor;Plouaret Tregor;;;48.6062088;-3.4667489;;;FR;Europe/Paris
+;Pointe de Grave;Pointe de Grave;;;45.5670552;-1.0658053;;;FR;Europe/Paris
+;Poitiers;Poitiers;;;46.5802596;0.3401960;;;FR;Europe/Paris
+;Poligny;Poligny;;;48.2241320;2.7448859;;;FR;Europe/Paris
+;Pontarlier;Pontarlier;;;46.9040348;6.3546345;;;FR;Europe/Paris
+;Pontcharra sur Bréda;Pontcharra sur Breda;;;45.4341081;6.0078690;;;FR;Europe/Paris
+;Pont-de-Beauvoisin;Pont-de-Beauvoisin;;;45.5359674;5.6704512;;;FR;Europe/Paris
+;Pontorson - Mont-Saint-Michel;Pontorson - Mont-Saint-Michel;;;48.5527280;-1.5049307;;;FR;Europe/Paris
+;Pont-Saint-Esprit;Pont-Saint-Esprit;;;44.2538589;4.6456631;;;FR;Europe/Paris
+;Pont-Saint-Vincent;Pont-Saint-Vincent;;;48.6042979;6.1008114;;;FR;Europe/Paris
+;Pornic;Pornic;;;47.1152695;-2.1040102;;;FR;Europe/Paris
+;Port Boulet;Port Boulet;;;47.2487758;0.1555854;;;FR;Europe/Paris
+;Portbou;Portbou;;;42.6615186;2.8773982;;;FR;Europe/Paris
+;Port-de-Piles;Port-de-Piles;;;47.0034740;0.5989591;;;FR;Europe/Paris
+;Privas-Cours-du-Palais;Privas-Cours-du-Palais;;;44.7347036;4.5998355;;;FR;Europe/Paris
+;Puyoô;Puyoo;;;43.5265163;-0.9155880;;;FR;Europe/Paris
+;Quiberon;Quiberon;;;47.4874000;-3.1215200;;;FR;Europe/Paris
+;Quillan;Quillan;;;42.8765847;2.1941009;;;FR;Europe/Paris
+;Quimper;Quimper;;;47.9960325;-4.1024782;;;FR;Europe/Paris
+;Rémilly;Remilly;;;49.0116713;6.3960587;;;FR;Europe/Paris
+;Raedersheim;Raedersheim;;;47.8876619;7.2835061;;;FR;Europe/Paris
+;Rang-du-Fliers - Verton - Berck;Rang-du-Fliers - Verton - Berck;;;50.4157503;1.6481625;;;FR;Europe/Paris
+;Redon;Redon;;;47.6510682;-2.0842143;;;FR;Europe/Paris
+;Reims;Reims;;;49.2577886;4.0319260;;;FR;Europe/Paris
+;Remiremont;Remiremont;;;48.0158951;6.5912615;;;FR;Europe/Paris
+;Rennes;Rennes;;;48.1113387;-1.6800198;;;FR;Europe/Paris
+;Retiers;Retiers;;;47.9128732;-1.3818706;;;FR;Europe/Paris
+;Revigny;Revigny;;;46.6373340;5.6020006;;;FR;Europe/Paris
+;Ribécourt;Ribecourt;;;49.5062759;2.9271960;;;FR;Europe/Paris
+;Ribeauville Gare Routière;Ribeauville Routiere;;;48.1921811;7.3255989;;;FR;Europe/Paris
+;Riom - Châtel-Guyon;Riom - Chatel-Guyon;;;45.8899872;3.1207348;;;FR;Europe/Paris
+;Riquewihr Poste;Riquewihr Poste;;;48.1658457;7.2998545;;;FR;Europe/Paris
+;Rives;Rives;;;45.3501289;5.5047411;;;FR;Europe/Paris
+;Roanne;Roanne;;;46.0345572;4.0729178;;;FR;Europe/Paris
+;Roanne-Gare-Routière;Roanne--Routiere;;;46.0386807;4.0625156;;;FR;Europe/Paris
+;Rochefort;Rochefort;;;45.9366592;-0.9616399;;;FR;Europe/Paris
+;Rodange;Rodange;;;49.3690040;6.1792994;;;FR;Europe/Paris
+;Rodez;Rodez;;;44.3511408;2.5728493;;;FR;Europe/Paris
+;Roeschwoog;Roeschwoog;;;48.8278605;8.0363491;;;FR;Europe/Paris
+;Romans - Bourg-de-Péage;Romans - Bourg-de-Peage;;;45.0488502;5.0496867;;;FR;Europe/Paris
+;Romilly-sur-Seine;Romilly-sur-Seine;;;48.5197475;3.7263678;;;FR;Europe/Paris
+;Romorantin Blanc Argent;Romorantin Blanc Argent;;;47.3554036;1.7388706;;;FR;Europe/Paris
+;Rosporden;Rosporden;;;47.9592684;-3.8278459;;;FR;Europe/Paris
+;Rothau;Rothau;;;48.4553525;7.2068703;;;FR;Europe/Paris
+;Rouen Rive Droite;Rouen Rive Droite;;;49.4492443;1.0942235;;;FR;Europe/Paris
+;Royan;Royan;;;45.6245332;-1.0287636;;;FR;Europe/Paris
+;Rumilly;Rumilly;;;50.5765100;2.0147700;;;FR;Europe/Paris
+;Sète;Sete;;;43.4014434;3.6959771;;;FR;Europe/Paris
+;Sélestat;Selestat;;;48.2594396;7.4542170;;;FR;Europe/Paris
+;Sélestat  Schweisguth;Selestat Schweisguth;;;48.2614149;7.4500548;;;FR;Europe/Paris
+;Sélestat Koeberlé;Selestat Koeberle;;;48.2601468;7.4516897;;;FR;Europe/Paris
+;Sélestat Schwilgué;Selestat Schwilgue;;;48.2519017;7.4473833;;;FR;Europe/Paris
+;Sérézin;Serezin;;;45.5575491;5.3442260;;;FR;Europe/Paris
+;Saales;Saales;;;48.3527191;7.0998243;;;FR;Europe/Paris
+;Sablé-sur-Sarthe;Sable-sur-Sarthe;;;47.8400712;-0.3352048;;;FR;Europe/Paris
+;Saillat - Chassenon;Saillat - Chassenon;;;45.8696515;0.8117049;;;FR;Europe/Paris
+;Sain-Bel;Sain-Bel;;;45.8103406;4.5995041;;;FR;Europe/Paris
+;Saincaize;Saincaize;;;46.9314208;3.0717117;;;FR;Europe/Paris
+;Saint-Aignan - Noyers;Saint-Aignan - Noyers;;;47.2868127;1.3836774;;;FR;Europe/Paris
+;Saint-Amand-Montrond - Orval;Saint-Amand-Montrond - Orval;;;46.7265149;2.4857005;;;FR;Europe/Paris
+;Saint-Amour;Saint-Amour;;;46.4358751;5.3421832;;;FR;Europe/Paris
+;Saint-André-le-Gaz;Saint-Andre-le-Gaz;;;45.5468932;5.5333566;;;FR;Europe/Paris
+;Saint-Bonnet-en-Bresse;Saint-Bonnet-en-Bresse;;;46.8540616;5.1751176;;;FR;Europe/Paris
+;Saint-Brieuc;Saint-Brieuc;;;48.5141134;-2.7603283;;;FR;Europe/Paris
+;Saint-Chély-d'Apcher;Saint-Chely-d'Apcher;;;44.8011363;3.2757824;;;FR;Europe/Paris
+;Saint-Claude;Saint-Claude;;;46.3874699;5.8643866;;;FR;Europe/Paris
+;Saint-Cyprien Arènes;Saint-Cyprien Arenes;;;43.5938745;1.4173333;;;FR;Europe/Paris
+;Saint-Denis-Près-Martel;Saint-Denis-Pres-Martel;;;44.9459700;1.6661916;;;FR;Europe/Paris
+;Saint-Dié-des-Vosges;Saint-Die-des-Vosges;;;48.2873153;6.9477708;;;FR;Europe/Paris
+;Saint-Dizier;Saint-Dizier;;;48.6371125;4.9473513;;;FR;Europe/Paris
+;Sainte-Pazanne;Sainte-Pazanne;;;47.1031638;-1.8111609;;;FR;Europe/Paris
+;Saintes;Saintes;;;45.7460663;-0.6300671;;;FR;Europe/Paris
+;Saint-Geniès-de-Malgoirès;Saint-Genies-de-Malgoires;;;43.9461726;4.2169644;;;FR;Europe/Paris
+;Saint-Georges-d'Aurac;Saint-Georges-d'Aurac;;;45.1562006;3.5405995;;;FR;Europe/Paris
+;Saint-Germain-des-Fossés;Saint-Germain-des-Fosses;;;46.2067884;3.4320562;;;FR;Europe/Paris
+;Saint-Gervais-les-Bains;Saint-Gervais-les-Bains;;;45.8928549;6.7113338;;;FR;Europe/Paris
+;Saint-Gervais-les-Bains-Le Fayet;Saint-Gervais-les-Bains-Le Fayet;;;45.9065724;6.7014569;;;FR;Europe/Paris
+;Saint-Gilles-Croix-de-Vie;Saint-Gilles-Croix-de-Vie;;;46.6929850;-1.9254545;;;FR;Europe/Paris
+;Saint-Jean-de-Maurienne Arvan;Saint-Jean-de-Maurienne Arvan;;;45.2779258;6.3540392;;;FR;Europe/Paris
+;Saint-Jean-Pied-de-Port;Saint-Jean-Pied-de-Port;;;43.1629528;-1.2380528;;;FR;Europe/Paris
+;Saint-Junien;Saint-Junien;;;45.8872222;0.9011111;;;FR;Europe/Paris
+;Saint-Just-en-Chaussée;Saint-Just-en-Chaussee;;;49.5052334;2.4337604;;;FR;Europe/Paris
+;Saint-Lô;Saint-Lo;;;49.1158080;-1.0909278;;;FR;Europe/Paris
+;Saint-Louis;Saint-Louis;;;48.7160783;7.1884164;;;FR;Europe/Paris
+;Saint-Malo;Saint-Malo;;;48.6495180;-2.0260409;;;FR;Europe/Paris
+;Saint-Marcellin;Saint-Marcellin;;;45.1539715;5.3203470;;;FR;Europe/Paris
+;Saint-Mariens - Saint-Yzan;Saint-Mariens - Saint-Yzan;;;45.1390698;-0.3917703;;;FR;Europe/Paris
+;Saint-Martin-d'Hères;Saint-Martin-d'Heres;;;45.1836683;5.7544800;;;FR;Europe/Paris
+;Saint-Nazaire;Saint-Nazaire;;;47.2733517;-2.2138905;;;FR;Europe/Paris
+;Saint-Omer;Saint-Omer;;;50.7515771;2.2534183;;;FR;Europe/Paris
+;Saint-Pierre-d'Albigny;Saint-Pierre-d'Albigny;;;45.5690160;6.1548267;;;FR;Europe/Paris
+;Saint-Pierre-des-Corps;Saint-Pierre-des-Corps;;;47.3898152;0.7189761;;;FR;Europe/Paris
+;Saint-Pierre-le-Moûtier;Saint-Pierre-le-Moutier;;;46.7905584;3.1180359;;;FR;Europe/Paris
+;Saint-Pol-sur-Ternoise;Saint-Pol-sur-Ternoise;;;50.3812113;2.3361053;;;FR;Europe/Paris
+;Saint-Priest;Saint-Priest;;;44.7177000;4.5468500;;;FR;Europe/Paris
+;Saint-Quentin;Saint-Quentin;;;49.8465253;3.2876843;;;FR;Europe/Paris
+;Saint-Rambert-en-Bugey;Saint-Rambert-en-Bugey;;;45.9486070;5.4399580;;;FR;Europe/Paris
+;Saint-Sulpice;Saint-Sulpice;;;49.3505211;2.1221698;;;FR;Europe/Paris
+;Saint-Vit;Saint-Vit;;;47.1811265;5.8100016;;;FR;Europe/Paris
+;Saint-Yrieix;Saint-Yrieix;;;45.5192990;1.2055518;;;FR;Europe/Paris
+;Salbris;Salbris;;;47.4264805;2.0525543;;;FR;Europe/Paris
+;Sarlat;Sarlat;;;44.8879431;1.2161321;;;FR;Europe/Paris
+;Sarralbe Centre;Sarralbe Centre;;;49.0025414;7.0311477;;;FR;Europe/Paris
+;Sarrebourg;Sarrebourg;;;48.7342390;7.0557352;;;FR;Europe/Paris
+;Sarrebourg Hôpital;Sarrebourg Hopital;;;48.7434483;7.0291352;;;FR;Europe/Paris
+;Sarrebourg Place Mathey;Sarrebourg Place Mathey;;;48.7366128;7.0570625;;;FR;Europe/Paris
+;Sarrebourg Route de Phalsbourg;Sarrebourg Route de Phalsbourg;;;48.7438712;7.0979187;;;FR;Europe/Paris
+;Sarrebruck;Sarrebruck;;;44.1158377;0.7178605;;;FR;Europe/Paris
+;Sarreguemines;Sarreguemines;;;49.1094836;7.0708865;;;FR;Europe/Paris
+;Sarreguemines Barth;Sarreguemines Barth;;;49.1013337;7.0492257;;;FR;Europe/Paris
+;Sarreguemines Collège Fulrad;Sarreguemines College Fulrad;;;49.1186927;7.0754314;;;FR;Europe/Paris
+;Sarreguemines Collège Himmelsberg;Sarreguemines College Himmelsberg;;;49.1091272;7.0528466;;;FR;Europe/Paris
+;Sarreguemines Collège Jean Jaurès;Sarreguemines College Jean Jaures;;;49.1030515;7.0490622;;;FR;Europe/Paris
+;Sarreguemines Lycée Pange;Sarreguemines Lycee Pange;;;49.1079336;7.0632899;;;FR;Europe/Paris
+;Sarreguemines Lycée Technique;Sarreguemines Lycee Technique;;;49.1141628;7.0806238;;;FR;Europe/Paris
+;Sarre-Union;Sarre-Union;;;48.9404465;7.0899329;;;FR;Europe/Paris
+;Saumur;Saumur;;;47.2596224;-0.0785177;;;FR;Europe/Paris
+;Savenay;Savenay;;;47.3592304;-1.9421244;;;FR;Europe/Paris
+;Saverne;Saverne;;;48.7419909;7.3625953;;;FR;Europe/Paris
+;Saverne Haut Barr;Saverne Haut Barr;;;48.7247260;7.3382804;;;FR;Europe/Paris
+;Saverne Lycée Verne;Saverne Lycee Verne;;;48.7348549;7.3719995;;;FR;Europe/Paris
+;Saverne Place des Dragons;Saverne Place des Dragons;;;48.7395774;7.3618609;;;FR;Europe/Paris
+;Schirmeck - La Broque;Schirmeck - La Broque;;;48.4800511;7.2158685;;;FR;Europe/Paris
+;Schirmeck Cité Scolaire;Schirmeck Cite Scolaire;;;48.4843573;7.2314364;;;FR;Europe/Paris
+;Sedan;Sedan;;;49.7033759;4.9433409;;;FR;Europe/Paris
+;Sedan Place Calonne;Sedan Place Calonne;;;49.6999665;4.9440095;;;FR;Europe/Paris
+;Serqueux;Serqueux;;;49.6317322;1.5379360;;;FR;Europe/Paris
+;Serquigny;Serquigny;;;49.1094531;0.7143709;;;FR;Europe/Paris
+;Sessenheim;Sessenheim;;;48.7994238;7.9865841;;;FR;Europe/Paris
+;Seurre;Seurre;;;46.9995787;5.1487861;;;FR;Europe/Paris
+;Sisteron;Sisteron;;;44.1963467;5.9443791;;;FR;Europe/Paris
+;Somain;Somain;;;50.3589237;3.2810972;;;FR;Europe/Paris
+;Sospel;Sospel;;;43.8785647;7.4498235;;;FR;Europe/Paris
+;Sotteville;Sotteville;;;49.5396722;-1.7551133;;;FR;Europe/Paris
+;Ste-Marie-aux-Mines Espace Musées;Ste-Marie-aux-Mines Espace Musees;;;48.2489074;7.1882334;;;FR;Europe/Paris
+;Ste-Marie-aux-Mines Mairie;Ste-Marie-aux-Mines Mairie;;;48.2457301;7.1825895;;;FR;Europe/Paris
+;Ste-Marie-aux-Mines Super U;Ste-Marie-aux-Mines Super U;;;48.2485361;7.1891955;;;FR;Europe/Paris
+;Ste-Marie-aux-Mines Théâtre;Ste-Marie-aux-Mines Theatre;;;48.2437533;7.1805601;;;FR;Europe/Paris
+;Strasbourg;Strasbourg;;;48.5846140;7.7507127;;;FR;Europe/Paris
+;Surdon;Surdon;;;48.6653453;0.1333975;;;FR;Europe/Paris
+;Tarbes;Tarbes;;;43.2328580;0.0781021;;;FR;Europe/Paris
+;Tassin;Tassin;;;45.7617013;4.7586206;;;FR;Europe/Paris
+;Tenay - Hauteville;Tenay - Hauteville;;;45.9215807;5.5023210;;;FR;Europe/Paris
+;Tende;Tende;;;44.0889416;7.5933916;;;FR;Europe/Paris
+;Tergnier;Tergnier;;;49.6558465;3.2918511;;;FR;Europe/Paris
+;Ternay Barbières;Ternay Barbieres;;;45.5968655;4.7996664;;;FR;Europe/Paris
+;Tessonnières;Tessonnieres;;;43.9284384;1.9369537;;;FR;Europe/Paris
+;Thann;Thann;;;47.8101008;7.1020957;;;FR;Europe/Paris
+;Thann La Poste;Thann La Poste;;;47.8083573;7.1071135;;;FR;Europe/Paris
+;Thann Saint-Jacques;Thann Saint-Jacques;;;47.8133343;7.0934800;;;FR;Europe/Paris
+;Thaon;Thaon;;;49.2576169;-0.4541322;;;FR;Europe/Paris
+;Thiers;Thiers;;;45.8555278;3.5486686;;;FR;Europe/Paris
+;Thionville;Thionville;;;49.3579272;6.1675872;;;FR;Europe/Paris
+;Thonon-les-Bains;Thonon-les-Bains;;;46.3731303;6.4779448;;;FR;Europe/Paris
+;Thouars;Thouars;;;46.9790193;-0.2153741;;;FR;Europe/Paris
+;Tonnerre;Tonnerre;;;47.8565193;3.9733288;;;FR;Europe/Paris
+;Touët-de-l'Escarène;Touet-de-l'Escarene;;;43.8475230;7.3646018;;;FR;Europe/Paris
+;Toul;Toul;;;48.6762624;5.8941759;;;FR;Europe/Paris
+;Toulon;Toulon;;;43.1257311;5.9304919;;;FR;Europe/Paris
+;Toulouse Matabiau;Toulouse Matabiau;;;43.6114306;1.4542101;;;FR;Europe/Paris
+;Tourcoing;Tourcoing;;;50.7235038;3.1605714;;;FR;Europe/Paris
+;Tournai;Tournai;;;43.8537652;-0.1368812;;;FR;Europe/Paris
+;Tours;Tours;;;47.3900474;0.6889268;;;FR;Europe/Paris
+;Toury;Toury;;;48.1962708;1.9363143;;;FR;Europe/Paris
+;Trèves;Treves;;;44.0773000;3.3889000;;;FR;Europe/Paris
+;Travers;Travers;;;45.8460293;5.3100486;;;FR;Europe/Paris
+;Trouville - Deauville;Trouville - Deauville;;;49.3596463;0.0844644;;;FR;Europe/Paris
+;Troyes;Troyes;;;48.2971626;4.0746257;;;FR;Europe/Paris
+;Troyes Gare Routière;Troyes Routiere;;;48.2976898;4.0642330;;;FR;Europe/Paris
+;Troyes Québec;Troyes Quebec;;;48.2699857;4.0824812;;;FR;Europe/Paris
+;Tulle;Tulle;;;45.2678347;1.7706797;;;FR;Europe/Paris
+;Ussel;Ussel;;;45.5455910;2.3119397;;;FR;Europe/Paris
+;Vézelise Beauregard;Vezelise Beauregard;;;48.4878916;6.0957544;;;FR;Europe/Paris
+;Valençay;Valencay;;;47.1615110;1.5666078;;;FR;Europe/Paris
+;Valençay Collège Alain Fournier;Valencay College Alain Fournier;;;47.1643772;1.5640827;;;FR;Europe/Paris
+;Valence Gare Routière;Valence Routiere;;;44.9267840;4.8925390;;;FR;Europe/Paris
+;Valence TGV Rhône-Alpes Sud;Valence Rhone-Alpes Sud;;;44.9560621;4.9152112;;;FR;Europe/Paris
+;Valence Ville;Valence Ville;;;44.9278288;4.8934708;;;FR;Europe/Paris
+;Valenciennes;Valenciennes;;;50.3579317;3.5234846;;;FR;Europe/Paris
+;Vallorbe;Vallorbe;;;46.7425530;6.3730306;;;FR;Europe/Paris
+;Vallorcine;Vallorcine;;;46.0340383;6.9324887;;;FR;Europe/Paris
+;Vannes;Vannes;;;47.6586772;-2.7599079;;;FR;Europe/Paris
+;Vauvert;Vauvert;;;43.6924382;4.2754772;;;FR;Europe/Paris
+;Vendôme;Vendome;;;47.7934453;1.0662256;;;FR;Europe/Paris
+;Vendenheim;Vendenheim;;;48.6656016;7.7109609;;;FR;Europe/Paris
+;Vendeuvre;Vendeuvre;;;48.9909674;-0.0759835;;;FR;Europe/Paris
+;Verdun;Verdun;;;49.1589278;5.3867277;;;FR;Europe/Paris
+;Vernier;Vernier;;;43.7073189;7.2604081;;;FR;Europe/Paris
+;Vernon - Giverny;Vernon - Giverny;;;49.0913590;1.4781156;;;FR;Europe/Paris
+;Versailles Chantiers;Versailles Chantiers;;;48.7954702;2.1355157;;;FR;Europe/Paris
+;Vertaizon;Vertaizon;;;45.7703602;3.2881194;;;FR;Europe/Paris
+;Vesoul;Vesoul;;;47.6197395;6.1544694;;;FR;Europe/Paris
+;Veynes Dévoluy;Veynes Devoluy;;;44.5319090;5.8159141;;;FR;Europe/Paris
+;Vichy;Vichy;;;46.1240170;3.4203658;;;FR;Europe/Paris
+;Vic-le-Comte;Vic-le-Comte;;;45.6433495;3.2433311;;;FR;Europe/Paris
+;Vienne;Vienne;;;46.6121166;0.4654070;;;FR;Europe/Paris
+;Vienne-Gare-Routière;Vienne--Routiere;;;45.5205307;4.8704135;;;FR;Europe/Paris
+;Vierzon;Vierzon;;;47.2217489;2.0691421;;;FR;Europe/Paris
+;Villars-les-Dombes;Villars-les-Dombes;;;46.0000471;5.0425155;;;FR;Europe/Paris
+;Villedieu-les-Poêles;Villedieu-les-Poeles;;;48.8381226;-1.2220882;;;FR;Europe/Paris
+;Villefranche - Vernet-les-Bains;Villefranche - Vernet-les-Bains;;;42.5918082;2.3700129;;;FR;Europe/Paris
+;Villefranche-de-Rouergue;Villefranche-de-Rouergue;;;44.3517623;2.0375431;;;FR;Europe/Paris
+;Villefranche-sur-Saône;Villefranche-sur-Saone;;;45.9864749;4.7266110;;;FR;Europe/Paris
+;Villers-les-Pots;Villers-les-Pots;;;47.2108403;5.3543399;;;FR;Europe/Paris
+;Virieu-le-Grand - Belley;Virieu-le-Grand - Belley;;;45.8482239;5.6537118;;;FR;Europe/Paris
+;Vitré;Vitre;;;48.1244503;-1.2143310;;;FR;Europe/Paris
+;Vittel;Vittel;;;48.2020717;5.9418851;;;FR;Europe/Paris
+;Voiron;Voiron;;;45.3631386;5.5910751;;;FR;Europe/Paris
+;Volvic;Volvic;;;45.8725420;3.0375701;;;FR;Europe/Paris
+;Vorey;Vorey;;;45.1947178;3.9102636;;;FR;Europe/Paris
+;Voves;Voves;;;48.2693886;1.6321480;;;FR;Europe/Paris
+;Walbourg Séminaire;Walbourg Seminaire;;;48.8864552;7.7898425;;;FR;Europe/Paris
+;Wesserling;Wesserling;;;47.8899397;6.9976161;;;FR;Europe/Paris
+;Willer-sur-Thur;Willer-sur-Thur;;;47.8437216;7.0706242;;;FR;Europe/Paris
+;Wingen-sur-Moder;Wingen-sur-Moder;;;48.9229824;7.3711612;;;FR;Europe/Paris
+;Wissembourg;Wissembourg;;;49.0365935;7.9445109;;;FR;Europe/Paris
+;Wissembourg Lycée Stanislas;Wissembourg Lycee Stanislas;;;49.0361224;7.9607470;;;FR;Europe/Paris
+;Yvetot;Yvetot;;;49.6179384;0.7538866;;;FR;Europe/Paris
